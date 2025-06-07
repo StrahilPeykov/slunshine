@@ -8,9 +8,9 @@ import { Lessons } from "@/components/sections/lessons";
 import { Contact } from "@/components/sections/contact";
 import { Footer } from "@/components/layout/footer";
 
-export default function Home() {
+function PageContent() {
   return (
-    <main className="min-h-screen bg-background constellation-bg transition-colors duration-500">
+    <>
       <Navigation />
       <Hero />
       <Music />
@@ -18,6 +18,14 @@ export default function Home() {
       <Lessons />
       <Contact />
       <Footer />
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-background constellation-bg transition-colors duration-500">
+      <PageContent />
     </main>
   );
 }

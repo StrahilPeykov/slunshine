@@ -60,11 +60,11 @@ export function Contact() {
         >
           <h2 className="font-playfair text-4xl md:text-6xl font-bold mb-4">
             <span className={cn(theme === "night" && "glow-text")}>
-              Let's Connect
+              Let&apos;s Connect
             </span>
           </h2>
           <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-            Whether you're looking for music lessons, collaborations, or just want to say hello
+            Whether you&apos;re looking for music lessons, collaborations, or just want to say hello
           </p>
         </motion.div>
 

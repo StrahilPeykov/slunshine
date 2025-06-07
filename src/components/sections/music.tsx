@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { Play, Pause, Music as MusicIcon, Headphones, Calendar, Instagram, Music2 } from "lucide-react";
+import { Play, Pause, Calendar, Instagram, Music2 } from "lucide-react";
 import { useState } from "react";
 
 export function Music() {

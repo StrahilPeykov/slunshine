@@ -31,12 +31,12 @@ export function Lessons() {
 
   const testimonials = [
     {
-      text: "Ally's approach to teaching harmony transformed how I understand music. Her lessons are clear, engaging, and tailored perfectly to my needs.",
+      text: "Ally&apos;s approach to teaching harmony transformed how I understand music. Her lessons are clear, engaging, and tailored perfectly to my needs.",
       author: "Maria S.",
       role: "University Student",
     },
     {
-      text: "As a drummer, I never thought I'd need music theory. Ally showed me how it could elevate my playing to the next level.",
+      text: "As a drummer, I never thought I&apos;d need music theory. Ally showed me how it could elevate my playing to the next level.",
       author: "Ivan P.",
       role: "Professional Musician",
     },
@@ -198,7 +198,7 @@ export function Lessons() {
                 )}
               >
                 <p className="text-foreground/80 mb-4 italic">
-                  "{testimonial.text}"
+                  &quot;{testimonial.text}&quot;
                 </p>
                 <div className="flex items-center gap-3">
                   <div className={cn(

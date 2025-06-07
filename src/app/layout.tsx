@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Slun Shine - Alexandrina Kushinchanova | Harpist & Music Artist",
@@ -28,10 +28,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('theme') || 'day';
+                document.documentElement.setAttribute('data-theme', theme);
+              } catch {}
+            `,
+          }}
+        />
+      </head>
       <body>
-        <ThemeProvider>
+        <Providers>
           {children}
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

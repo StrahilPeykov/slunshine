@@ -7,8 +7,7 @@ import { Play, Music as MusicIcon } from "lucide-react";
 import { useState } from "react";
 
 export function Hero() {
-  const { theme } = useTheme();
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const { theme, mounted } = useTheme();
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -108,7 +107,7 @@ export function Hero() {
             )}>
               <span className="text-sm font-medium flex items-center gap-2">
                 <MusicIcon className="w-4 h-4" />
-                New Single "Lubov, Lubov" Coming Soon
+                New Single &quot;Lubov, Lubov&quot; Coming Soon
               </span>
             </div>
           </motion.div>

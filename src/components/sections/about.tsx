@@ -12,7 +12,7 @@ export function About() {
     {
       year: "2010",
       title: "Film Debut",
-      description: "Appeared in 'Goodbye Mama' and met Quentin Tarantino at the film festival",
+      description: "Appeared in &apos;Goodbye Mama&apos; and met Quentin Tarantino at the film festival",
       icon: Film,
     },
     {
@@ -23,7 +23,7 @@ export function About() {
     },
     {
       year: "2024",
-      title: "Master's Degree",
+      title: "Master&apos;s Degree",
       description: "Graduated from New Bulgarian University in Pop & Jazz Singing",
       icon: GraduationCap,
     },
@@ -54,7 +54,7 @@ export function About() {
 
             <div className="space-y-4 text-foreground/80">
               <p className="text-lg leading-relaxed">
-                I've been playing the harp professionally since childhood, finding my voice through the strings of my beloved Salvi harp. What started as a classical journey has evolved into something more – a fusion of traditional mastery with modern expression.
+                I&apos;ve been playing the harp professionally since childhood, finding my voice through the strings of my beloved Salvi harp. What started as a classical journey has evolved into something more – a fusion of traditional mastery with modern expression.
               </p>
               
               <p className="leading-relaxed">
@@ -62,7 +62,7 @@ export function About() {
               </p>
               
               <p className="leading-relaxed">
-                Now, as I begin my PhD journey, I'm also embarking on my most personal project yet – sharing my own music with the world. It's a blend of everything I am: the discipline of classical training, the soul of jazz and RnB, and the endless possibilities of modern production.
+                Now, as I begin my PhD journey, I&apos;m also embarking on my most personal project yet – sharing my own music with the world. It&apos;s a blend of everything I am: the discipline of classical training, the soul of jazz and RnB, and the endless possibilities of modern production.
               </p>
             </div>
 
