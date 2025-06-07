@@ -1,26 +1,201 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Day/Nature-Dream Theme */
+    --background: 249 250 251;
+    --foreground: 14 26 42;
+    --card: 237 236 244;
+    --card-foreground: 14 26 42;
+    --primary: 142 229 224;
+    --primary-foreground: 14 26 42;
+    --accent: 201 168 255;
+    --accent-foreground: 14 26 42;
+    
+    /* Custom properties */
+    --aqua-mist: 142 229 224;
+    --iridescent-pearl: 237 236 244;
+    --coral: 255 136 117;
+    --deep-purple: 107 70 193;
+  }
+
+  [data-theme="night"] {
+    /* Night/Neon-Cosmic Theme */
+    --background: 14 26 42;
+    --foreground: 237 236 244;
+    --card: 22 38 60;
+    --card-foreground: 237 236 244;
+    --primary: 255 71 87;
+    --primary-foreground: 237 236 244;
+    --accent: 201 168 255;
+    --accent-foreground: 14 26 42;
+    
+    /* Custom properties */
+    --midnight-navy: 14 26 42;
+    --lava-glow: 255 71 87;
+    --lilac-halo: 201 168 255;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  /* Glow text effect for night theme */
+  [data-theme="night"] .glow-text {
+    text-shadow: 
+      0 0 10px rgba(255, 71, 87, 0.5),
+      0 0 20px rgba(255, 71, 87, 0.3),
+      0 0 30px rgba(255, 71, 87, 0.2);
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    @apply backdrop-blur-md bg-white/10;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  [data-theme="night"] .glass {
+    @apply bg-black/20;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  /* Ripple effect container */
+  .ripple-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .ripple-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(142, 229, 224, 0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+  }
+  
+  [data-theme="night"] .ripple-container::before {
+    background: radial-gradient(circle, rgba(255, 71, 87, 0.3) 0%, transparent 70%);
+  }
+  
+  .ripple-container:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  
+  /* Constellation dots background */
+  .constellation-bg {
+    position: relative;
+  }
+  
+  .constellation-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(2px 2px at 20% 30%, white, transparent),
+      radial-gradient(2px 2px at 60% 70%, white, transparent),
+      radial-gradient(1px 1px at 50% 50%, white, transparent),
+      radial-gradient(1px 1px at 80% 20%, white, transparent);
+    background-size: 200% 200%;
+    animation: drift 20s infinite linear;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  
+  [data-theme="night"] .constellation-bg::after {
+    opacity: 0.3;
+  }
+  
+  @keyframes drift {
+    from {
+      background-position: 0% 0%;
+    }
+    to {
+      background-position: 100% 100%;
+    }
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/50 rounded-full;
+    transition: background-color 0.3s ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/70;
+  }
+}
+
+@layer utilities {
+  /* Text balance for better typography */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Aquarius wave underline */
+  .wave-underline {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .wave-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent,
+      currentColor 20%,
+      currentColor 80%,
+      transparent
+    );
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .wave-underline:hover::after {
+    transform: scaleX(1);
+  }
 }
