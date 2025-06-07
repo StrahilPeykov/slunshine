@@ -29,7 +29,7 @@ export function Footer() {
               slunshine
             </h3>
             <p className="text-sm text-foreground/60">
-              Water, light & strings – ethereal harp music for modern souls
+              The Harp Lady
             </p>
           </div>
 

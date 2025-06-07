@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Strahil Peykov" }],
   openGraph: {
     title: "Slun Shine - Alexandrina Kushinchanova",
-    description: "Water, light & strings – ethereal harp music for modern souls",
+    description: "The Harp Lady",
     url: "https://slunshine.com",
     siteName: "Slun Shine",
     type: "website",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Slun Shine - Alexandrina Kushinchanova",
-    description: "Water, light & strings – ethereal harp music for modern souls",
+    description: "The Harp Lady",
   },
 };
 

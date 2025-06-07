@@ -12,18 +12,18 @@ export function About() {
     {
       year: "2010",
       title: "Film Debut",
-      description: "Appeared in &apos;Goodbye Mama&apos; and met Quentin Tarantino at the film festival",
+      description: "Appeared in a movie and met Quentin Tarantino at a film festival",
       icon: Film,
     },
     {
       year: "2020",
       title: "Joined Mila Robert",
-      description: "Became the pianist and backing vocalist for Bulgarian pop artist",
+      description: "Became the pianist and backing vocalist",
       icon: MusicIcon,
     },
     {
       year: "2024",
-      title: "Master&apos;s Degree",
+      title: "Master's Degree",
       description: "Graduated from New Bulgarian University in Pop & Jazz Singing",
       icon: GraduationCap,
     },
@@ -54,15 +54,15 @@ export function About() {
 
             <div className="space-y-4 text-foreground/80">
               <p className="text-lg leading-relaxed">
-                I&apos;ve been playing the harp professionally since childhood, finding my voice through the strings of my beloved Salvi harp. What started as a classical journey has evolved into something more – a fusion of traditional mastery with modern expression.
+                I was three the first time I saw a harp. It was leaning against a Sofia sidewalk, like something out of an elven tale. I grabbed my mom's hand and told her, “That’s what I’m going to play.” A few years later I was climbing onto a tiny rehearsal chair, knees knocking, learning how to play one.
               </p>
               
               <p className="leading-relaxed">
-                My path has taken me from Bulgarian film sets to concert halls, from teaching music theory to eager students to performing with Mila Robert across the country. Each experience has shaped my understanding of music as a universal language.
+                Since then, I've been through conservatory corridors, Bulgarian film sets, late-night sessions at Nu Boyana Studios scoring chainsaws and chase scenes, lecture halls, and club stages.
               </p>
               
               <p className="leading-relaxed">
-                Now, as I begin my PhD journey, I&apos;m also embarking on my most personal project yet – sharing my own music with the world. It&apos;s a blend of everything I am: the discipline of classical training, the soul of jazz and RnB, and the endless possibilities of modern production.
+                This year I begin a PhD in music. And I’m finally turning the microphone toward my own voice. The tracks I’m crafting weave harp classical discipline into R&B and jazz. 
               </p>
             </div>
 

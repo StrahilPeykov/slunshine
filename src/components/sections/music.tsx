@@ -22,11 +22,11 @@ export function Music() {
       releaseDate: "2025",
     },
     {
-      title: "Cosmic Waters",
+      title: "Silver Lining",
       type: "EP",
       status: "In Production",
-      genre: "Neo-Classical / Electronic",
-      description: "Harp meets modern production",
+      genre: "Alt Pop",
+      description: "jazz harp",
       releaseDate: "TBA",
     },
   ];

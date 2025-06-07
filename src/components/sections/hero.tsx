@@ -90,7 +90,7 @@ export function Hero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Water, light & strings – ethereal harp music for modern souls
+            The Harp Lady
           </motion.p>
 
           {/* Coming Soon Badge */}
