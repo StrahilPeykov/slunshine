@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
@@ -7,6 +8,11 @@ import { Play, Music as MusicIcon } from "lucide-react";
 
 export function Hero() {
   const { theme } = useTheme();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -30,33 +36,34 @@ export function Hero() {
             ? "bg-gradient-to-t from-midnightNavy via-midnightNavy/50 to-transparent" 
             : "bg-gradient-to-t from-background via-background/30 to-transparent"
         )} />
-        
-        {/* Floating particles effect */}
-        <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className={cn(
-                "absolute w-1 h-1 rounded-full",
-                theme === "night" ? "bg-lavaGlow/30" : "bg-aquaMist/40"
-              )}
-              initial={{ 
-                x: Math.random() * window.innerWidth,
-                y: window.innerHeight + 20 
-              }}
-              animate={{ 
-                y: -20,
-                x: Math.random() * window.innerWidth,
-              }}
-              transition={{ 
-                duration: Math.random() * 20 + 10,
-                repeat: Infinity,
-                repeatType: "loop",
-                ease: "linear"
-              }}
-            />
-          ))}
-        </div>
+
+        {isClient && (
+          <div className="absolute inset-0">
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={i}
+                className={cn(
+                  "absolute w-1 h-1 rounded-full",
+                  theme === "night" ? "bg-lavaGlow/30" : "bg-aquaMist/40"
+                )}
+                initial={{ 
+                  x: Math.random() * window.innerWidth,
+                  y: window.innerHeight + 20 
+                }}
+                animate={{ 
+                  y: -20,
+                  x: Math.random() * window.innerWidth,
+                }}
+                transition={{ 
+                  duration: Math.random() * 20 + 10,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "linear"
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Content */}
