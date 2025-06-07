@@ -54,15 +54,15 @@ export function About() {
 
             <div className="space-y-4 text-foreground/80">
               <p className="text-lg leading-relaxed">
-                I was three the first time I saw a harp. It was leaning against a Sofia sidewalk, like something out of an elven tale. I grabbed my mom's hand and told her, “That’s what I’m going to play.” A few years later I was climbing onto a tiny rehearsal chair, knees knocking, learning how to play one.
+                I was three the first time I saw a harp. It was leaning against a Sofia sidewalk, like something out of an elven tale. I grabbed my mom&apos;s hand and told her, “That&apos;s what I&apos;m going to play.” A few years later I was climbing onto a tiny rehearsal chair, knees knocking, learning how to play one.
               </p>
               
               <p className="leading-relaxed">
-                Since then, I've been through conservatory corridors, Bulgarian film sets, late-night sessions at Nu Boyana Studios scoring chainsaws and chase scenes, lecture halls, and club stages.
+                Since then, I&apos;ve been through conservatory corridors, Bulgarian film sets, late-night sessions at Nu Boyana Studios scoring chainsaws and chase scenes, lecture halls, and club stages.
               </p>
               
               <p className="leading-relaxed">
-                This year I begin a PhD in music. And I’m finally turning the microphone toward my own voice. The tracks I’m crafting weave harp classical discipline into R&B and jazz. 
+                This year I begin a PhD in music. And I&apos;m finally turning the microphone toward my own voice. The tracks I&apos;m crafting weave harp classical discipline into R&B and jazz. 
               </p>
             </div>
 

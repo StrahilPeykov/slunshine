@@ -4,10 +4,9 @@ import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import { Play, Music as MusicIcon } from "lucide-react";
-import { useState } from "react";
 
 export function Hero() {
-  const { theme, mounted } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
