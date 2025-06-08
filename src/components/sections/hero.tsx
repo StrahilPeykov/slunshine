@@ -79,7 +79,7 @@ export function Hero() {
           transition={{ duration: 1 }}
           className="max-w-4xl mx-auto"
         >
-          {/* Artist Name with more character */}
+          {/* Artist Name */}
           <motion.h1 
             className="font-playfair mb-4"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -141,7 +141,7 @@ export function Hero() {
             )} />
           </motion.div>
 
-          {/* Coming Soon Badge - Single instance */}
+          {/* Coming Soon Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,7 +171,7 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* CTA Buttons - Enhanced */}
+          {/* CTA Buttons */}
           <motion.div 
             className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
