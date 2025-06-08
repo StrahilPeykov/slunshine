@@ -43,7 +43,7 @@ export function Navigation() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+{/* Logo */}
           <motion.a
             href="#home"
             className="relative group"
@@ -52,14 +52,24 @@ export function Navigation() {
             transition={{ duration: 0.5 }}
           >
             <span className={cn(
-              "font-playfair text-2xl md:text-3xl font-light tracking-wider",
+              "font-playfair text-3xl md:text-4xl font-light tracking-wider",
               "bg-gradient-to-r bg-clip-text text-transparent",
+              "transition-all duration-300",
               theme === "night" 
-                ? "from-white to-lilacHalo" 
+                ? "from-white via-lilacHalo to-white" 
                 : isScrolled
-                  ? "from-midnightNavy to-coral"
-                  : "from-white to-white",
-              "transition-all duration-300"
+                  ? "from-midnightNavy via-coral to-midnightNavy"
+                  : "from-white via-white to-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
+            )}>
+              slunshine
+            </span>
+            {/* Glow effect on hover */}
+            <span className={cn(
+              "absolute inset-0 font-playfair text-3xl md:text-4xl font-light tracking-wider",
+              "bg-gradient-to-r bg-clip-text text-transparent blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300",
+              theme === "night" 
+                ? "from-white via-lilacHalo to-white" 
+                : "from-coral via-lavaGlow to-coral"
             )}>
               slunshine
             </span>

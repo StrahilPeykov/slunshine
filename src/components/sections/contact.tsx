@@ -3,44 +3,44 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { Mail, Instagram, Music2, Send, Sparkles, MessageCircle, Headphones, Heart } from "lucide-react";
+import { Mail, Instagram, Music2, Send, Sparkles, Headphones, Heart } from "lucide-react";
 import { useState } from "react";
 
-export function Contact() {
-  const { theme } = useTheme();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    type: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  export function Contact() {
+    const { theme } = useTheme();
+    const [formData, setFormData] = useState({
+      name: "",
+      email: "",
+      type: "",
+      message: "",
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsSubmitting(true);
       
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({ name: "", email: "", type: "", message: "" });
-      } else {
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        
+        if (response.ok) {
+          setSubmitStatus('success');
+          setFormData({ name: "", email: "", type: "", message: "" });
+        } else {
+          setSubmitStatus('error');
+        }
+      } catch {
         setSubmitStatus('error');
+      } finally {
+        setIsSubmitting(false);
+        setTimeout(() => setSubmitStatus('idle'), 5000);
       }
-    } catch (error) {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-      setTimeout(() => setSubmitStatus('idle'), 5000);
-    }
-  };
+    };
 
   const contactReasons = [
     { value: "collab", label: "Create together", icon: Sparkles },
@@ -77,7 +77,7 @@ export function Contact() {
                 ? "text-white"
                 : "text-midnightNavy"
             )}>
-              Let's Connect
+              Let&apos;s Connect
             </span>
           </h2>
           <p className="text-lg text-foreground/60 max-w-xl mx-auto">
@@ -324,7 +324,7 @@ export function Contact() {
                     theme === "night" ? "text-lilacHalo" : "text-coral"
                   )}
                 >
-                  Message sent! I'll be in touch soon ✨
+                  Message sent! I&apos;ll be in touch soon ✨
                 </motion.p>
               )}
               

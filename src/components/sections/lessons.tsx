@@ -153,8 +153,8 @@ export function Lessons() {
               </h3>
 
               <p className="text-foreground/70 mb-8 leading-relaxed">
-                Whether you're touching strings for the first time or preparing for conservatory, 
-                I'll guide you with patience, passion, and personalized attention.
+                Whether you&apos;re touching strings for the first time or preparing for conservatory, 
+                I&apos;ll guide you with patience, passion, and personalized attention.
               </p>
 
               <div className="space-y-4 mb-8">
@@ -184,7 +184,7 @@ export function Lessons() {
                 theme === "night" ? "bg-black/20" : "bg-midnightNavy/5"
               )}>
                 <p className="text-sm italic text-foreground/70 mb-2">
-                  "Ally makes complex theory feel like discovering hidden treasures in music"
+                  &ldquo;Ally makes complex theory feel like discovering hidden treasures in music&rdquo;
                 </p>
                 <p className="text-xs text-foreground/50">
                   — Maria, harmony student
@@ -215,7 +215,7 @@ export function Lessons() {
                 : "bg-gradient-to-r from-coral to-lavaGlow text-white"
             )}
           >
-            Let's Talk
+            Let&apos;s Talk
           </a>
         </motion.div>
       </div>

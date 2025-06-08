@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { Play, Calendar, Instagram, Music2, Headphones, ExternalLink, Sparkles } from "lucide-react";
+import { Play, Calendar, Instagram, Headphones, Sparkles } from "lucide-react";
 import { useState } from "react";
 
 export function Music() {
@@ -156,7 +156,7 @@ export function Music() {
                   </div>
 
                   <p className="text-foreground/70 mb-6 italic">
-                    "{release.description}"
+                    &ldquo;{release.description}&rdquo;
                   </p>
 
                   <div className="flex items-center justify-between">

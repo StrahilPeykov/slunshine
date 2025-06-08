@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { Play, ChevronDown } from "lucide-react";
+import { Play } from "lucide-react";
 
 export function Hero() {
   const { theme } = useTheme();
@@ -24,6 +24,7 @@ export function Hero() {
             src="/images/hero-church.webp"
             alt="Alexandrina playing harp"
             className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
           />
         </picture>
         
@@ -36,7 +37,7 @@ export function Hero() {
           "absolute inset-0",
           theme === "night" 
             ? "bg-gradient-to-b from-midnightNavy/70 via-midnightNavy/80 to-midnightNavy/95" 
-            : "bg-gradient-to-b from-black/30 via-black/50 to-white/90"
+            : "bg-gradient-to-b from-white/10 via-transparent to-white/80"
         )} />
         
         {/* Vignette effect */}
@@ -78,7 +79,7 @@ export function Hero() {
           transition={{ duration: 1 }}
           className="max-w-4xl mx-auto"
         >
-          {/* Artist Name with better contrast */}
+          {/* Artist Name with more character */}
           <motion.h1 
             className="font-playfair mb-4"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -87,17 +88,31 @@ export function Hero() {
           >
             <span className={cn(
               "block text-[clamp(4rem,13vw,8rem)] leading-[0.85] font-light tracking-tight",
+              "relative inline-block",
               theme === "night" 
-                ? "text-white drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]"
-                : "text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]"
+                ? "text-transparent bg-clip-text bg-gradient-to-br from-white via-lilacHalo to-white"
+                : "text-transparent bg-clip-text bg-gradient-to-br from-midnightNavy via-coral to-midnightNavy"
             )}>
+              <motion.span
+                className="absolute inset-0 text-[clamp(4rem,13vw,8rem)] leading-[0.85] font-light tracking-tight blur-xl opacity-50"
+                style={{
+                  background: theme === "night" 
+                    ? "linear-gradient(to bottom right, white, #C9A8FF, white)"
+                    : "linear-gradient(to bottom right, #0E1A2A, #FF8875, #0E1A2A)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Alexandrina
+              </motion.span>
               Alexandrina
             </span>
             <span className={cn(
               "block text-[clamp(2.5rem,8vw,4.5rem)] font-extralight tracking-[0.15em] mt-2 uppercase",
               theme === "night" 
                 ? "text-white/90"
-                : "text-white/90"
+                : "text-midnightNavy/90"
             )}>
               Kushinchanova
             </span>
@@ -112,55 +127,21 @@ export function Hero() {
           >
             <span className={cn(
               "h-[1px] w-16 md:w-24",
-              theme === "night" ? "bg-white/30" : "bg-white/30"
+              theme === "night" ? "bg-white/30" : "bg-midnightNavy/30"
             )} />
             <p className={cn(
               "text-lg md:text-xl font-inter font-light tracking-[0.2em] uppercase",
-              theme === "night" ? "text-white/80" : "text-white/80"
+              theme === "night" ? "text-white/80" : "text-midnightNavy/80"
             )}>
               The Harp Lady
             </p>
             <span className={cn(
               "h-[1px] w-16 md:w-24",
-              theme === "night" ? "bg-white/30" : "bg-white/30"
+              theme === "night" ? "bg-white/30" : "bg-midnightNavy/30"
             )} />
           </motion.div>
 
-          {/* New Single Coming Soon */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mb-12"
-          >
-            <div className="inline-flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className={cn(
-                  "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
-                  "bg-white"
-                )} />
-                <span className={cn(
-                  "relative inline-flex rounded-full h-2 w-2",
-                  "bg-white"
-                )} />
-              </span>
-              <p className={cn(
-                "text-sm font-inter tracking-wider",
-                theme === "night" ? "text-white/70" : "text-white/70"
-              )}>
-                New Single 
-                <span className={cn(
-                  "font-semibold mx-2",
-                  theme === "night" ? "text-lilacHalo" : "text-white"
-                )}>
-                  "Lubov, Lubov"
-                </span>
-                Coming Soon
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Coming Soon Badge - Refined */}
+          {/* Coming Soon Badge - Single instance */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -172,7 +153,7 @@ export function Hero() {
               "backdrop-blur-xl border",
               theme === "night" 
                 ? "bg-black/30 border-white/20 text-white" 
-                : "bg-white/60 border-white/80 text-midnightNavy"
+                : "bg-white/80 border-white text-midnightNavy"
             )}>
               <span className="relative flex h-2 w-2">
                 <span className={cn(
@@ -185,7 +166,7 @@ export function Hero() {
                 )} />
               </span>
               <span className="text-sm font-medium tracking-wide">
-                New Single "Lubov, Lubov" Coming Soon
+                New Single &ldquo;Lubov, Lubov&rdquo; Coming Soon
               </span>
             </div>
           </motion.div>
@@ -197,13 +178,16 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <button className={cn(
-              "group relative px-10 py-4 rounded-full font-inter font-medium overflow-hidden",
-              "transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]",
-              theme === "night" 
-                ? "text-white" 
-                : "text-white"
-            )}>
+            <a
+              href="#music"
+              className={cn(
+                "group relative px-10 py-4 rounded-full font-inter font-medium overflow-hidden",
+                "transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]",
+                theme === "night" 
+                  ? "text-white" 
+                  : "text-white"
+              )}
+            >
               {/* Gradient background */}
               <span className={cn(
                 "absolute inset-0 -z-10",
@@ -217,17 +201,17 @@ export function Hero() {
                 <Play className="w-5 h-5" />
                 Listen to My Music
               </span>
-            </button>
+            </a>
             
             <a 
-              href="#music" 
+              href="#about" 
               className={cn(
                 "px-10 py-4 rounded-full font-inter font-medium",
                 "backdrop-blur-xl border-2 transition-all duration-300",
                 "transform hover:scale-[1.02] active:scale-[0.98]",
                 theme === "night" 
                   ? "bg-white/10 border-white/30 hover:bg-white/20 text-white" 
-                  : "bg-white/20 border-white/40 hover:bg-white/30 text-white"
+                  : "bg-midnightNavy/10 border-midnightNavy/30 hover:bg-midnightNavy/20 text-midnightNavy"
               )}
             >
               Explore My World
@@ -235,21 +219,21 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll Indicator - Refined */}
+        {/* Scroll Indicator */}
         <motion.a
           href="#music"
-          className="absolute bottom-20 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          className="absolute left-1/2 -translate-x-1/2 bottom-8 md:bottom-10 lg:bottom-14 cursor-pointer"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           <div className={cn(
             "w-[30px] h-[50px] rounded-full border-2 flex justify-center pt-2",
-            theme === "night" ? "border-white/40" : "border-white/40"
+            theme === "night" ? "border-white/40" : "border-midnightNavy/40"
           )}>
             <motion.div
               className={cn(
                 "w-1 h-2 rounded-full",
-                theme === "night" ? "bg-white/60" : "bg-white/60"
+                theme === "night" ? "bg-white/60" : "bg-midnightNavy/60"
               )}
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}

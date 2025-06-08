@@ -79,21 +79,18 @@ export function About() {
           >
             <div className="space-y-6">
               <p className="text-lg leading-relaxed text-foreground/80">
-                Music found me early through the strings of a harp, and I've been 
-                weaving melodies ever since. From classical conservatory halls to 
-                contemporary stages, each performance adds a new color to my palette.
+                I picked up a harp at six years old, and that set the course for everything that followed.  
+                From conservatory recitals to late-night club sets, each stage has shown me a different way music can fill a room.
               </p>
-              
+
               <p className="leading-relaxed text-foreground/70">
-                Today, I blend the precision of classical training with the soul of 
-                modern expression. Whether I'm performing with orchestras, teaching 
-                the next generation, or crafting my own songs, it's all about the 
-                connection music creates.
+                Today I split my time between a few different things: performing live with Mila Robert, teaching harmony and technique  
+                to students of all ages, and researching new textures for my own compositions.
               </p>
-              
+
               <p className="leading-relaxed text-foreground/70">
-                My journey continues with new music on the horizon — where ethereal 
-                harp meets R&B soul, where tradition dances with innovation.
+                I&rsquo;m now finishing a PhD and recording my debut EP - harp lines layered with warm R&amp;B pads, because I believe  
+                tradition and experimentation belong together.
               </p>
             </div>
 
