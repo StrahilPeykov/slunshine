@@ -312,7 +312,7 @@ export function Music() {
               )}>
                 <div className="absolute inset-0 bg-gradient-to-br from-lilacHalo/20 to-coral/20" />
                 <img
-                  src="/images/mila-concert.jpg"
+                  src="/images/mila-concert.webp"
                   alt="Performing with Mila Robert"
                   className="w-full h-full object-cover mix-blend-overlay"
                 />
