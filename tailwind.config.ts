@@ -43,6 +43,7 @@ const config: Config = {
         "ripple": "ripple 2s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
         "glow": "glow 2s ease-in-out infinite",
+        "gradient": "gradient 4s ease infinite",
       },
       keyframes: {
         fadeIn: {
@@ -64,6 +65,11 @@ const config: Config = {
         glow: {
           "0%, 100%": { opacity: "0.5" },
           "50%": { opacity: "1" },
+        },
+        gradient: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
         },
       },
       backgroundImage: {

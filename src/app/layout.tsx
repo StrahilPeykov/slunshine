@@ -33,8 +33,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const theme = localStorage.getItem('theme') || 'day';
+                const theme = localStorage.getItem('theme') || 'night';
                 document.documentElement.setAttribute('data-theme', theme);
+                if (!localStorage.getItem('theme')) {
+                  localStorage.setItem('theme', 'night');
+                }
               } catch {}
             `,
           }}

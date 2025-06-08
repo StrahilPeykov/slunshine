@@ -16,63 +16,66 @@ export function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with strong overlay for readability */}
-      <div className="absolute inset-0 z-0">
-        <picture>
-          <source media="(max-width: 768px)" srcSet="/images/hero-church-mobile.webp" />
-          <img 
-            src="/images/hero-church.webp"
-            alt="Alexandrina playing harp"
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="eager"
-          />
-        </picture>
-        
-        {/* Multiple gradient overlays for better text readability */}
-        <div className={cn(
-          "absolute inset-0",
-          theme === "night" ? "bg-black/50" : "bg-gradient-to-br from-coral/10 to-transparent"
-        )} />
-        <div className={cn(
-          "absolute inset-0",
-          theme === "night" 
-            ? "bg-gradient-to-b from-midnightNavy/70 via-midnightNavy/80 to-midnightNavy/95" 
-            : "bg-gradient-to-b from-transparent via-white/20 to-white/60"
-        )} />
-        
-        {/* Vignette effect */}
-        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/30" />
+      {/* Prevent horizontal scroll */}
+      <div className="absolute inset-0 w-full overflow-hidden">
+        {/* Background Image with strong overlay for readability */}
+        <div className="absolute inset-0 z-0 w-full h-full">
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/images/hero-church-mobile.webp" />
+            <img 
+              src="/images/hero-church.webp"
+              alt="Alexandrina playing harp"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              loading="eager"
+            />
+          </picture>
+          
+          {/* Multiple gradient overlays for better text readability */}
+          <div className={cn(
+            "absolute inset-0",
+            theme === "night" ? "bg-black/50" : "bg-gradient-to-br from-coral/10 to-transparent"
+          )} />
+          <div className={cn(
+            "absolute inset-0",
+            theme === "night" 
+              ? "bg-gradient-to-b from-midnightNavy/70 via-midnightNavy/80 to-midnightNavy/95" 
+              : "bg-gradient-to-b from-transparent via-white/20 to-white/60"
+          )} />
+          
+          {/* Vignette effect */}
+          <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/30" />
 
-        {/* Subtle animated sparkles for night mode */}
-        {isClient && theme === "night" && (
-          <div className="absolute inset-0">
-            {[...Array(30)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-0.5 h-0.5 rounded-full bg-white"
-                initial={{ 
-                  x: Math.random() * window.innerWidth,
-                  y: Math.random() * window.innerHeight,
-                  opacity: 0
-                }}
-                animate={{ 
-                  opacity: [0, 1, 0],
-                }}
-                transition={{ 
-                  duration: Math.random() * 3 + 2,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                  delay: Math.random() * 5
-                }}
-              />
-            ))}
-          </div>
-        )}
+          {/* Subtle animated sparkles for night mode */}
+          {isClient && theme === "night" && (
+            <div className="absolute inset-0">
+              {[...Array(30)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-0.5 h-0.5 rounded-full bg-white"
+                  initial={{ 
+                    x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                    y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+                    opacity: 0
+                  }}
+                  animate={{ 
+                    opacity: [0, 1, 0],
+                  }}
+                  transition={{ 
+                    duration: Math.random() * 3 + 2,
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "easeInOut",
+                    delay: Math.random() * 5
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center">
+      <div className="relative z-10 container mx-auto px-4 text-center w-full max-w-none">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -146,26 +149,26 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="mb-12"
+            className="mb-8"
           >
             <div className={cn(
-              "inline-flex items-center gap-3 px-6 py-3 rounded-full",
+              "inline-flex items-center gap-2 px-4 py-2 rounded-full",
               "backdrop-blur-xl border",
               theme === "night" 
                 ? "bg-black/30 border-white/20 text-white" 
                 : "bg-white/80 backdrop-blur-sm border-white text-midnightNavy shadow-lg"
             )}>
-              <span className="relative flex h-2 w-2">
+              <span className="relative flex h-1.5 w-1.5">
                 <span className={cn(
                   "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
                   theme === "night" ? "bg-lavaGlow" : "bg-coral"
                 )} />
                 <span className={cn(
-                  "relative inline-flex rounded-full h-2 w-2",
+                  "relative inline-flex rounded-full h-1.5 w-1.5",
                   theme === "night" ? "bg-lavaGlow" : "bg-coral"
                 )} />
               </span>
-              <span className="text-sm font-medium tracking-wide">
+              <span className="text-xs font-medium tracking-wide">
                 New Single &ldquo;Lubov, Lubov&rdquo; Coming Soon
               </span>
             </div>
@@ -173,7 +176,7 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-16 mt-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
@@ -218,27 +221,27 @@ export function Hero() {
         </motion.div>
       </div>
 
-        {/* Scroll Indicator */}
-        <motion.a
-          href="#music"
-          className="absolute left-1/2 -translate-x-1/2 bottom-8 md:bottom-10 lg:bottom-14 cursor-pointer"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className={cn(
-            "w-[30px] h-[50px] rounded-full border-2 flex justify-center pt-2",
-            theme === "night" ? "border-white/40" : "border-white bg-white/20 backdrop-blur-sm"
-          )}>
-            <motion.div
-              className={cn(
-                "w-1 h-2 rounded-full",
-                theme === "night" ? "bg-white/60" : "bg-white"
-              )}
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-          </div>
-        </motion.a>
+      {/* Scroll Indicator */}
+      <motion.a
+        href="#music"
+        className="absolute left-1/2 -translate-x-1/2 bottom-4 md:bottom-6 lg:bottom-8 cursor-pointer"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className={cn(
+          "w-[30px] h-[50px] rounded-full border-2 flex justify-center pt-2",
+          theme === "night" ? "border-white/40" : "border-white bg-white/20 backdrop-blur-sm"
+        )}>
+          <motion.div
+            className={cn(
+              "w-1 h-2 rounded-full",
+              theme === "night" ? "bg-white/60" : "bg-white"
+            )}
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          />
+        </div>
+      </motion.a>
     </section>
   );
 }

@@ -11,7 +11,7 @@ type ThemeContextType = {
 };
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: "day",
+  theme: "night",
   toggleTheme: () => {},
   mounted: false,
 });
@@ -23,12 +23,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Check for saved theme preference or default to 'night'
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute("data-theme", savedTheme);
-    } else {
-      // Default to night theme
-      document.documentElement.setAttribute("data-theme", "night");
+    const defaultTheme = savedTheme || "night";
+    
+    setTheme(defaultTheme);
+    document.documentElement.setAttribute("data-theme", defaultTheme);
+    
+    // Store default if none exists
+    if (!savedTheme) {
+      localStorage.setItem("theme", "night");
     }
     
     // Smooth theme transitions
