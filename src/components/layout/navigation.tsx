@@ -38,7 +38,7 @@ export function Navigation() {
             : "bg-white/90 backdrop-blur-xl border-b border-black/10 shadow-sm"
           : theme === "night"
             ? "bg-midnightNavy/20 backdrop-blur-sm"
-            : "bg-white/30 backdrop-blur-sm"
+            : "bg-black/10 backdrop-blur-md"
       )}
     >
       <div className="container mx-auto px-4">
@@ -53,23 +53,12 @@ export function Navigation() {
           >
             <span className={cn(
               "font-playfair text-3xl md:text-4xl font-light tracking-wider",
-              "bg-gradient-to-r bg-clip-text text-transparent",
               "transition-all duration-300",
               theme === "night" 
-                ? "from-white via-lilacHalo to-white" 
+                ? "text-white" 
                 : isScrolled
-                  ? "from-midnightNavy via-coral to-midnightNavy"
-                  : "from-white via-white to-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
-            )}>
-              slunshine
-            </span>
-            {/* Glow effect on hover */}
-            <span className={cn(
-              "absolute inset-0 font-playfair text-3xl md:text-4xl font-light tracking-wider",
-              "bg-gradient-to-r bg-clip-text text-transparent blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300",
-              theme === "night" 
-                ? "from-white via-lilacHalo to-white" 
-                : "from-coral via-lavaGlow to-coral"
+                  ? "text-midnightNavy"
+                  : "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
             )}>
               slunshine
             </span>
@@ -94,9 +83,7 @@ export function Navigation() {
                     ? theme === "night" 
                       ? "text-white/90 hover:text-white" 
                       : "text-midnightNavy/90 hover:text-midnightNavy"
-                    : theme === "night"
-                      ? "text-white/90 hover:text-white"
-                      : "text-white/90 hover:text-white",
+                    : "text-white/90 hover:text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]",
                   "after:content-[''] after:absolute after:bottom-[-4px] after:left-0",
                   "after:w-0 after:h-[1px] after:transition-all after:duration-300",
                   "hover:after:w-full",
@@ -129,7 +116,9 @@ export function Navigation() {
                     ? theme === "night"
                       ? "bg-white/10 hover:bg-white/20"
                       : "bg-black/5 hover:bg-black/10"
-                    : "bg-white/10 hover:bg-white/20"
+                    : theme === "night"
+                      ? "bg-white/10 hover:bg-white/20"
+                      : "bg-black/10 hover:bg-black/20"
                 )}
                 aria-label="Toggle theme"
               >
@@ -153,7 +142,9 @@ export function Navigation() {
                   ? theme === "night"
                     ? "bg-white/10 hover:bg-white/20"
                     : "bg-black/5 hover:bg-black/10"
-                  : "bg-white/10 hover:bg-white/20"
+                  : theme === "night"
+                    ? "bg-white/10 hover:bg-white/20"
+                    : "bg-black/10 hover:bg-black/20"
               )}
               aria-label="Toggle mobile menu"
             >

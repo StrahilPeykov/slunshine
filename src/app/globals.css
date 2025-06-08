@@ -6,11 +6,11 @@
   --font-inter: "Inter", sans-serif;
   
   /* Day theme colors */
-  --color-background: rgb(249 250 251);
+  --color-background: rgb(255 252 250);
   --color-foreground: rgb(14 26 42);
-  --color-card: rgb(237 236 244);
+  --color-card: rgb(255 253 251);
   --color-card-foreground: rgb(14 26 42);
-  --color-primary: rgb(142 229 224);
+  --color-primary: rgb(255 136 117);
   --color-primary-foreground: rgb(14 26 42);
   --color-accent: rgb(201 168 255);
   --color-accent-foreground: rgb(14 26 42);
@@ -26,11 +26,11 @@
 
 :root {
   /* CSS custom properties for theme switching */
-  --background: 249 250 251;
+  --background: 255 252 250;
   --foreground: 14 26 42;
-  --card: 237 236 244;
+  --card: 255 253 251;
   --card-foreground: 14 26 42;
-  --primary: 142 229 224;
+  --primary: 255 136 117;
   --primary-foreground: 14 26 42;
   --accent: 201 168 255;
   --accent-foreground: 14 26 42;

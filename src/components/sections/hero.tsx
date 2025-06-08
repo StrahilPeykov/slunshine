@@ -31,13 +31,13 @@ export function Hero() {
         {/* Multiple gradient overlays for better text readability */}
         <div className={cn(
           "absolute inset-0",
-          theme === "night" ? "bg-black/50" : "bg-black/40"
+          theme === "night" ? "bg-black/50" : "bg-gradient-to-br from-coral/10 to-transparent"
         )} />
         <div className={cn(
           "absolute inset-0",
           theme === "night" 
             ? "bg-gradient-to-b from-midnightNavy/70 via-midnightNavy/80 to-midnightNavy/95" 
-            : "bg-gradient-to-b from-white/10 via-transparent to-white/80"
+            : "bg-gradient-to-b from-transparent via-white/20 to-white/60"
         )} />
         
         {/* Vignette effect */}
@@ -87,32 +87,32 @@ export function Hero() {
             transition={{ duration: 1.2, delay: 0.2 }}
           >
             <span className={cn(
-              "block text-[clamp(4rem,13vw,8rem)] leading-[0.85] font-light tracking-tight",
+              "block text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] font-light tracking-tight",
               "relative inline-block",
               theme === "night" 
                 ? "text-transparent bg-clip-text bg-gradient-to-br from-white via-lilacHalo to-white"
-                : "text-transparent bg-clip-text bg-gradient-to-br from-midnightNavy via-coral to-midnightNavy"
+                : "text-white drop-shadow-[0_2px_8px_rgba(14,26,42,0.8)]"
             )}>
-              <motion.span
-                className="absolute inset-0 text-[clamp(4rem,13vw,8rem)] leading-[0.85] font-light tracking-tight blur-xl opacity-50"
-                style={{
-                  background: theme === "night" 
-                    ? "linear-gradient(to bottom right, white, #C9A8FF, white)"
-                    : "linear-gradient(to bottom right, #0E1A2A, #FF8875, #0E1A2A)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                Alexandrina
-              </motion.span>
+              {theme === "night" && (
+                <motion.span
+                  className="absolute inset-0 text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] font-light tracking-tight blur-xl opacity-50"
+                  style={{
+                    background: "linear-gradient(to bottom right, white, #C9A8FF, white)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  Alexandrina
+                </motion.span>
+              )}
               Alexandrina
             </span>
             <span className={cn(
-              "block text-[clamp(2.5rem,8vw,4.5rem)] font-extralight tracking-[0.15em] mt-2 uppercase",
+              "block text-[clamp(2rem,7vw,4.5rem)] font-extralight tracking-[0.15em] mt-2 uppercase",
               theme === "night" 
                 ? "text-white/90"
-                : "text-midnightNavy/90"
+                : "text-white drop-shadow-[0_2px_6px_rgba(14,26,42,0.7)]"
             )}>
               Kushinchanova
             </span>
@@ -127,17 +127,17 @@ export function Hero() {
           >
             <span className={cn(
               "h-[1px] w-16 md:w-24",
-              theme === "night" ? "bg-white/30" : "bg-midnightNavy/30"
+              theme === "night" ? "bg-white/30" : "bg-white/60"
             )} />
             <p className={cn(
               "text-lg md:text-xl font-inter font-light tracking-[0.2em] uppercase",
-              theme === "night" ? "text-white/80" : "text-midnightNavy/80"
+              theme === "night" ? "text-white/80" : "text-white drop-shadow-[0_1px_4px_rgba(14,26,42,0.6)]"
             )}>
               The Harp Lady
             </p>
             <span className={cn(
               "h-[1px] w-16 md:w-24",
-              theme === "night" ? "bg-white/30" : "bg-midnightNavy/30"
+              theme === "night" ? "bg-white/30" : "bg-white/60"
             )} />
           </motion.div>
 
@@ -153,7 +153,7 @@ export function Hero() {
               "backdrop-blur-xl border",
               theme === "night" 
                 ? "bg-black/30 border-white/20 text-white" 
-                : "bg-white/80 border-white text-midnightNavy"
+                : "bg-white/80 backdrop-blur-sm border-white text-midnightNavy shadow-lg"
             )}>
               <span className="relative flex h-2 w-2">
                 <span className={cn(
@@ -183,9 +183,7 @@ export function Hero() {
               className={cn(
                 "group relative px-10 py-4 rounded-full font-inter font-medium overflow-hidden",
                 "transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]",
-                theme === "night" 
-                  ? "text-white" 
-                  : "text-white"
+                "text-white shadow-xl"
               )}
             >
               {/* Gradient background */}
@@ -208,10 +206,10 @@ export function Hero() {
               className={cn(
                 "px-10 py-4 rounded-full font-inter font-medium",
                 "backdrop-blur-xl border-2 transition-all duration-300",
-                "transform hover:scale-[1.02] active:scale-[0.98]",
+                "transform hover:scale-[1.02] active:scale-[0.98] shadow-xl",
                 theme === "night" 
                   ? "bg-white/10 border-white/30 hover:bg-white/20 text-white" 
-                  : "bg-midnightNavy/10 border-midnightNavy/30 hover:bg-midnightNavy/20 text-midnightNavy"
+                  : "bg-white/80 border-white hover:bg-white/90 text-midnightNavy"
               )}
             >
               Explore My World
@@ -229,12 +227,12 @@ export function Hero() {
         >
           <div className={cn(
             "w-[30px] h-[50px] rounded-full border-2 flex justify-center pt-2",
-            theme === "night" ? "border-white/40" : "border-midnightNavy/40"
+            theme === "night" ? "border-white/40" : "border-white bg-white/20 backdrop-blur-sm"
           )}>
             <motion.div
               className={cn(
                 "w-1 h-2 rounded-full",
-                theme === "night" ? "bg-white/60" : "bg-midnightNavy/60"
+                theme === "night" ? "bg-white/60" : "bg-white"
               )}
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
