@@ -163,7 +163,7 @@ export function Contact() {
               theme === "night" ? "text-white/50" : "text-midnightNavy/50"
             )}
           >
-            I&apos;ll get back to you as soon as possible ✨
+            I&apos;ll get back to you as soon as possible 🧚
           </motion.p>
         </motion.div>
       </div>
