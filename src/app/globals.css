@@ -1,9 +1,10 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300..700&family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @theme {
   --font-playfair: "Playfair Display", serif;
   --font-inter: "Inter", sans-serif;
+  --font-cormorant: "Cormorant Upright", serif;
   
   /* Day theme colors */
   --color-background: rgb(255 252 250);
@@ -230,3 +231,44 @@ h1, h2, h3, h4, h5, h6 {
 .text-lilacHalo { color: rgb(201 168 255) !important; }
 .bg-coral { background-color: rgb(255 136 117) !important; }
 .text-coral { color: rgb(255 136 117) !important; }
+
+/* Font utilities */
+.font-cormorant {
+  font-family: var(--font-cormorant);
+}
+
+/* Small caps for surname */
+.small-caps {
+  font-variant: small-caps;
+  letter-spacing: 0.15em;
+}
+
+/* Subtle parallax for background elements */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(-15px) translateX(-5px); }
+  75% { transform: translateY(-5px) translateX(3px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+/* Emoji trail particles */
+@keyframes particle-fall {
+  0% { 
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(30px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.particle {
+  position: fixed;
+  pointer-events: none;
+  animation: particle-fall 0.8s ease-out forwards;
+}

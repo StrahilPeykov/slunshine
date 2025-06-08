@@ -4,9 +4,12 @@ import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import { Music as MusicIcon, Piano, Sparkles, Users, Star } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 
 export function Lessons() {
   const { theme } = useTheme();
+  const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; emoji: string }>>([]);
+  const particleIdRef = useRef(0);
 
   const offerings = [
     {
@@ -14,18 +17,21 @@ export function Lessons() {
       title: "Harp",
       description: "From first touch to concert stage",
       gradient: "from-lilacHalo to-coral",
+      emoji: "🎵"
     },
     {
       icon: Piano,
       title: "Piano",
       description: "Classical to contemporary styles",
       gradient: "from-coral to-lavaGlow",
+      emoji: "🎹"
     },
     {
       icon: Sparkles,
       title: "Harmony & Theory",
       description: "Understand the language of music",
       gradient: "from-lavaGlow to-lilacHalo",
+      emoji: "✨"
     },
   ];
 
@@ -33,6 +39,30 @@ export function Lessons() {
     { icon: Users, text: "All ages & levels welcome" },
     { icon: Star, text: "Personalized curriculum" },
   ];
+
+  const createParticle = (e: React.MouseEvent, emoji: string) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const newParticle = {
+      id: particleIdRef.current++,
+      x: e.clientX,
+      y: e.clientY,
+      emoji,
+    };
+    
+    setParticles(prev => [...prev, newParticle]);
+    
+    setTimeout(() => {
+      setParticles(prev => prev.filter(p => p.id !== newParticle.id));
+    }, 800);
+  };
+
+  useEffect(() => {
+    // Clean up particles array on unmount
+    return () => setParticles([]);
+  }, []);
 
   return (
     <section id="lessons" className="py-20 md:py-32 relative overflow-hidden">
@@ -53,7 +83,7 @@ export function Lessons() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-playfair text-[clamp(2.5rem,5vw,3.5rem)] font-light mb-4">
+          <h2 className="font-cormorant text-[clamp(2.5rem,5vw,3.5rem)] font-light mb-4">
             <span className={cn(
               theme === "night" 
                 ? "text-white"
@@ -99,6 +129,7 @@ export function Lessons() {
                       ? "bg-white/5 border-white/10 hover:bg-white/10"
                       : "bg-white/80 border-white shadow-lg hover:shadow-xl"
                   )}
+                  onMouseMove={(e) => createParticle(e, offering.emoji)}
                 >
                   {/* Gradient accent */}
                   <div className={cn(
@@ -219,6 +250,21 @@ export function Lessons() {
           </a>
         </motion.div>
       </div>
+      
+      {/* Emoji particles */}
+      {particles.map(particle => (
+        <div
+          key={particle.id}
+          className="particle"
+          style={{
+            left: particle.x,
+            top: particle.y,
+            fontSize: '20px',
+          }}
+        >
+          {particle.emoji}
+        </div>
+      ))}
     </section>
   );
 }

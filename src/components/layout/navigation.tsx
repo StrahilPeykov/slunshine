@@ -51,17 +51,55 @@ export function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className={cn(
-              "font-playfair text-3xl md:text-4xl font-light tracking-wider",
-              "transition-all duration-300",
-              theme === "night" 
-                ? "text-white" 
-                : isScrolled
-                  ? "text-midnightNavy"
-                  : "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
-            )}>
-              slunshine
-            </span>
+            <svg
+              width="180"
+              height="50"
+              viewBox="0 0 180 50"
+              className={cn(
+                "transition-all duration-300",
+                theme === "night" 
+                  ? "text-white" 
+                  : isScrolled
+                    ? "text-midnightNavy"
+                    : "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
+              )}
+            >
+              <defs>
+                <style>
+                  {`
+                    @keyframes dash {
+                      to {
+                        stroke-dashoffset: 0;
+                      }
+                    }
+                    .logo-path {
+                      stroke-dasharray: 500;
+                      stroke-dashoffset: 500;
+                      fill: none;
+                      stroke: currentColor;
+                      stroke-width: 1.5;
+                      transition: stroke-dashoffset 0.8s ease;
+                    }
+                    .group:hover .logo-path {
+                      animation: dash 0.8s ease forwards;
+                    }
+                    .logo-text {
+                      font-family: var(--font-cormorant);
+                      font-size: 36px;
+                      font-weight: 300;
+                      fill: currentColor;
+                    }
+                  `}
+                </style>
+              </defs>
+              <text x="90" y="35" textAnchor="middle" className="logo-text">
+                slun<tspan style={{ letterSpacing: '-0.05em' }}>sh</tspan>ine
+              </text>
+              <path
+                className="logo-path"
+                d="M 20 40 Q 90 45 160 40"
+              />
+            </svg>
           </motion.a>
 
           {/* Desktop Navigation */}

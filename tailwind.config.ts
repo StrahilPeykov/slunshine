@@ -36,6 +36,7 @@ const config: Config = {
       fontFamily: {
         playfair: ["Playfair Display", "serif"],
         inter: ["Inter", "sans-serif"],
+        cormorant: ["Cormorant Upright", "serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-in-out",

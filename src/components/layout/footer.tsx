@@ -15,15 +15,34 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Logo */}
-          <h3 className={cn(
-            "font-playfair text-3xl font-light tracking-wider mb-6",
-            "bg-gradient-to-r bg-clip-text text-transparent",
-            theme === "night" 
-              ? "from-white to-lilacHalo" 
-              : "from-midnightNavy to-coral"
-          )}>
-            slunshine
-          </h3>
+          <div className="flex justify-center mb-6">
+            <svg
+              width="150"
+              height="40"
+              viewBox="0 0 150 40"
+              className={cn(
+                "transition-all duration-300",
+                theme === "night" ? "text-white" : "text-midnightNavy"
+              )}
+            >
+              <defs>
+                <linearGradient id="footer-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor={theme === "night" ? "#fff" : "#0E1A2A"} />
+                  <stop offset="50%" stopColor={theme === "night" ? "#C9A8FF" : "#FF8875"} />
+                  <stop offset="100%" stopColor={theme === "night" ? "#fff" : "#0E1A2A"} />
+                </linearGradient>
+              </defs>
+              <text x="75" y="28" textAnchor="middle" 
+                style={{ 
+                  fontFamily: 'var(--font-cormorant)', 
+                  fontSize: '30px', 
+                  fontWeight: 300,
+                  fill: 'url(#footer-gradient)'
+                }}>
+                slun<tspan style={{ letterSpacing: '-0.05em' }}>sh</tspan>ine
+              </text>
+            </svg>
+          </div>
 
           {/* Social Links */}
           <div className="flex justify-center gap-6 mb-8">
