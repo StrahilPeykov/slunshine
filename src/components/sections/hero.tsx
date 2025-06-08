@@ -218,6 +218,7 @@ export function Hero() {
             </a>
           </motion.div>
         </motion.div>
+      </div>
 
         {/* Scroll Indicator */}
         <motion.a
@@ -240,7 +241,6 @@ export function Hero() {
             />
           </div>
         </motion.a>
-      </div>
     </section>
   );
 }
