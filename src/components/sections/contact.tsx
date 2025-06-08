@@ -104,7 +104,7 @@ export function Contact() {
 
             {/* Email Card */}
             <a
-              href="mailto:slunshine@gmail.com"
+              href="mailto:okami4aj@gmail.com"
               className={cn(
                 "group relative p-8 rounded-3xl text-center",
                 "backdrop-blur-xl border transition-all duration-300",
@@ -139,7 +139,7 @@ export function Contact() {
                   "text-lg",
                   theme === "night" ? "text-white/70" : "text-midnightNavy/70"
                 )}>
-                  slunshine@gmail.com
+                  okami4aj@gmail.com
                 </p>
                 <div className={cn(
                   "mt-4 inline-flex items-center gap-2 text-sm",
