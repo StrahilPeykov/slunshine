@@ -5,7 +5,7 @@ import { Navigation } from "@/components/layout/navigation";
 import { Music } from "@/components/sections/music";
 import { About } from "@/components/sections/about";
 import { Lessons } from "@/components/sections/lessons";
-import { Contact } from "@/components/sections/contact";
+// import { Contact } from "@/components/sections/contact";
 import { Footer } from "@/components/layout/footer";
 
 function PageContent() {
@@ -16,7 +16,7 @@ function PageContent() {
       <Music />
       <About />
       <Lessons />
-      <Contact />
+      {/* <Contact /> */}
       <Footer />
     </>
   );
