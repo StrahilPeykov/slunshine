@@ -79,7 +79,7 @@ export function About() {
           >
             <div className="space-y-6">
               <p className="text-lg leading-relaxed text-foreground/80">
-                I picked up a harp at six years old, and that set the course for everything that followed.  
+                I picked up a harp at ten years old, and that set the course for everything that followed.  
                 From conservatory recitals to late-night club sets, each stage has shown me a different way music can fill a room.
               </p>
 
