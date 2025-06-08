@@ -47,8 +47,8 @@ export function Lessons() {
     
     const newParticle = {
       id: particleIdRef.current++,
-      x: e.clientX,
-      y: e.clientY,
+      x,
+      y,
       emoji,
     };
     
