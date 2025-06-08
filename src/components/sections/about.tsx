@@ -3,145 +3,138 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { Music as MusicIcon, Film, GraduationCap, Sparkles } from "lucide-react";
 
 export function About() {
   const { theme } = useTheme();
 
-  const milestones = [
-    {
-      year: "2010",
-      title: "Film Debut",
-      description: "Appeared in a movie and met Quentin Tarantino at a film festival",
-      icon: Film,
-    },
-    {
-      year: "2020",
-      title: "Joined Mila Robert",
-      description: "Became the pianist and backing vocalist",
-      icon: MusicIcon,
-    },
-    {
-      year: "2024",
-      title: "Master's Degree",
-      description: "Graduated from New Bulgarian University in Pop & Jazz Singing",
-      icon: GraduationCap,
-    },
-    {
-      year: "2025",
-      title: "PhD & Solo Career",
-      description: "Starting doctoral studies while launching solo music career",
-      icon: Sparkles,
-    },
-  ];
-
   return (
     <section id="about" className="py-20 md:py-32 relative">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-6xl">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="font-playfair text-[clamp(2.5rem,5vw,3.5rem)] font-light mb-4">
+            <span className={cn(
+              theme === "night" 
+                ? "text-white"
+                : "text-midnightNavy"
+            )}>
+              The Story
+            </span>
+          </h2>
+        </motion.div>
+
+        {/* Main Content */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Content */}
+          {/* Left: Portrait */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
+            className="relative"
           >
-            <h2 className="font-playfair text-4xl md:text-6xl font-bold mb-6">
-              <span className={cn(theme === "night" && "glow-text")}>
-                My Story
-              </span>
-            </h2>
-
-            <div className="space-y-4 text-foreground/80">
-              <p className="text-lg leading-relaxed">
-                I was three the first time I saw a harp. It was leaning against a Sofia sidewalk, like something out of an elven tale. I grabbed my mom&apos;s hand and told her, “That&apos;s what I&apos;m going to play.” A few years later I was climbing onto a tiny rehearsal chair, knees knocking, learning how to play one.
-              </p>
-              
-              <p className="leading-relaxed">
-                Since then, I&apos;ve been through conservatory corridors, Bulgarian film sets, late-night sessions at Nu Boyana Studios scoring chainsaws and chase scenes, lecture halls, and club stages.
-              </p>
-              
-              <p className="leading-relaxed">
-                This year I begin a PhD in music. And I&apos;m finally turning the microphone toward my own voice. The tracks I&apos;m crafting weave harp classical discipline into R&B and jazz. 
-              </p>
-            </div>
-
-            {/* Quick Facts */}
-            <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="relative rounded-3xl overflow-hidden">
+              {/* Gradient overlay for styling */}
               <div className={cn(
-                "p-4 rounded-lg",
-                theme === "night" ? "bg-white/5" : "bg-black/5"
-              )}>
-                <p className="text-sm text-foreground/60 mb-1">Instruments</p>
-                <p className="font-medium">Harp, Piano, Voice</p>
-              </div>
+                "absolute inset-0 z-10",
+                "bg-gradient-to-t from-black/20 via-transparent to-transparent"
+              )} />
+              
+              <img
+                src="/images/gallery/portrait-3.webp"
+                alt="Alexandrina"
+                className="w-full h-auto object-cover"
+              />
+              
+              {/* Decorative frame */}
               <div className={cn(
-                "p-4 rounded-lg",
-                theme === "night" ? "bg-white/5" : "bg-black/5"
-              )}>
-                <p className="text-sm text-foreground/60 mb-1">Specialties</p>
-                <p className="font-medium">Harmony, Music Theory</p>
-              </div>
+                "absolute inset-0 rounded-3xl border-2 z-20",
+                theme === "night" ? "border-white/10" : "border-black/10"
+              )} />
             </div>
+            
+            {/* Decorative elements */}
+            <div className={cn(
+              "absolute -bottom-6 -right-6 w-32 h-32 rounded-full blur-3xl -z-10",
+              theme === "night" ? "bg-lilacHalo/30" : "bg-coral/30"
+            )} />
+            <div className={cn(
+              "absolute -top-6 -left-6 w-24 h-24 rounded-full blur-2xl -z-10",
+              theme === "night" ? "bg-lavaGlow/20" : "bg-aquaMist/20"
+            )} />
           </motion.div>
 
-          {/* Timeline */}
+          {/* Right: Story */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative"
           >
-            <div className="space-y-8">
-              {milestones.map((milestone, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative pl-20"
-                >
-                  {/* Icon */}
-                  <div className={cn(
-                    "absolute left-0 w-14 h-14 rounded-full flex items-center justify-center",
-                    theme === "night" 
-                      ? "bg-gradient-to-br from-lavaGlow/20 to-lilacHalo/20" 
-                      : "bg-gradient-to-br from-aquaMist/20 to-coral/20"
-                  )}>
-                    <milestone.icon className={cn(
-                      "w-6 h-6",
-                      theme === "night" ? "text-lavaGlow" : "text-aquaMist"
-                    )} />
-                  </div>
-
-                  {/* Connecting Line */}
-                  {index < milestones.length - 1 && (
-                    <div className={cn(
-                      "absolute left-7 top-14 w-px h-20",
-                      theme === "night" ? "bg-white/20" : "bg-black/20"
-                    )} />
-                  )}
-
-                  {/* Content */}
-                  <div>
-                    <p className={cn(
-                      "text-sm font-medium mb-1",
-                      theme === "night" ? "text-lavaGlow" : "text-aquaMist"
-                    )}>
-                      {milestone.year}
-                    </p>
-                    <h3 className="font-playfair text-xl font-bold mb-2">
-                      {milestone.title}
-                    </h3>
-                    <p className="text-foreground/70 text-sm">
-                      {milestone.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+            <div className="space-y-6">
+              <p className="text-lg leading-relaxed text-foreground/80">
+                Music found me early through the strings of a harp, and I've been 
+                weaving melodies ever since. From classical conservatory halls to 
+                contemporary stages, each performance adds a new color to my palette.
+              </p>
+              
+              <p className="leading-relaxed text-foreground/70">
+                Today, I blend the precision of classical training with the soul of 
+                modern expression. Whether I'm performing with orchestras, teaching 
+                the next generation, or crafting my own songs, it's all about the 
+                connection music creates.
+              </p>
+              
+              <p className="leading-relaxed text-foreground/70">
+                My journey continues with new music on the horizon — where ethereal 
+                harp meets R&B soul, where tradition dances with innovation.
+              </p>
             </div>
+
+            {/* Current Focus */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className={cn(
+                "mt-10 p-6 rounded-2xl",
+                theme === "night" 
+                  ? "bg-gradient-to-br from-white/5 to-white/10 border border-white/10"
+                  : "bg-gradient-to-br from-coral/5 to-lilacHalo/5 border border-black/5"
+              )}
+            >
+              <h3 className="font-playfair text-xl mb-3">Currently</h3>
+              <ul className="space-y-2 text-foreground/70">
+                <li className="flex items-start gap-2">
+                  <span className={cn(
+                    "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
+                    theme === "night" ? "bg-lilacHalo" : "bg-coral"
+                  )} />
+                  <span>Performing & touring as a professional musician</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className={cn(
+                    "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
+                    theme === "night" ? "bg-lilacHalo" : "bg-coral"
+                  )} />
+                  <span>Teaching harp, piano, and music theory</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className={cn(
+                    "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
+                    theme === "night" ? "bg-lilacHalo" : "bg-coral"
+                  )} />
+                  <span>Creating original music for upcoming releases</span>
+                </li>
+              </ul>
+            </motion.div>
           </motion.div>
         </div>
       </div>

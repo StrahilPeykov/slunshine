@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { Play, Music as MusicIcon } from "lucide-react";
+import { Play, ChevronDown } from "lucide-react";
 
 export function Hero() {
   const { theme } = useTheme();
@@ -16,49 +16,53 @@ export function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image/Video */}
+      {/* Background Image with strong overlay for readability */}
       <div className="absolute inset-0 z-0">
-        {/* Placeholder for church background - replace with actual image */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background"
-          style={{
-            backgroundImage: "url('/images/hero-church.webp')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: theme === "night" ? "brightness(0.7) saturate(1.2)" : "brightness(0.9)",
-          }}
-        />
+        <picture>
+          <source media="(max-width: 768px)" srcSet="/images/hero-church-mobile.webp" />
+          <img 
+            src="/images/hero-church.webp"
+            alt="Alexandrina playing harp"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </picture>
         
-        {/* Animated overlay effects */}
+        {/* Multiple gradient overlays for better text readability */}
+        <div className={cn(
+          "absolute inset-0",
+          theme === "night" ? "bg-black/50" : "bg-black/40"
+        )} />
         <div className={cn(
           "absolute inset-0",
           theme === "night" 
-            ? "bg-gradient-to-t from-midnightNavy via-midnightNavy/50 to-transparent" 
-            : "bg-gradient-to-t from-background via-background/30 to-transparent"
+            ? "bg-gradient-to-b from-midnightNavy/70 via-midnightNavy/80 to-midnightNavy/95" 
+            : "bg-gradient-to-b from-black/30 via-black/50 to-white/90"
         )} />
+        
+        {/* Vignette effect */}
+        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/30" />
 
-        {isClient && (
+        {/* Subtle animated sparkles for night mode */}
+        {isClient && theme === "night" && (
           <div className="absolute inset-0">
-            {[...Array(20)].map((_, i) => (
+            {[...Array(30)].map((_, i) => (
               <motion.div
                 key={i}
-                className={cn(
-                  "absolute w-1 h-1 rounded-full",
-                  theme === "night" ? "bg-lavaGlow/30" : "bg-aquaMist/40"
-                )}
+                className="absolute w-0.5 h-0.5 rounded-full bg-white"
                 initial={{ 
                   x: Math.random() * window.innerWidth,
-                  y: window.innerHeight + 20 
+                  y: Math.random() * window.innerHeight,
+                  opacity: 0
                 }}
                 animate={{ 
-                  y: -20,
-                  x: Math.random() * window.innerWidth,
+                  opacity: [0, 1, 0],
                 }}
                 transition={{ 
-                  duration: Math.random() * 20 + 10,
+                  duration: Math.random() * 3 + 2,
                   repeat: Infinity,
                   repeatType: "loop",
-                  ease: "linear"
+                  ease: "easeInOut",
+                  delay: Math.random() * 5
                 }}
               />
             ))}
@@ -71,54 +75,122 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1 }}
           className="max-w-4xl mx-auto"
         >
-          {/* Artist Name */}
+          {/* Artist Name with better contrast */}
           <motion.h1 
-            className={cn(
-              "font-playfair text-6xl md:text-8xl font-bold mb-4",
-              theme === "night" && "glow-text"
-            )}
+            className="font-playfair mb-4"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 1.2, delay: 0.2 }}
           >
-            <span className="gradient-text">Alexandrina</span>
-            <br />
-            <span className="text-4xl md:text-6xl font-light">Kushinchanova</span>
+            <span className={cn(
+              "block text-[clamp(4rem,13vw,8rem)] leading-[0.85] font-light tracking-tight",
+              theme === "night" 
+                ? "text-white drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]"
+                : "text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]"
+            )}>
+              Alexandrina
+            </span>
+            <span className={cn(
+              "block text-[clamp(2.5rem,8vw,4.5rem)] font-extralight tracking-[0.15em] mt-2 uppercase",
+              theme === "night" 
+                ? "text-white/90"
+                : "text-white/90"
+            )}>
+              Kushinchanova
+            </span>
           </motion.h1>
 
-          {/* Subtitle */}
-          <motion.p 
-            className="text-xl md:text-2xl font-inter font-light mb-8 text-foreground/80"
+          {/* Subtitle with decorative elements */}
+          <motion.div 
+            className="flex items-center justify-center gap-4 mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            The Harp Lady
-          </motion.p>
+            <span className={cn(
+              "h-[1px] w-16 md:w-24",
+              theme === "night" ? "bg-white/30" : "bg-white/30"
+            )} />
+            <p className={cn(
+              "text-lg md:text-xl font-inter font-light tracking-[0.2em] uppercase",
+              theme === "night" ? "text-white/80" : "text-white/80"
+            )}>
+              The Harp Lady
+            </p>
+            <span className={cn(
+              "h-[1px] w-16 md:w-24",
+              theme === "night" ? "bg-white/30" : "bg-white/30"
+            )} />
+          </motion.div>
 
-          {/* Coming Soon Badge */}
+          {/* New Single Coming Soon */}
           <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="inline-flex items-center gap-2 mb-8"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mb-12"
+          >
+            <div className="inline-flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className={cn(
+                  "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
+                  "bg-white"
+                )} />
+                <span className={cn(
+                  "relative inline-flex rounded-full h-2 w-2",
+                  "bg-white"
+                )} />
+              </span>
+              <p className={cn(
+                "text-sm font-inter tracking-wider",
+                theme === "night" ? "text-white/70" : "text-white/70"
+              )}>
+                New Single 
+                <span className={cn(
+                  "font-semibold mx-2",
+                  theme === "night" ? "text-lilacHalo" : "text-white"
+                )}>
+                  "Lubov, Lubov"
+                </span>
+                Coming Soon
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Coming Soon Badge - Refined */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mb-12"
           >
             <div className={cn(
-              "px-4 py-2 rounded-full glass",
-              "border",
-              theme === "night" ? "border-lavaGlow/30" : "border-aquaMist/50"
+              "inline-flex items-center gap-3 px-6 py-3 rounded-full",
+              "backdrop-blur-xl border",
+              theme === "night" 
+                ? "bg-black/30 border-white/20 text-white" 
+                : "bg-white/60 border-white/80 text-midnightNavy"
             )}>
-              <span className="text-sm font-medium flex items-center gap-2">
-                <MusicIcon className="w-4 h-4" />
-                New Single &quot;Lubov, Lubov&quot; Coming Soon
+              <span className="relative flex h-2 w-2">
+                <span className={cn(
+                  "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
+                  theme === "night" ? "bg-lavaGlow" : "bg-coral"
+                )} />
+                <span className={cn(
+                  "relative inline-flex rounded-full h-2 w-2",
+                  theme === "night" ? "bg-lavaGlow" : "bg-coral"
+                )} />
+              </span>
+              <span className="text-sm font-medium tracking-wide">
+                New Single "Lubov, Lubov" Coming Soon
               </span>
             </div>
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - Enhanced */}
           <motion.div 
             className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
@@ -126,41 +198,64 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             <button className={cn(
-              "px-8 py-4 rounded-full font-inter font-medium transition-all duration-300 ripple-container",
-              "flex items-center gap-2 justify-center",
+              "group relative px-10 py-4 rounded-full font-inter font-medium overflow-hidden",
+              "transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]",
               theme === "night" 
-                ? "bg-lavaGlow text-white hover:bg-lavaGlow/90" 
-                : "bg-aquaMist text-midnightNavy hover:bg-aquaMist/90"
+                ? "text-white" 
+                : "text-white"
             )}>
-              <Play className="w-5 h-5" />
-              Listen to Preview
+              {/* Gradient background */}
+              <span className={cn(
+                "absolute inset-0 -z-10",
+                theme === "night"
+                  ? "bg-gradient-to-r from-lavaGlow via-coral to-lavaGlow bg-[length:200%_100%] animate-gradient"
+                  : "bg-gradient-to-r from-coral via-lavaGlow to-coral bg-[length:200%_100%] animate-gradient"
+              )} />
+              {/* Glass overlay on hover */}
+              <span className="absolute inset-0 -z-10 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
+              <span className="flex items-center gap-3 justify-center">
+                <Play className="w-5 h-5" />
+                Listen to My Music
+              </span>
             </button>
             
             <a 
               href="#music" 
               className={cn(
-                "px-8 py-4 rounded-full font-inter font-medium transition-all duration-300",
-                "glass border backdrop-blur-md",
+                "px-10 py-4 rounded-full font-inter font-medium",
+                "backdrop-blur-xl border-2 transition-all duration-300",
+                "transform hover:scale-[1.02] active:scale-[0.98]",
                 theme === "night" 
-                  ? "border-white/20 hover:bg-white/10" 
-                  : "border-midnightNavy/20 hover:bg-black/5"
+                  ? "bg-white/10 border-white/30 hover:bg-white/20 text-white" 
+                  : "bg-white/20 border-white/40 hover:bg-white/30 text-white"
               )}
             >
-              Explore My Music
+              Explore My World
             </a>
           </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <div className="w-6 h-10 border-2 border-foreground/30 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-foreground/50 rounded-full mt-2" />
-            </div>
-          </motion.div>
         </motion.div>
+
+        {/* Scroll Indicator - Refined */}
+        <motion.a
+          href="#music"
+          className="absolute bottom-20 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <div className={cn(
+            "w-[30px] h-[50px] rounded-full border-2 flex justify-center pt-2",
+            theme === "night" ? "border-white/40" : "border-white/40"
+          )}>
+            <motion.div
+              className={cn(
+                "w-1 h-2 rounded-full",
+                theme === "night" ? "bg-white/60" : "bg-white/60"
+              )}
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+          </div>
+        </motion.a>
       </div>
     </section>
   );

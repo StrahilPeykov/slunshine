@@ -3,51 +3,48 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { Music as MusicIcon, Piano, Users, Award, Clock, Star } from "lucide-react";
+import { Music as MusicIcon, Piano, Sparkles, Users, Star } from "lucide-react";
 
 export function Lessons() {
   const { theme } = useTheme();
 
-  const subjects = [
+  const offerings = [
     {
       icon: MusicIcon,
-      title: "Harp Lessons",
-      description: "From beginner to advanced, learn the art of harp playing with personalized instruction",
-      features: ["Classical & Modern Repertoire", "Technique Development", "Performance Preparation"],
+      title: "Harp",
+      description: "From first touch to concert stage",
+      gradient: "from-lilacHalo to-coral",
     },
     {
       icon: Piano,
-      title: "Piano Lessons",
-      description: "Comprehensive piano instruction for all ages and skill levels",
-      features: ["Sight Reading", "Music Theory Integration", "Various Genres"],
+      title: "Piano",
+      description: "Classical to contemporary styles",
+      gradient: "from-coral to-lavaGlow",
     },
     {
-      icon: Award,
-      title: "Music Theory & Harmony",
-      description: "Master the language of music with in-depth theoretical knowledge",
-      features: ["Exam Preparation", "Composition Skills", "Harmonic Analysis"],
+      icon: Sparkles,
+      title: "Harmony & Theory",
+      description: "Understand the language of music",
+      gradient: "from-lavaGlow to-lilacHalo",
     },
   ];
 
-  const testimonials = [
-    {
-      text: "Ally's approach to teaching harmony transformed how I understand music. Her lessons are clear, engaging, and tailored perfectly to my needs.",
-      author: "Maria S.",
-      role: "University Student",
-    },
-    {
-      text: "As a drummer, I never thought I'd need music theory. Ally showed me how it could elevate my playing to the next level.",
-      author: "Ivan P.",
-      role: "Professional Musician",
-    },
+  const features = [
+    { icon: Users, text: "All ages & levels welcome" },
+    { icon: Star, text: "Personalized curriculum" },
   ];
 
   return (
-    <section id="lessons" className={cn(
-      "py-20 md:py-32 relative",
-      theme === "night" ? "bg-midnightNavy/50" : "bg-iridescentPearl/30"
-    )}>
-      <div className="container mx-auto px-4">
+    <section id="lessons" className="py-20 md:py-32 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 -z-10">
+        <div className={cn(
+          "absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[150px] opacity-10",
+          theme === "night" ? "bg-lilacHalo" : "bg-coral"
+        )} />
+      </div>
+
+      <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,166 +53,146 @@ export function Lessons() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-playfair text-4xl md:text-6xl font-bold mb-4">
-            <span className={cn(theme === "night" && "glow-text")}>
-              Private Lessons
+          <h2 className="font-playfair text-[clamp(2.5rem,5vw,3.5rem)] font-light mb-4">
+            <span className={cn(
+              theme === "night" 
+                ? "text-white"
+                : "text-midnightNavy"
+            )}>
+              Share the Magic
             </span>
           </h2>
-          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-            Personalized instruction for students of all ages and levels, from beginners to professional musicians
+          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+            Private lessons tailored to your musical journey
           </p>
         </motion.div>
 
-        {/* Subjects Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
-          {subjects.map((subject, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={cn(
-                "group p-8 rounded-2xl transition-all duration-300",
-                "glass border backdrop-blur-md hover:scale-[1.02]",
-                theme === "night" 
-                  ? "border-white/10 hover:border-lavaGlow/30" 
-                  : "border-black/10 hover:border-aquaMist/50"
-              )}
-            >
-              <div className={cn(
-                "w-16 h-16 rounded-full flex items-center justify-center mb-6",
-                "transition-all duration-300 group-hover:scale-110",
-                theme === "night" 
-                  ? "bg-gradient-to-br from-lavaGlow/20 to-lilacHalo/20" 
-                  : "bg-gradient-to-br from-aquaMist/20 to-coral/20"
-              )}>
-                <subject.icon className={cn(
-                  "w-8 h-8",
-                  theme === "night" ? "text-lavaGlow" : "text-aquaMist"
-                )} />
-              </div>
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Offerings */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3 className={cn(
+              "font-playfair text-2xl mb-8",
+              theme === "night" ? "text-white/90" : "text-midnightNavy"
+            )}>
+              What I Teach
+            </h3>
 
-              <h3 className="font-playfair text-2xl font-bold mb-3">
-                {subject.title}
+            <div className="space-y-6">
+              {offerings.map((offering, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className={cn(
+                    "group relative p-6 rounded-2xl",
+                    "backdrop-blur-sm border transition-all duration-300",
+                    "hover:scale-[1.02] cursor-pointer",
+                    theme === "night"
+                      ? "bg-white/5 border-white/10 hover:bg-white/10"
+                      : "bg-white/80 border-white shadow-lg hover:shadow-xl"
+                  )}
+                >
+                  {/* Gradient accent */}
+                  <div className={cn(
+                    "absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity",
+                    `bg-gradient-to-r ${offering.gradient}`
+                  )} />
+
+                  <div className="relative flex items-start gap-4">
+                    <div className={cn(
+                      "w-12 h-12 rounded-xl flex items-center justify-center",
+                      `bg-gradient-to-br ${offering.gradient}`
+                    )}>
+                      <offering.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-playfair text-xl font-medium mb-1">
+                        {offering.title}
+                      </h4>
+                      <p className="text-foreground/60">
+                        {offering.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right: Info Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className={cn(
+              "relative p-8 md:p-10 rounded-3xl",
+              "backdrop-blur-md border",
+              theme === "night"
+                ? "bg-gradient-to-br from-white/5 to-white/10 border-white/20"
+                : "bg-gradient-to-br from-white/90 to-white/70 border-white shadow-2xl"
+            )}
+          >
+            {/* Decorative element */}
+            <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-gradient-to-br from-lilacHalo/20 to-coral/20 blur-2xl" />
+
+            <div className="relative">
+              <h3 className={cn(
+                "font-playfair text-2xl mb-6",
+                theme === "night" ? "text-white" : "text-midnightNavy"
+              )}>
+                Learn With Me
               </h3>
-              
-              <p className="text-foreground/70 mb-6">
-                {subject.description}
+
+              <p className="text-foreground/70 mb-8 leading-relaxed">
+                Whether you're touching strings for the first time or preparing for conservatory, 
+                I'll guide you with patience, passion, and personalized attention.
               </p>
 
-              <ul className="space-y-2">
-                {subject.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-sm text-foreground/60">
+              <div className="space-y-4 mb-8">
+                {features.map((feature, index) => (
+                  <div key={index} className="flex items-center gap-3">
                     <div className={cn(
-                      "w-1.5 h-1.5 rounded-full",
-                      theme === "night" ? "bg-lavaGlow" : "bg-aquaMist"
-                    )} />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Features */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={cn(
-            "glass border backdrop-blur-md rounded-2xl p-8 md:p-12 mb-20",
-            theme === "night" ? "border-white/10" : "border-black/10"
-          )}
-        >
-          <h3 className="font-playfair text-2xl md:text-3xl font-bold mb-8 text-center gradient-text">
-            Why Learn With Me?
-          </h3>
-
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <Users className={cn(
-                "w-10 h-10 mx-auto mb-3",
-                theme === "night" ? "text-lavaGlow" : "text-aquaMist"
-              )} />
-              <h4 className="font-medium mb-2">All Ages Welcome</h4>
-              <p className="text-sm text-foreground/60">From children to seniors</p>
-            </div>
-
-            <div>
-              <Clock className={cn(
-                "w-10 h-10 mx-auto mb-3",
-                theme === "night" ? "text-lavaGlow" : "text-aquaMist"
-              )} />
-              <h4 className="font-medium mb-2">Flexible Schedule</h4>
-              <p className="text-sm text-foreground/60">Lessons tailored to your availability</p>
-            </div>
-
-            <div>
-              <Award className={cn(
-                "w-10 h-10 mx-auto mb-3",
-                theme === "night" ? "text-lavaGlow" : "text-aquaMist"
-              )} />
-              <h4 className="font-medium mb-2">Proven Results</h4>
-              <p className="text-sm text-foreground/60">Successful exam preparation</p>
-            </div>
-
-            <div>
-              <Star className={cn(
-                "w-10 h-10 mx-auto mb-3",
-                theme === "night" ? "text-lavaGlow" : "text-aquaMist"
-              )} />
-              <h4 className="font-medium mb-2">Personalized Approach</h4>
-              <p className="text-sm text-foreground/60">Lessons adapted to your goals</p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Testimonials */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h3 className="font-playfair text-2xl md:text-3xl font-bold mb-8 text-center">
-            What Students Say
-          </h3>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={cn(
-                  "p-6 rounded-xl",
-                  theme === "night" ? "bg-white/5" : "bg-black/5"
-                )}
-              >
-                <p className="text-foreground/80 mb-4 italic">
-                  &quot;{testimonial.text}&quot;
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className={cn(
-                    "w-12 h-12 rounded-full",
-                    theme === "night" 
-                      ? "bg-gradient-to-br from-lavaGlow/20 to-lilacHalo/20" 
-                      : "bg-gradient-to-br from-aquaMist/20 to-coral/20"
-                  )} />
-                  <div>
-                    <p className="font-medium">{testimonial.author}</p>
-                    <p className="text-sm text-foreground/60">{testimonial.role}</p>
+                      "w-8 h-8 rounded-full flex items-center justify-center",
+                      theme === "night"
+                        ? "bg-white/10"
+                        : "bg-midnightNavy/10"
+                    )}>
+                      <feature.icon className={cn(
+                        "w-4 h-4",
+                        theme === "night" ? "text-lilacHalo" : "text-coral"
+                      )} />
+                    </div>
+                    <span className="text-foreground/80">
+                      {feature.text}
+                    </span>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                ))}
+              </div>
+
+              {/* Student testimonial */}
+              <div className={cn(
+                "p-4 rounded-xl",
+                theme === "night" ? "bg-black/20" : "bg-midnightNavy/5"
+              )}>
+                <p className="text-sm italic text-foreground/70 mb-2">
+                  "Ally makes complex theory feel like discovering hidden treasures in music"
+                </p>
+                <p className="text-xs text-foreground/50">
+                  — Maria, harmony student
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
 
         {/* CTA */}
         <motion.div
@@ -223,18 +200,22 @@ export function Lessons() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mt-12"
+          className="text-center mt-16"
         >
+          <p className="text-foreground/60 mb-6">
+            Ready to start your musical journey?
+          </p>
           <a
             href="#contact"
             className={cn(
-              "inline-flex items-center gap-2 px-8 py-4 rounded-full font-inter font-medium transition-all duration-300",
+              "inline-flex items-center gap-2 px-8 py-4 rounded-full font-inter font-medium",
+              "transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]",
               theme === "night" 
-                ? "bg-lavaGlow text-white hover:bg-lavaGlow/90" 
-                : "bg-aquaMist text-midnightNavy hover:bg-aquaMist/90"
+                ? "bg-gradient-to-r from-lilacHalo to-lavaGlow text-white" 
+                : "bg-gradient-to-r from-coral to-lavaGlow text-white"
             )}
           >
-            Book Your First Lesson
+            Let's Talk
           </a>
         </motion.div>
       </div>

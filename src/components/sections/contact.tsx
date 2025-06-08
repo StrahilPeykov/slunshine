@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { Mail, Instagram, Music2, Send, MapPin } from "lucide-react";
+import { Mail, Instagram, Music2, Send, Sparkles, MessageCircle, Headphones, Heart } from "lucide-react";
 import { useState } from "react";
 
 export function Contact() {
@@ -11,32 +11,42 @@ export function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
+    type: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", type: "", message: "" });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    }
   };
 
-  const contactOptions = [
-    {
-      title: "Booking & Collaborations",
-      description: "For performance inquiries, studio sessions, or creative projects",
-      icon: Music2,
-    },
-    {
-      title: "Music Lessons",
-      description: "Schedule your personalized harp, piano, or theory lessons",
-      icon: Mail,
-    },
-    {
-      title: "Film Scoring",
-      description: "Let's discuss how I can bring your visual stories to life through music",
-      icon: MapPin,
-    },
+  const contactReasons = [
+    { value: "collab", label: "Create together", icon: Sparkles },
+    { value: "booking", label: "Book a show", icon: Music2 },
+    { value: "lessons", label: "Learn with me", icon: Headphones },
+    { value: "hello", label: "Say hello", icon: Heart },
   ];
 
   return (
@@ -44,12 +54,15 @@ export function Contact() {
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className={cn(
-          "absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-96 rounded-full blur-3xl opacity-10",
-          theme === "night" ? "bg-lilacHalo" : "bg-coral"
+          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+          "w-[600px] h-[600px] rounded-full blur-[200px]",
+          theme === "night" 
+            ? "bg-gradient-to-br from-lilacHalo/30 via-transparent to-lavaGlow/30" 
+            : "bg-gradient-to-br from-coral/20 via-transparent to-aquaMist/20"
         )} />
       </div>
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,229 +71,275 @@ export function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-playfair text-4xl md:text-6xl font-bold mb-4">
-            <span className={cn(theme === "night" && "glow-text")}>
-              Let&apos;s Connect
+          <h2 className="font-playfair text-[clamp(2.5rem,5vw,3.5rem)] font-light mb-4">
+            <span className={cn(
+              theme === "night" 
+                ? "text-white"
+                : "text-midnightNavy"
+            )}>
+              Let's Connect
             </span>
           </h2>
-          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-            Whether you&apos;re looking for music lessons, collaborations, or just want to say hello
+          <p className="text-lg text-foreground/60 max-w-xl mx-auto">
+            For collaborations, performances, lessons, or just to share your favorite song
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-          {/* Contact Options */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3 className="font-playfair text-2xl md:text-3xl font-bold mb-8 gradient-text">
-              How Can I Help?
-            </h3>
+        {/* Contact Card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className={cn(
+            "relative rounded-3xl overflow-hidden",
+            "backdrop-blur-xl border",
+            theme === "night" 
+              ? "bg-gradient-to-br from-white/5 to-white/10 border-white/20" 
+              : "bg-white/90 border-white shadow-2xl"
+          )}
+        >
+          {/* Decorative gradient */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0 bg-gradient-to-br from-lilacHalo via-coral to-lavaGlow animate-gradient bg-[length:200%_200%]" />
+          </div>
 
-            <div className="space-y-6 mb-12">
-              {contactOptions.map((option, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={cn(
-                    "p-6 rounded-xl transition-all duration-300",
-                    theme === "night" ? "bg-white/5" : "bg-black/5",
-                    "hover:scale-[1.02]"
-                  )}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className={cn(
-                      "w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0",
-                      theme === "night" 
-                        ? "bg-gradient-to-br from-lavaGlow/20 to-lilacHalo/20" 
-                        : "bg-gradient-to-br from-aquaMist/20 to-coral/20"
-                    )}>
-                      <option.icon className={cn(
-                        "w-6 h-6",
-                        theme === "night" ? "text-lavaGlow" : "text-aquaMist"
-                      )} />
-                    </div>
-                    <div>
-                      <h4 className="font-playfair text-xl font-bold mb-2">
-                        {option.title}
-                      </h4>
-                      <p className="text-foreground/70 text-sm">
-                        {option.description}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+          <div className="relative p-8 md:p-12">
+            {/* Quick links */}
+            <div className="grid grid-cols-2 gap-4 mb-10">
+              <a
+                href="https://instagram.com/slun_shine"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  "group flex items-center justify-center gap-3 p-4 rounded-2xl",
+                  "backdrop-blur-sm border transition-all duration-300",
+                  "hover:scale-[1.02] active:scale-[0.98]",
+                  theme === "night"
+                    ? "bg-white/5 hover:bg-white/10 border-white/20"
+                    : "bg-white/50 hover:bg-white/80 border-white"
+                )}
+              >
+                <Instagram className={cn(
+                  "w-5 h-5 group-hover:scale-110 transition-transform",
+                  theme === "night" ? "text-white" : "text-midnightNavy"
+                )} />
+                <span className={cn(
+                  "font-medium",
+                  theme === "night" ? "text-white" : "text-midnightNavy"
+                )}>
+                  @slun_shine
+                </span>
+              </a>
+              
+              <a
+                href="mailto:contact@slunshine.com"
+                className={cn(
+                  "group flex items-center justify-center gap-3 p-4 rounded-2xl",
+                  "backdrop-blur-sm border transition-all duration-300",
+                  "hover:scale-[1.02] active:scale-[0.98]",
+                  theme === "night"
+                    ? "bg-white/5 hover:bg-white/10 border-white/20"
+                    : "bg-white/50 hover:bg-white/80 border-white"
+                )}
+              >
+                <Mail className={cn(
+                  "w-5 h-5 group-hover:scale-110 transition-transform",
+                  theme === "night" ? "text-white" : "text-midnightNavy"
+                )} />
+                <span className={cn(
+                  "font-medium",
+                  theme === "night" ? "text-white" : "text-midnightNavy"
+                )}>
+                  Email
+                </span>
+              </a>
             </div>
 
-            {/* Social Links */}
-            <div className={cn(
-              "p-6 rounded-xl",
-              theme === "night" ? "bg-white/5" : "bg-black/5"
-            )}>
-              <h4 className="font-playfair text-xl font-bold mb-4">
-                Follow My Journey
-              </h4>
-              <div className="flex gap-4">
-                <a
-                  href="https://instagram.com/slun_shine"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(
-                    "p-3 rounded-full transition-all duration-300",
-                    "hover:scale-110",
-                    theme === "night" 
-                      ? "bg-white/10 hover:bg-white/20" 
-                      : "bg-black/5 hover:bg-black/10"
-                  )}
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@slun_shine"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(
-                    "p-3 rounded-full transition-all duration-300",
-                    "hover:scale-110",
-                    theme === "night" 
-                      ? "bg-white/10 hover:bg-white/20" 
-                      : "bg-black/5 hover:bg-black/10"
-                  )}
-                >
-                  <Music2 className="w-5 h-5" />
-                </a>
+            {/* Divider */}
+            <div className="relative mb-10">
+              <div className={cn(
+                "absolute inset-0 flex items-center",
+                theme === "night" ? "text-white/10" : "text-black/10"
+              )}>
+                <div className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className={cn(
+                  "px-4 relative z-10",
+                  theme === "night" ? "bg-midnightNavy text-white/50" : "bg-white text-midnightNavy/50"
+                )}>
+                  or send a message
+                </span>
               </div>
             </div>
-          </motion.div>
 
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className={cn(
-              "p-8 rounded-2xl",
-              "glass border backdrop-blur-md",
-              theme === "night" ? "border-white/10" : "border-black/10"
-            )}
-          >
-            <h3 className="font-playfair text-2xl font-bold mb-6">
-              Send a Message
-            </h3>
-
+            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-foreground/70">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className={cn(
-                      "w-full px-4 py-3 rounded-lg transition-all duration-200",
-                      "bg-transparent border",
-                      theme === "night" 
-                        ? "border-white/20 focus:border-lavaGlow" 
-                        : "border-black/20 focus:border-aquaMist",
-                      "focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    )}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-foreground/70">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className={cn(
-                      "w-full px-4 py-3 rounded-lg transition-all duration-200",
-                      "bg-transparent border",
-                      theme === "night" 
-                        ? "border-white/20 focus:border-lavaGlow" 
-                        : "border-black/20 focus:border-aquaMist",
-                      "focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    )}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground/70">
-                  Subject
-                </label>
-                <select
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="Your name"
                   className={cn(
-                    "w-full px-4 py-3 rounded-lg transition-all duration-200",
-                    "bg-transparent border",
+                    "w-full px-5 py-4 rounded-2xl transition-all duration-200",
+                    "bg-transparent border placeholder:text-foreground/40",
+                    "focus:outline-none",
                     theme === "night" 
-                      ? "border-white/20 focus:border-lavaGlow" 
-                      : "border-black/20 focus:border-aquaMist",
-                    "focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      ? "border-white/20 focus:border-lilacHalo focus:bg-white/5" 
+                      : "border-black/10 focus:border-coral focus:bg-white",
+                    "focus:scale-[1.01]"
                   )}
                   required
-                >
-                  <option value="">Select a subject</option>
-                  <option value="lessons">Music Lessons</option>
-                  <option value="booking">Performance Booking</option>
-                  <option value="collaboration">Collaboration</option>
-                  <option value="film">Film Scoring</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
+                />
 
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground/70">
-                  Message
-                </label>
-                <textarea
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  rows={5}
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="Your email"
                   className={cn(
-                    "w-full px-4 py-3 rounded-lg transition-all duration-200 resize-none",
-                    "bg-transparent border",
+                    "w-full px-5 py-4 rounded-2xl transition-all duration-200",
+                    "bg-transparent border placeholder:text-foreground/40",
+                    "focus:outline-none",
                     theme === "night" 
-                      ? "border-white/20 focus:border-lavaGlow" 
-                      : "border-black/20 focus:border-aquaMist",
-                    "focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      ? "border-white/20 focus:border-lilacHalo focus:bg-white/5" 
+                      : "border-black/10 focus:border-coral focus:bg-white",
+                    "focus:scale-[1.01]"
                   )}
                   required
                 />
               </div>
 
+              <div>
+                <p className={cn(
+                  "text-sm mb-3",
+                  theme === "night" ? "text-white/60" : "text-midnightNavy/60"
+                )}>
+                  I want to...
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {contactReasons.map((reason) => (
+                    <label
+                      key={reason.value}
+                      className={cn(
+                        "relative flex flex-col items-center gap-2 p-4 rounded-2xl cursor-pointer",
+                        "border transition-all duration-300 hover:scale-[1.02]",
+                        formData.type === reason.value
+                          ? theme === "night"
+                            ? "bg-gradient-to-br from-lilacHalo/20 to-lavaGlow/20 border-lilacHalo"
+                            : "bg-gradient-to-br from-coral/20 to-aquaMist/20 border-coral"
+                          : theme === "night"
+                            ? "bg-white/5 border-white/20 hover:bg-white/10"
+                            : "bg-white/50 border-white hover:bg-white/80"
+                      )}
+                    >
+                      <input
+                        type="radio"
+                        name="type"
+                        value={reason.value}
+                        checked={formData.type === reason.value}
+                        onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                        className="sr-only"
+                      />
+                      <reason.icon className={cn(
+                        "w-5 h-5",
+                        formData.type === reason.value
+                          ? theme === "night" ? "text-lilacHalo" : "text-coral"
+                          : theme === "night" ? "text-white/60" : "text-midnightNavy/60"
+                      )} />
+                      <span className={cn(
+                        "text-xs font-medium text-center",
+                        formData.type === reason.value
+                          ? theme === "night" ? "text-white" : "text-midnightNavy"
+                          : theme === "night" ? "text-white/80" : "text-midnightNavy/80"
+                      )}>
+                        {reason.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <textarea
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                rows={4}
+                placeholder="Your message..."
+                className={cn(
+                  "w-full px-5 py-4 rounded-2xl transition-all duration-200 resize-none",
+                  "bg-transparent border placeholder:text-foreground/40",
+                  "focus:outline-none",
+                  theme === "night" 
+                    ? "border-white/20 focus:border-lilacHalo focus:bg-white/5" 
+                    : "border-black/10 focus:border-coral focus:bg-white",
+                  "focus:scale-[1.01]"
+                )}
+                required
+              />
+
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className={cn(
-                  "w-full px-8 py-4 rounded-lg font-inter font-medium transition-all duration-300",
-                  "flex items-center justify-center gap-2",
-                  theme === "night" 
-                    ? "bg-lavaGlow text-white hover:bg-lavaGlow/90" 
-                    : "bg-aquaMist text-midnightNavy hover:bg-aquaMist/90"
+                  "w-full px-8 py-4 rounded-2xl font-medium",
+                  "flex items-center justify-center gap-3",
+                  "transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]",
+                  "relative overflow-hidden group",
+                  isSubmitting && "cursor-not-allowed opacity-70"
                 )}
               >
-                <Send className="w-5 h-5" />
-                Send Message
+                {/* Gradient background */}
+                <span className={cn(
+                  "absolute inset-0 -z-10",
+                  theme === "night"
+                    ? "bg-gradient-to-r from-lilacHalo via-lavaGlow to-coral bg-[length:200%_100%] animate-gradient"
+                    : "bg-gradient-to-r from-coral via-lavaGlow to-aquaMist bg-[length:200%_100%] animate-gradient"
+                )} />
+                
+                {/* Content */}
+                <span className="relative text-white flex items-center gap-3">
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5 text-white" />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </span>
               </button>
+
+              {/* Status messages */}
+              {submitStatus === 'success' && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={cn(
+                    "text-center",
+                    theme === "night" ? "text-lilacHalo" : "text-coral"
+                  )}
+                >
+                  Message sent! I'll be in touch soon ✨
+                </motion.p>
+              )}
+              
+              {submitStatus === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center text-lavaGlow"
+                >
+                  Oops! Something went wrong. Please try again.
+                </motion.p>
+              )}
             </form>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -24,7 +24,7 @@ function PageContent() {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background constellation-bg transition-colors duration-500">
+    <main className="min-h-screen bg-background transition-colors duration-500">
       <PageContent />
     </main>
   );

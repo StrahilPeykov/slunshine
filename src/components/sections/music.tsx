@@ -3,40 +3,52 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { Play, Pause, Calendar, Instagram, Music2 } from "lucide-react";
+import { Play, Calendar, Instagram, Music2, Headphones, ExternalLink, Sparkles } from "lucide-react";
 import { useState } from "react";
 
 export function Music() {
   const { theme } = useTheme();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [activeTrack, setActiveTrack] = useState(0);
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
-  // Placeholder tracks - replace with actual data
-  const tracks = [
+  // Upcoming releases
+  const releases = [
     {
       title: "Lubov, Lubov",
       type: "Single",
       status: "Coming Soon",
-      genre: "RnB / Indie Pop",
-      description: "A romantic journey through ethereal soundscapes",
-      releaseDate: "2025",
+      genre: "R&B / Indie Pop",
+      description: "A journey through love's ethereal landscapes",
+      releaseDate: "Spring 2025",
     },
     {
-      title: "Silver Lining",
+      title: "Untitled EP",
       type: "EP",
       status: "In Production",
-      genre: "Alt Pop",
-      description: "jazz harp",
-      releaseDate: "TBA",
+      genre: "Alternative",
+      description: "Where classical meets contemporary",
+      releaseDate: "2025",
     },
   ];
 
-  const performances = [
+  // Performance videos
+  const videos = [
     {
-      artist: "Mila Robert",
-      role: "Piano & Backing Vocals",
-      years: "2020-Present",
-      description: "Touring musician and studio collaborator",
+      id: "JfsKB1BtVeg",
+      title: "La Source",
+      composer: "Albert Zabel",
+      venue: "Sofia, 2023",
+    },
+    {
+      id: "taDWIhIGh0Q",
+      title: "Concert Etude",
+      composer: "F. Godefroid",
+      venue: "Paris, 2019",
+    },
+    {
+      id: "82YMLy-Nw68",
+      title: "Introduction and Allegro",
+      composer: "Maurice Ravel",
+      venue: "Sofia, 2024",
     },
   ];
 
@@ -45,16 +57,16 @@ export function Music() {
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className={cn(
-          "absolute top-1/2 left-0 w-96 h-96 rounded-full blur-3xl opacity-20",
-          theme === "night" ? "bg-lavaGlow" : "bg-aquaMist"
+          "absolute top-1/4 -left-32 w-64 h-64 rounded-full blur-[120px]",
+          theme === "night" ? "bg-lavaGlow/20" : "bg-coral/20"
         )} />
         <div className={cn(
-          "absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-20",
-          theme === "night" ? "bg-lilacHalo" : "bg-coral"
+          "absolute bottom-1/4 -right-32 w-64 h-64 rounded-full blur-[120px]",
+          theme === "night" ? "bg-lilacHalo/20" : "bg-aquaMist/20"
         )} />
       </div>
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-6xl">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,29 +75,43 @@ export function Music() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-playfair text-4xl md:text-6xl font-bold mb-4">
-            <span className={cn(theme === "night" && "glow-text")}>
-              My Music Journey
+          <h2 className="font-playfair text-[clamp(2.5rem,5vw,3.5rem)] font-light mb-4">
+            <span className={cn(
+              theme === "night" 
+                ? "text-white"
+                : "text-midnightNavy"
+            )}>
+              Sound & Vision
             </span>
           </h2>
-          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-            From classical harp to modern production, exploring the boundaries of sound
+          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+            New music blooming from classical roots
           </p>
         </motion.div>
 
-        {/* Original Music */}
-        <div className="mb-20">
-          <motion.h3
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="font-playfair text-2xl md:text-3xl font-bold mb-8 gradient-text"
-          >
-            Original Music
-          </motion.h3>
+        {/* Coming Soon Section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-20"
+        >
+          <div className="flex items-center gap-3 mb-8">
+            <Sparkles className={cn(
+              "w-5 h-5",
+              theme === "night" ? "text-lavaGlow" : "text-coral"
+            )} />
+            <h3 className={cn(
+              "font-playfair text-2xl",
+              theme === "night" ? "text-white" : "text-midnightNavy"
+            )}>
+              Coming Soon
+            </h3>
+          </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {tracks.map((track, index) => (
+          <div className="grid lg:grid-cols-2 gap-6">
+            {releases.map((release, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -93,154 +119,204 @@ export function Music() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={cn(
-                  "group relative p-8 rounded-2xl transition-all duration-300",
-                  "glass border backdrop-blur-md hover:scale-[1.02]",
+                  "group relative overflow-hidden rounded-2xl p-8",
+                  "backdrop-blur-sm border transition-all duration-500",
+                  "hover:scale-[1.01]",
                   theme === "night" 
-                    ? "border-white/10 hover:border-lavaGlow/30" 
-                    : "border-black/10 hover:border-aquaMist/50",
-                  activeTrack === index && "ring-2 ring-primary/50"
+                    ? "bg-white/5 border-white/10 hover:bg-white/10" 
+                    : "bg-white/80 border-white shadow-xl hover:shadow-2xl"
                 )}
               >
-                {/* Status Badge */}
-                <div className="absolute top-4 right-4">
-                  <span className={cn(
-                    "px-3 py-1 rounded-full text-xs font-medium",
-                    track.status === "Coming Soon" 
-                      ? theme === "night" ? "bg-lavaGlow/20 text-lavaGlow" : "bg-aquaMist/20 text-aquaMist"
-                      : "bg-accent/20 text-accent"
-                  )}>
-                    {track.status}
-                  </span>
-                </div>
+                {/* Animated gradient background */}
+                <div className={cn(
+                  "absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500",
+                  "bg-gradient-to-br from-lilacHalo via-coral to-lavaGlow",
+                  "animate-gradient bg-[length:200%_200%]"
+                )} />
 
-                <div className="flex items-start gap-4">
-                  {/* Play Button */}
-                  <button
-                    onClick={() => {
-                      setActiveTrack(index);
-                      setIsPlaying(!isPlaying);
-                    }}
-                    className={cn(
-                      "w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300",
-                      "group-hover:scale-110",
-                      theme === "night" 
-                        ? "bg-gradient-to-br from-lavaGlow to-coral" 
-                        : "bg-gradient-to-br from-aquaMist to-primary"
-                    )}
-                  >
-                    {isPlaying && activeTrack === index ? (
-                      <Pause className="w-6 h-6 text-white" />
-                    ) : (
-                      <Play className="w-6 h-6 text-white ml-1" />
-                    )}
-                  </button>
-
-                  {/* Track Info */}
-                  <div className="flex-1">
-                    <h4 className="font-playfair text-2xl font-bold mb-1">
-                      {track.title}
-                    </h4>
-                    <p className="text-sm text-foreground/60 mb-2">
-                      {track.type} • {track.genre}
-                    </p>
-                    <p className="text-foreground/80 mb-4">
-                      {track.description}
-                    </p>
-                    <div className="flex items-center gap-4 text-sm text-foreground/60">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {track.releaseDate}
-                      </span>
+                <div className="relative">
+                  {/* Header */}
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h4 className="font-playfair text-2xl mb-1">
+                        {release.title}
+                      </h4>
+                      <p className="text-sm text-foreground/60">
+                        {release.type} • {release.genre}
+                      </p>
                     </div>
+                    <span className={cn(
+                      "px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm",
+                      theme === "night" 
+                        ? "bg-lavaGlow/20 text-lavaGlow border border-lavaGlow/30" 
+                        : "bg-coral/20 text-coral border border-coral/30"
+                    )}>
+                      {release.status}
+                    </span>
                   </div>
-                </div>
 
-                {/* Waveform visualization placeholder */}
-                <div className="mt-6 h-16 relative overflow-hidden rounded-lg bg-black/5">
-                  <div className="absolute inset-0 flex items-center justify-center gap-1">
-                    {[...Array(30)].map((_, i) => (
-                      <div
-                        key={i}
-                        className={cn(
-                          "w-1 bg-gradient-to-t rounded-full transition-all duration-300",
-                          theme === "night" 
-                            ? "from-lavaGlow/50 to-lavaGlow" 
-                            : "from-aquaMist/50 to-aquaMist",
-                          isPlaying && activeTrack === index ? "animate-pulse" : ""
-                        )}
-                        style={{
-                          height: `${Math.random() * 100}%`,
-                          animationDelay: `${i * 0.05}s`
-                        }}
-                      />
-                    ))}
+                  <p className="text-foreground/70 mb-6 italic">
+                    "{release.description}"
+                  </p>
+
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-2 text-sm text-foreground/50">
+                      <Calendar className="w-4 h-4" />
+                      {release.releaseDate}
+                    </span>
+                    <button className={cn(
+                      "flex items-center gap-2 px-4 py-2 rounded-full text-sm",
+                      "backdrop-blur-sm border transition-all duration-300",
+                      "hover:scale-105 active:scale-95",
+                      theme === "night"
+                        ? "bg-white/5 border-white/20 hover:bg-white/10"
+                        : "bg-black/5 border-black/20 hover:bg-black/10"
+                    )}>
+                      <Headphones className="w-4 h-4" />
+                      Notify Me
+                    </button>
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Live Performances */}
+        {/* Videos Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass border backdrop-blur-md rounded-2xl p-8 md:p-12"
+          transition={{ duration: 0.6 }}
+          className="mb-20"
         >
-          <h3 className="font-playfair text-2xl md:text-3xl font-bold mb-8 gradient-text">
-            Live Performances & Collaborations
+          <h3 className={cn(
+            "font-playfair text-2xl mb-8",
+            theme === "night" ? "text-white" : "text-midnightNavy"
+          )}>
+            Watch & Listen
           </h3>
 
-          {performances.map((performance, index) => (
-            <div key={index} className="mb-6 last:mb-0">
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                <h4 className="font-playfair text-xl font-bold">
-                  {performance.artist}
-                </h4>
-                <span className="text-sm text-foreground/60">
-                  {performance.years}
-                </span>
-              </div>
-              <p className="text-foreground/80 mb-1">{performance.role}</p>
-              <p className="text-sm text-foreground/60">{performance.description}</p>
-            </div>
-          ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {videos.map((video, index) => (
+              <motion.div
+                key={video.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative aspect-video rounded-xl overflow-hidden cursor-pointer"
+                onClick={() => setActiveVideo(video.id === activeVideo ? null : video.id)}
+              >
+                {activeVideo === video.id ? (
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
+                    title={video.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : (
+                  <>
+                    <img
+                      src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                      alt={video.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    
+                    {/* Play button */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className={cn(
+                        "w-14 h-14 rounded-full flex items-center justify-center",
+                        "backdrop-blur-sm border transition-all duration-300",
+                        "group-hover:scale-110",
+                        theme === "night"
+                          ? "bg-white/10 border-white/30"
+                          : "bg-white/80 border-white"
+                      )}>
+                        <Play className={cn(
+                          "w-6 h-6 ml-1",
+                          theme === "night" ? "text-white" : "text-midnightNavy"
+                        )} />
+                      </div>
+                    </div>
+                    
+                    {/* Video info */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h4 className="text-white font-medium mb-1">
+                        {video.title}
+                      </h4>
+                      <p className="text-white/70 text-sm">
+                        {video.composer} • {video.venue}
+                      </p>
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
-          {/* Call to Action */}
-          <div className="mt-8 pt-8 border-t border-foreground/10">
-            <p className="text-center text-foreground/70 mb-4">
-              Follow my musical journey
-            </p>
-            <div className="flex justify-center gap-4">
-              <a
-                href="https://instagram.com/slun_shine"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "p-3 rounded-full transition-all duration-300",
-                  "hover:scale-110",
-                  theme === "night" 
-                    ? "bg-white/10 hover:bg-white/20" 
-                    : "bg-black/5 hover:bg-black/10"
-                )}
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href="https://open.spotify.com/user/akartu113?si=e0ed233e08044e48"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "p-3 rounded-full transition-all duration-300",
-                  "hover:scale-110",
-                  theme === "night" 
-                    ? "bg-white/10 hover:bg-white/20" 
-                    : "bg-black/5 hover:bg-black/10"
-                )}
-              >
-                <Music2 className="w-5 h-5" />
-              </a>
+        {/* Current Work */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className={cn(
+            "relative rounded-3xl p-8 md:p-12 overflow-hidden",
+            "backdrop-blur-md border",
+            theme === "night" 
+              ? "bg-gradient-to-br from-white/5 to-white/10 border-white/20" 
+              : "bg-gradient-to-br from-white/90 to-white/70 border-white shadow-2xl"
+          )}
+        >
+          {/* Decorative element */}
+          <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br from-lilacHalo/10 to-coral/10 blur-3xl" />
+          
+          <div className="relative grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="font-playfair text-2xl mb-4">
+                On Stage & In Studio
+              </h3>
+              <p className="text-foreground/70 mb-4">
+                Currently performing with Bulgarian indie artist Mila Robert as pianist 
+                and backing vocalist. Five years of touring, recording, and creating magic together.
+              </p>
+              <div className="flex gap-4">
+                <a
+                  href="https://instagram.com/slun_shine"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    "flex items-center gap-2 px-4 py-2 rounded-full text-sm",
+                    "backdrop-blur-sm border transition-all duration-300",
+                    "hover:scale-105 active:scale-95",
+                    theme === "night"
+                      ? "bg-white/5 border-white/20 hover:bg-white/10"
+                      : "bg-black/5 border-black/20 hover:bg-black/10"
+                  )}
+                >
+                  <Instagram className="w-4 h-4" />
+                  Follow
+                </a>
+              </div>
+            </div>
+            
+            <div className="flex justify-center md:justify-end">
+              <div className={cn(
+                "relative w-48 h-48 rounded-2xl overflow-hidden",
+                "ring-4",
+                theme === "night" ? "ring-white/10" : "ring-black/10"
+              )}>
+                <div className="absolute inset-0 bg-gradient-to-br from-lilacHalo/20 to-coral/20" />
+                <img
+                  src="/images/mila-concert.jpg"
+                  alt="Performing with Mila Robert"
+                  className="w-full h-full object-cover mix-blend-overlay"
+                />
+              </div>
             </div>
           </div>
         </motion.div>
