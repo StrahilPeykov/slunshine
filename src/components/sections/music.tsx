@@ -314,7 +314,7 @@ export function Music() {
                 <img
                   src="/images/mila-concert.webp"
                   alt="Performing with Mila Robert"
-                  className="w-full h-full object-cover mix-blend-overlay"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
