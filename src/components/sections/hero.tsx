@@ -196,15 +196,16 @@ export function Hero() {
             className="mb-10"
           >
             <div className={cn(
-              "inline-flex items-center gap-3 px-6 py-3 rounded-full",
-              "backdrop-blur-xl border",
+              "group inline-flex items-center gap-3 px-6 py-3 rounded-full",
+              "backdrop-blur-xl border transition-all duration-300",
               theme === "night" 
-                ? "bg-black/30 border-white/20 text-white" 
-                : "bg-white/80 backdrop-blur-sm border-white text-midnightNavy shadow-lg"
+                ? "bg-black/30 border-white/20 text-white hover:bg-black/40" 
+                : "bg-white/80 backdrop-blur-sm border-white text-midnightNavy shadow-lg hover:shadow-xl"
             )}>
               <span className="relative flex h-2 w-2">
                 <span className={cn(
-                  "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
+                  "absolute inline-flex h-full w-full rounded-full opacity-0 group-hover:opacity-75",
+                  "group-hover:animate-ping transition-opacity duration-300",
                   theme === "night" ? "bg-lavaGlow" : "bg-coral"
                 )} />
                 <span className={cn(
@@ -229,21 +230,25 @@ export function Hero() {
               href="#music"
               className={cn(
                 "group relative px-10 py-4 rounded-full font-inter font-medium overflow-hidden",
-                "transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]",
+                "transition-all duration-500 transform hover:scale-[1.02] active:scale-[0.98]",
                 "text-white shadow-xl"
               )}
             >
-              {/* Gradient background */}
+              {/* Static gradient background */}
               <span className={cn(
-                "absolute inset-0 -z-10",
+                "absolute inset-0 -z-10 transition-all duration-500",
                 theme === "night"
-                  ? "bg-gradient-to-r from-lavaGlow via-coral to-lavaGlow bg-[length:200%_100%] animate-gradient"
-                  : "bg-gradient-to-r from-coral via-lavaGlow to-coral bg-[length:200%_100%] animate-gradient"
+                  ? "bg-gradient-to-r from-lavaGlow to-coral group-hover:from-coral group-hover:to-lavaGlow"
+                  : "bg-gradient-to-r from-coral to-lavaGlow group-hover:from-lavaGlow group-hover:to-coral"
               )} />
-              {/* Glass overlay on hover */}
-              <span className="absolute inset-0 -z-10 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
+              {/* Subtle shimmer on hover */}
+              <span className={cn(
+                "absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700",
+                "bg-gradient-to-r from-transparent via-white/20 to-transparent",
+                "translate-x-[-100%] group-hover:translate-x-[100%] group-hover:transition-transform group-hover:duration-1000"
+              )} />
               <span className="flex items-center gap-3 justify-center">
-                <Play className="w-5 h-5" />
+                <Play className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                 Listen to My Music
               </span>
             </a>
@@ -266,39 +271,27 @@ export function Hero() {
       </div>
 
       {/* Custom Scroll Indicator */}
-      <motion.a
+      <a
         href="#music"
-        className="absolute left-1/2 -translate-x-1/2 bottom-8 cursor-pointer group"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        className={cn(
+          "absolute left-1/2 -translate-x-1/2 bottom-8 z-20",
+          "block w-[30px] h-[50px] rounded-full border-2",
+          "flex items-center justify-center cursor-pointer group",
+          "transition-all duration-300 hover:scale-110 active:scale-95",
+          "animate-bounce pointer-events-auto",
+          theme === "night" 
+            ? "border-white/40 hover:border-white/60" 
+            : "border-white/80 bg-white/20 backdrop-blur-sm hover:bg-white/30"
+        )}
+        style={{ pointerEvents: 'auto' }}
       >
+        {/* Simple scroll dot */}
         <div className={cn(
-          "relative w-[30px] h-[50px] rounded-full border-2 flex items-center justify-center overflow-hidden",
-          theme === "night" ? "border-white/40" : "border-white bg-white/20 backdrop-blur-sm"
-        )}>
-          {/* Harp-inspired scroll indicator */}
-          <motion.svg
-            width="16"
-            height="30"
-            viewBox="0 0 16 30"
-            className={cn(
-              "absolute",
-              theme === "night" ? "text-white/60" : "text-white"
-            )}
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <path
-              d="M8 0 L8 20 M4 16 L8 20 L12 16"
-              stroke="currentColor"
-              strokeWidth="2"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </motion.svg>
-        </div>
-      </motion.a>
+          "w-1 h-3 rounded-full transition-all duration-300",
+          "group-hover:h-4 pointer-events-none",
+          theme === "night" ? "bg-white/70 group-hover:bg-white" : "bg-white"
+        )} />
+      </a>
     </section>
   );
 }
