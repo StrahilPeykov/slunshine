@@ -42,8 +42,8 @@ export function Lessons() {
 
   const createParticle = (e: React.MouseEvent, emoji: string) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = e.clientX;  // Use absolute viewport coordinates
+    const y = e.clientY;  // Use absolute viewport coordinates
     
     const newParticle = {
       id: particleIdRef.current++,
