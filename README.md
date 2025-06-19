@@ -174,9 +174,3 @@ This project is private and proprietary. All rights reserved.
 - **Developer & Designer**: Strahil Peykov
 - **Photography**: Various performance venues
 - **Fonts**: Google Fonts (Playfair Display, Inter, Cormorant Upright)
-
-## Support
-
-For technical issues or questions about the website:
-- Contact: [developer-email]
-- Issues: Use GitHub Issues for bug reports
