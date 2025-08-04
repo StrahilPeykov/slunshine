@@ -25,6 +25,24 @@
   --color-coral: rgb(255 136 117);
 }
 
+/* Scrollbar utilities */
+.scrollbar-hide {
+  /* Hide scrollbar for WebKit browsers */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+/* Smooth horizontal scroll */
+.scroll-smooth-x {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
 /* Prevent horizontal scroll globally */
 html, body {
   overflow-x: hidden;

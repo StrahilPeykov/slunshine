@@ -182,7 +182,7 @@ export function Music() {
           </div>
         </motion.div>
 
-        {/* Videos Grid */}
+        {/* Videos Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -197,10 +197,80 @@ export function Music() {
             Watch & Listen
           </h3>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Mobile Carousel */}
+          <div className="md:hidden">
+            <div className="overflow-x-auto scrollbar-hide scroll-smooth-x -mx-4 px-4">
+              <div 
+                className="flex gap-4 pb-4" 
+                style={{ width: 'fit-content', scrollSnapType: 'x mandatory' }}
+              >
+                {videos.map((video, index) => (
+                  <motion.div
+                    key={`mobile-${video.id}`}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="group relative aspect-video rounded-xl overflow-hidden cursor-pointer flex-shrink-0 w-80"
+                    onClick={() => setActiveVideo(video.id === activeVideo ? null : video.id)}
+                    style={{ scrollSnapAlign: 'start' }}
+                  >
+                    {activeVideo === video.id ? (
+                      <iframe
+                        className="absolute inset-0 w-full h-full"
+                        src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
+                        title={video.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <>
+                        <img
+                          src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                          alt={video.title}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        
+                        {/* Play button */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className={cn(
+                            "w-14 h-14 rounded-full flex items-center justify-center",
+                            "backdrop-blur-sm border transition-all duration-300",
+                            "group-hover:scale-110",
+                            theme === "night"
+                              ? "bg-white/10 border-white/30"
+                              : "bg-white/80 border-white"
+                          )}>
+                            <Play className={cn(
+                              "w-6 h-6 ml-1",
+                              theme === "night" ? "text-white" : "text-midnightNavy"
+                            )} />
+                          </div>
+                        </div>
+                        
+                        {/* Video info */}
+                        <div className="absolute bottom-0 left-0 right-0 p-4">
+                          <h4 className="text-white font-medium mb-1">
+                            {video.title}
+                          </h4>
+                          <p className="text-white/70 text-sm">
+                            {video.composer} • {video.venue}
+                          </p>
+                        </div>
+                      </>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video, index) => (
               <motion.div
-                key={video.id}
+                key={`desktop-${video.id}`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
