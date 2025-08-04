@@ -28,7 +28,7 @@ export function Lessons() {
     },
     {
       icon: Sparkles,
-      title: "Harmony & Theory",
+      title: "Music Theory",
       description: "Understand the language of music",
       gradient: "from-lavaGlow to-lilacHalo",
       emoji: "✨"
@@ -218,7 +218,7 @@ export function Lessons() {
                   &ldquo;Ally makes complex theory feel like discovering hidden treasures in music&rdquo;
                 </p>
                 <p className="text-xs text-foreground/50">
-                  — Maria, harmony student
+                  — Maria, theory student
                 </p>
               </div>
             </div>

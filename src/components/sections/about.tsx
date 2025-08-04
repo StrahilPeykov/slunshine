@@ -84,7 +84,7 @@ export function About() {
               </p>
 
               <p className="leading-relaxed text-foreground/70">
-                Today I split my time between a few different things: performing live with Mila Robert, teaching harmony and technique  
+                Today I split my time between a few different things: performing live with Mila Robert, teaching music theory and technique  
                 to students of all ages, and researching new textures for my own compositions.
               </p>
 
