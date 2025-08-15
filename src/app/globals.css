@@ -290,3 +290,192 @@ h1, h2, h3, h4, h5, h6 {
   pointer-events: none;
   animation: particle-fall 0.8s ease-out forwards;
 }
+
+/* Musical Moments specific styles */
+.musical-moments-masonry {
+  column-count: 1;
+  column-gap: 1.5rem;
+  orphans: 1;
+  widows: 1;
+}
+
+@media (min-width: 768px) {
+  .musical-moments-masonry {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .musical-moments-masonry {
+    column-count: 3;
+  }
+}
+
+.musical-moments-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Video player enhancements */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.3) 80%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+/* Mood-based gradients for musical moments */
+.mood-serene {
+  background: linear-gradient(135deg, #e0f2f1 0%, #fff3e0 100%);
+}
+
+.mood-focused {
+  background: linear-gradient(135deg, #f3e5f5 0%, #fce4ec 100%);
+}
+
+.mood-anticipation {
+  background: linear-gradient(135deg, #e8eaf6 0%, #f3e5f5 100%);
+}
+
+.mood-joyful {
+  background: linear-gradient(135deg, #e8f5e8 0%, #e0f2f1 100%);
+}
+
+.mood-ethereal {
+  background: linear-gradient(135deg, #e3f2fd 0%, #e0f7fa 100%);
+}
+
+.mood-harmonious {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+}
+
+[data-theme="night"] .mood-serene {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
+}
+
+[data-theme="night"] .mood-focused {
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.1) 0%, rgba(233, 30, 99, 0.1) 100%);
+}
+
+[data-theme="night"] .mood-anticipation {
+  background: linear-gradient(135deg, rgba(63, 81, 181, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
+}
+
+[data-theme="night"] .mood-joyful {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(0, 150, 136, 0.1) 100%);
+}
+
+[data-theme="night"] .mood-ethereal {
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(0, 188, 212, 0.1) 100%);
+}
+
+[data-theme="night"] .mood-harmonious {
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(255, 91, 91, 0.1) 100%);
+}
+
+/* Musical moments hover effects */
+.moment-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.moment-card:hover {
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 15px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="night"] .moment-card:hover {
+  box-shadow: 
+    0 20px 40px rgba(255, 71, 87, 0.1),
+    0 15px 12px rgba(201, 168, 255, 0.05);
+}
+
+/* Filter animation */
+.filter-slide-in {
+  animation: filterSlideIn 0.3s ease-out forwards;
+}
+
+@keyframes filterSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered animation for moments grid */
+.moment-stagger {
+  animation: momentStagger 0.6s ease-out forwards;
+}
+
+@keyframes momentStagger {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Enhanced focus states for accessibility */
+.moment-card:focus,
+.filter-button:focus {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 2px;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* TikTok-style scroll snap */
+.snap-y {
+  scroll-snap-type: y mandatory;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+.snap-center {
+  scroll-snap-align: center;
+}
+
+/* Smooth scrolling for moments */
+.moments-scroll {
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
