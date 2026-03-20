@@ -13,7 +13,7 @@
   --color-card-foreground: rgb(14 26 42);
   --color-primary: rgb(255 136 117);
   --color-primary-foreground: rgb(14 26 42);
-  --color-accent: rgb(201 168 255);
+  --color-accent: rgb(255 214 230);
   --color-accent-foreground: rgb(14 26 42);
   
   /* Custom colors */
@@ -23,6 +23,7 @@
   --color-lava-glow: rgb(255 71 87);
   --color-lilac-halo: rgb(201 168 255);
   --color-coral: rgb(255 136 117);
+  --color-baby-pink: rgb(255 214 230);
 }
 
 /* Scrollbar utilities */
@@ -57,7 +58,7 @@ html, body {
   --card-foreground: 14 26 42;
   --primary: 255 136 117;
   --primary-foreground: 14 26 42;
-  --accent: 201 168 255;
+  --accent: 255 214 230;
   --accent-foreground: 14 26 42;
 }
 
@@ -171,6 +172,8 @@ h1, h2, h3, h4, h5, h6 {
 .text-lilacHalo { color: rgb(201 168 255) !important; }
 .bg-coral { background-color: rgb(255 136 117) !important; }
 .text-coral { color: rgb(255 136 117) !important; }
+.bg-babyPink { background-color: rgb(255 214 230) !important; }
+.text-babyPink { color: rgb(255 214 230) !important; }
 
 /* Font utilities */
 .font-cormorant {

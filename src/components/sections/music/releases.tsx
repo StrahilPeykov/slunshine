@@ -58,7 +58,7 @@ export function Releases({ releases }: ReleasesProps) {
             <div
               className={cn(
                 "absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500",
-                "bg-gradient-to-br from-lilacHalo via-coral to-lavaGlow",
+                "bg-gradient-to-br from-babyPink via-coral to-lavaGlow",
                 "animate-gradient bg-[length:200%_200%]",
               )}
             />
@@ -76,7 +76,7 @@ export function Releases({ releases }: ReleasesProps) {
                     "px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm",
                     theme === "night"
                       ? "bg-lavaGlow/20 text-lavaGlow border border-lavaGlow/30"
-                      : "bg-coral/20 text-coral border border-coral/30",
+                      : "bg-babyPink/70 text-midnightNavy border border-babyPink/80",
                   )}
                 >
                   {release.status}
@@ -98,7 +98,7 @@ export function Releases({ releases }: ReleasesProps) {
                     "hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                     theme === "night"
                       ? "bg-white/5 border-white/20 hover:bg-white/10"
-                      : "bg-black/5 border-black/20 hover:bg-black/10",
+                      : "bg-babyPink/70 border-babyPink/90 hover:bg-babyPink text-midnightNavy",
                   )}
                   aria-label={`Notify me when ${release.title} is released`}
                 >

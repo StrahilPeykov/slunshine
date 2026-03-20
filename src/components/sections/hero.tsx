@@ -190,7 +190,7 @@ export function Hero() {
               "backdrop-blur-xl border transition-all duration-300",
               theme === "night" 
                 ? "bg-black/30 border-white/20 text-white hover:bg-black/40" 
-                : "bg-white/80 backdrop-blur-sm border-white text-midnightNavy shadow-lg hover:shadow-xl"
+                : "bg-white/88 border-white/95 text-midnightNavy shadow-[0_10px_35px_rgba(14,26,42,0.35)] hover:bg-white"
             )}>
               <span className="relative flex h-2 w-2">
                 <span className={cn(
@@ -222,7 +222,8 @@ export function Hero() {
                 "group relative px-10 py-4 rounded-full font-inter font-medium overflow-hidden",
                 "transition-all duration-500 transform hover:scale-[1.02] active:scale-[0.98]",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
-                "text-white shadow-xl"
+                "shadow-xl",
+                theme === "night" ? "text-white" : "text-midnightNavy"
               )}
             >
               {/* Static gradient background */}
@@ -230,7 +231,7 @@ export function Hero() {
                 "absolute inset-0 -z-10 transition-all duration-500",
                 theme === "night"
                   ? "bg-gradient-to-r from-lavaGlow to-coral group-hover:from-coral group-hover:to-lavaGlow"
-                  : "bg-gradient-to-r from-coral to-lavaGlow group-hover:from-lavaGlow group-hover:to-coral"
+                  : "bg-gradient-to-r from-white/95 via-white/90 to-white/85 group-hover:from-white group-hover:via-babyPink/35 group-hover:to-white"
               )} />
               {/* Subtle shimmer on hover */}
               <span className={cn(
@@ -239,7 +240,10 @@ export function Hero() {
                 "translate-x-[-100%] group-hover:translate-x-[100%] group-hover:transition-transform group-hover:duration-1000"
               )} />
               <span className="flex items-center gap-3 justify-center">
-                <Play className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                <Play className={cn(
+                  "w-5 h-5 group-hover:scale-110 transition-transform duration-300",
+                  theme === "night" ? "text-white" : "text-midnightNavy"
+                )} />
                 {heroCopy.primaryCta}
               </span>
             </a>
@@ -253,7 +257,7 @@ export function Hero() {
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 theme === "night" 
                   ? "bg-white/10 border-white/30 hover:bg-white/20 text-white" 
-                  : "bg-white/80 border-white hover:bg-white/90 text-midnightNavy"
+                  : "bg-white/72 border-white/90 hover:bg-white/92 text-midnightNavy shadow-[0_10px_30px_rgba(14,26,42,0.28)]"
               )}
             >
               {heroCopy.secondaryCta}

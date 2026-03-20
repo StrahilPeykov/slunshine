@@ -67,7 +67,7 @@ export function SamplesPage() {
 
       <main className="relative overflow-hidden pt-28 pb-20 px-4">
         <div className="pointer-events-none absolute -top-14 left-[-8%] w-80 h-80 rounded-full bg-lilacHalo/20 blur-3xl" />
-        <div className="pointer-events-none absolute top-[30%] right-[-10%] w-96 h-96 rounded-full bg-coral/20 blur-3xl" />
+        <div className="pointer-events-none absolute top-[30%] right-[-10%] w-96 h-96 rounded-full bg-babyPink/35 blur-3xl" />
 
         <section className="container mx-auto max-w-7xl">
           <header className="max-w-4xl space-y-4 mb-8">
@@ -93,8 +93,8 @@ export function SamplesPage() {
                     "rounded-full border px-4 py-1.5 text-sm transition-colors",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                     isActive
-                      ? "border-midnightNavy bg-midnightNavy text-white"
-                      : "border-foreground/15 bg-background text-foreground/75 hover:bg-foreground/5",
+                      ? "border-babyPink bg-babyPink text-midnightNavy"
+                      : "border-foreground/15 bg-background text-foreground/75 hover:bg-babyPink/40",
                   )}
                 >
                   {category}
@@ -131,8 +131,8 @@ export function SamplesPage() {
                     </p>
                   </div>
 
-                  <div className="h-10 w-full rounded-full border border-foreground/20 bg-background px-3 py-2">
-                    <div className="h-full w-full rounded-full bg-foreground/30" />
+                  <div className="h-10 w-full rounded-full border border-babyPink/80 bg-background px-3 py-2">
+                    <div className="h-full w-full rounded-full bg-babyPink" />
                   </div>
 
                   <div className="text-sm text-foreground">
@@ -149,8 +149,8 @@ export function SamplesPage() {
                         "border border-foreground/25 transition-colors duration-200",
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                         isPlaying
-                          ? "bg-foreground text-background"
-                            : "bg-background text-foreground hover:bg-foreground/10",
+                          ? "bg-babyPink text-midnightNavy border-babyPink"
+                            : "bg-background text-foreground hover:bg-babyPink/40",
                       )}
                     >
                       {isPlaying ? (

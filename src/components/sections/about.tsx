@@ -70,7 +70,7 @@ export function About() {
             {/* Decorative elements */}
             <div className={cn(
               "absolute -bottom-6 -right-6 w-32 h-32 rounded-full blur-3xl -z-10",
-              theme === "night" ? "bg-lilacHalo/30" : "bg-coral/30"
+              theme === "night" ? "bg-lilacHalo/30" : "bg-babyPink/45"
             )} />
             <div className={cn(
               "absolute -top-6 -left-6 w-24 h-24 rounded-full blur-2xl -z-10",
@@ -129,7 +129,7 @@ export function About() {
                 "mt-10 p-6 rounded-2xl",
                 theme === "night" 
                   ? "bg-gradient-to-br from-white/5 to-white/10 border border-white/10"
-                  : "bg-gradient-to-br from-coral/5 to-lilacHalo/5 border border-black/5"
+                  : "bg-gradient-to-br from-babyPink/20 to-coral/10 border border-babyPink/50"
               )}
             >
               <h3 className="font-playfair text-xl mb-3">Currently</h3>
@@ -139,7 +139,7 @@ export function About() {
                     <span
                       className={cn(
                         "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
-                        theme === "night" ? "bg-lilacHalo" : "bg-coral",
+                        theme === "night" ? "bg-lilacHalo" : "bg-babyPink",
                       )}
                     />
                     <span>{item}</span>

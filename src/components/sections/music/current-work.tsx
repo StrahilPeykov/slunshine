@@ -21,10 +21,10 @@ export function CurrentWork() {
         "backdrop-blur-md border",
         theme === "night"
           ? "bg-gradient-to-br from-white/5 to-white/10 border-white/20"
-          : "bg-gradient-to-br from-white/90 to-white/70 border-white shadow-2xl",
+          : "bg-gradient-to-br from-white/90 via-babyPink/35 to-white/70 border-white shadow-2xl",
       )}
     >
-      <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br from-lilacHalo/10 to-coral/10 blur-3xl" />
+      <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br from-babyPink/30 to-coral/15 blur-3xl" />
 
       <div className="relative grid md:grid-cols-2 gap-8 items-center">
         <div>
@@ -38,10 +38,10 @@ export function CurrentWork() {
             className={cn(
               "relative w-48 h-48 rounded-2xl overflow-hidden",
               "ring-4",
-              theme === "night" ? "ring-white/10" : "ring-black/10",
+              theme === "night" ? "ring-white/10" : "ring-babyPink/70",
             )}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-lilacHalo/20 to-coral/20" />
+            <div className="absolute inset-0 bg-gradient-to-br from-babyPink/40 to-coral/20" />
             <Image
               src="/images/mila-concert.webp"
               alt={musicCurrentWorkCopy.imageAlt}

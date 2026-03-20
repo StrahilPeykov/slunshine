@@ -18,7 +18,7 @@ export function Contact() {
           "w-[600px] h-[600px] rounded-full blur-[200px]",
           theme === "night" 
             ? "bg-gradient-to-br from-lilacHalo/30 via-transparent to-lavaGlow/30" 
-            : "bg-gradient-to-br from-coral/20 via-transparent to-aquaMist/20"
+            : "bg-gradient-to-br from-babyPink/35 via-transparent to-aquaMist/20"
         )} />
       </div>
 
@@ -67,7 +67,7 @@ export function Contact() {
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 theme === "night" 
                   ? "bg-gradient-to-br from-white/5 via-white/10 to-white/5 border-white/20 hover:border-white/30" 
-                  : "bg-gradient-to-br from-white/90 via-white to-white/80 border-white/50 shadow-xl hover:shadow-3xl"
+                  : "bg-gradient-to-br from-white/90 via-babyPink/35 to-white/80 border-babyPink/60 shadow-xl hover:shadow-3xl"
               )}
             >
               {/* Flowing background animation */}
@@ -110,10 +110,10 @@ export function Contact() {
                 <div className={cn(
                   "inline-flex items-center gap-2 text-sm font-medium",
                   "px-4 py-2 rounded-full border",
-                  "group-hover:border-pink-400/50 transition-colors duration-300",
+                  "group-hover:border-babyPink transition-colors duration-300",
                   theme === "night" 
                     ? "text-lilacHalo border-white/20" 
-                    : "text-coral border-black/20"
+                    : "text-midnightNavy border-babyPink/80 bg-babyPink/55"
                 )}>
                   <span>{contactCopy.instagramCta}</span>
                   <motion.span 
@@ -137,7 +137,7 @@ export function Contact() {
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 theme === "night" 
                   ? "bg-gradient-to-br from-white/5 via-white/10 to-white/5 border-white/20 hover:border-white/30" 
-                  : "bg-gradient-to-br from-white/90 via-white to-white/80 border-white/50 shadow-xl hover:shadow-3xl"
+                  : "bg-gradient-to-br from-white/90 via-babyPink/35 to-white/80 border-babyPink/60 shadow-xl hover:shadow-3xl"
               )}
             >
               {/* Flowing background animation */}
@@ -145,7 +145,7 @@ export function Contact() {
                 "absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700",
                 theme === "night"
                   ? "bg-gradient-to-br from-lavaGlow/10 via-coral/10 to-aquaMist/10"
-                  : "bg-gradient-to-br from-coral/10 via-lilacHalo/10 to-aquaMist/10"
+                  : "bg-gradient-to-br from-babyPink/25 via-coral/10 to-aquaMist/10"
               )} />
               
               {/* Animated border glow */}
@@ -153,7 +153,7 @@ export function Contact() {
                 "absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500",
                 theme === "night"
                   ? "bg-gradient-to-r from-lavaGlow via-coral to-aquaMist p-[1px]"
-                  : "bg-gradient-to-r from-coral via-lilacHalo to-aquaMist p-[1px]",
+                  : "bg-gradient-to-r from-babyPink via-coral to-aquaMist p-[1px]",
                 "before:content-[''] before:absolute before:inset-[1px] before:rounded-3xl",
                 theme === "night" ? "before:bg-midnightNavy" : "before:bg-white"
               )} />
@@ -164,7 +164,7 @@ export function Contact() {
                   "w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center relative overflow-hidden",
                   theme === "night"
                     ? "bg-gradient-to-br from-lavaGlow to-coral"
-                    : "bg-gradient-to-br from-coral to-aquaMist"
+                    : "bg-gradient-to-br from-babyPink to-coral"
                 )}>
                   <SocialIcon platform="email" className="w-12 h-12 text-white relative z-10" />
                 </div>
@@ -186,10 +186,10 @@ export function Contact() {
                 <div className={cn(
                   "inline-flex items-center gap-2 text-sm font-medium",
                   "px-4 py-2 rounded-full border",
-                  "group-hover:border-coral/50 transition-colors duration-300",
+                  "group-hover:border-babyPink transition-colors duration-300",
                   theme === "night" 
                     ? "text-lilacHalo border-white/20" 
-                    : "text-coral border-black/20"
+                    : "text-midnightNavy border-babyPink/80 bg-babyPink/55"
                 )}>
                   <span>{contactCopy.emailCta}</span>
                   <motion.span 

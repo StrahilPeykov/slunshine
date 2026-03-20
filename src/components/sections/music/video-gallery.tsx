@@ -116,7 +116,7 @@ function VideoCardBody({
             "w-14 h-14 rounded-full flex items-center justify-center",
             "backdrop-blur-sm border transition-all duration-300",
             "group-hover:scale-110",
-            theme === "night" ? "bg-white/10 border-white/30" : "bg-white/80 border-white",
+            theme === "night" ? "bg-white/10 border-white/30" : "bg-babyPink/85 border-babyPink",
           )}
         >
           <Play className={cn("w-6 h-6 ml-1", theme === "night" ? "text-white" : "text-midnightNavy")} />

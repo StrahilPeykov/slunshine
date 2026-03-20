@@ -88,7 +88,7 @@ export function Lessons() {
       <div className="absolute inset-0 -z-10">
         <div className={cn(
           "absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[150px] opacity-10",
-          theme === "night" ? "bg-lilacHalo" : "bg-coral"
+          theme === "night" ? "bg-lilacHalo" : "bg-babyPink"
         )} />
       </div>
 
@@ -196,7 +196,7 @@ export function Lessons() {
               "backdrop-blur-md border",
               theme === "night"
                 ? "bg-gradient-to-br from-white/5 to-white/10 border-white/20"
-                : "bg-gradient-to-br from-white/90 to-white/70 border-white shadow-2xl"
+                : "bg-gradient-to-br from-white/90 via-babyPink/40 to-white/70 border-white shadow-2xl"
             )}
           >
             {/* Decorative element */}
@@ -223,7 +223,7 @@ export function Lessons() {
                       "w-8 h-8 rounded-full flex items-center justify-center",
                       theme === "night"
                         ? "bg-white/10"
-                        : "bg-midnightNavy/10"
+                        : "bg-babyPink"
                     )}>
                       <Icon className={cn(
                         "w-4 h-4",

@@ -293,7 +293,7 @@ export const lessonOfferings: ReadonlyArray<LessonOffering> = [
     id: "harp",
     title: "Harp",
     description: "From first touch to concert stage",
-    gradient: "from-lilacHalo to-coral",
+    gradient: "from-babyPink to-coral",
   },
   {
     id: "piano",
@@ -305,7 +305,7 @@ export const lessonOfferings: ReadonlyArray<LessonOffering> = [
     id: "music-theory",
     title: "Music Theory",
     description: "Understand the language of music",
-    gradient: "from-lavaGlow to-lilacHalo",
+    gradient: "from-lavaGlow to-babyPink",
   },
 ];
 
@@ -366,7 +366,7 @@ export const soundSamples: ReadonlyArray<SoundSampleItem> = [
     previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     locked: true,
     shape: "orb",
-    gradient: "from-lilacHalo/70 via-coral/50 to-aquaMist/70",
+    gradient: "from-babyPink/80 via-coral/50 to-aquaMist/70",
   },
   {
     id: "glass-vocal-pad",
@@ -378,7 +378,7 @@ export const soundSamples: ReadonlyArray<SoundSampleItem> = [
     previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
     locked: true,
     shape: "petal",
-    gradient: "from-coral/70 via-lavaGlow/50 to-lilacHalo/70",
+    gradient: "from-coral/70 via-lavaGlow/50 to-babyPink/75",
   },
   {
     id: "nocturne-pulse",
@@ -390,7 +390,7 @@ export const soundSamples: ReadonlyArray<SoundSampleItem> = [
     previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
     locked: true,
     shape: "drip",
-    gradient: "from-aquaMist/70 via-lilacHalo/50 to-coral/70",
+    gradient: "from-aquaMist/70 via-babyPink/60 to-coral/70",
   },
   {
     id: "chamber-lullaby",
@@ -402,6 +402,6 @@ export const soundSamples: ReadonlyArray<SoundSampleItem> = [
     previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
     locked: true,
     shape: "squircle",
-    gradient: "from-lavaGlow/65 via-coral/50 to-lilacHalo/70",
+    gradient: "from-lavaGlow/65 via-coral/50 to-babyPink/75",
   },
 ];
