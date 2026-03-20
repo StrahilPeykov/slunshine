@@ -31,9 +31,9 @@ export function MomentsScrollView({
   return (
     <div
       ref={scrollContainerRef}
-      className="h-[calc(100vh-200px)] overflow-y-auto snap-y snap-mandatory scrollbar-hide moments-scroll"
+      className="h-[calc(100dvh-240px)] md:h-[calc(100dvh-200px)] overflow-y-auto snap-y snap-mandatory scrollbar-hide moments-scroll"
     >
-      {moments.map((moment, index) => (
+      {moments.map((moment) => (
         <div
           key={moment.id}
           className="h-full min-h-0 snap-start relative flex items-center justify-center px-4"
@@ -67,7 +67,7 @@ export function MomentsScrollView({
               <div className={cn("absolute inset-0 opacity-20", `bg-gradient-to-br ${moment.color}`)} />
             </div>
 
-            <div className="absolute inset-0 flex flex-col justify-between p-6">
+            <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6">
               <div className="flex justify-between items-start">
                 <div className="flex flex-col gap-2">
                   <span className="px-3 py-1 rounded-full text-xs bg-black/40 text-white backdrop-blur-sm w-fit capitalize">
@@ -84,19 +84,19 @@ export function MomentsScrollView({
                   type="button"
                   onClick={() => onToggleVideo(moment.id)}
                   aria-label={playingVideo === moment.id ? "Pause moment" : "Play moment"}
-                  className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white/50 flex items-center justify-center hover:scale-110 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo"
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white/50 flex items-center justify-center hover:scale-110 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo"
                 >
                   {playingVideo === moment.id ? (
-                    <Pause className="w-8 h-8 text-white" />
+                    <Pause className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                   ) : (
-                    <Play className="w-8 h-8 ml-1 text-white" />
+                    <Play className="w-7 h-7 sm:w-8 sm:h-8 ml-1 text-white" />
                   )}
                 </button>
               </div>
 
-              <div className="space-y-3">
-                <h3 className="text-white text-xl font-playfair font-medium">{moment.title}</h3>
-                <p className="text-white/90 text-sm italic leading-relaxed">
+              <div className="space-y-2 sm:space-y-3">
+                <h3 className="text-white text-lg sm:text-xl font-playfair font-medium">{moment.title}</h3>
+                <p className="text-white/90 text-xs sm:text-sm italic leading-relaxed">
                   &ldquo;{moment.caption}&rdquo;
                 </p>
 

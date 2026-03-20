@@ -136,7 +136,7 @@ export function MomentsPage() {
     <div className="min-h-screen bg-background">
       <Navigation />
 
-      <div className="pt-20 pb-8 px-4">
+      <div className="pt-20 pb-[calc(2rem+env(safe-area-inset-bottom))] px-4">
         <div className="container mx-auto max-w-7xl">
           <MomentsHeader
             theme={theme}
