@@ -36,7 +36,12 @@ export function Navigation() {
   return (
     <nav
       aria-label="Primary"
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white border-b border-black/10 shadow-sm"
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        isScrolled
+          ? "bg-white/96 border-b border-black/5 shadow-sm"
+          : "bg-black/45"
+      )}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
@@ -53,7 +58,9 @@ export function Navigation() {
                 viewBox="0 0 180 50"
                 className={cn(
                   "transition-all duration-300",
-                  "text-midnightNavy"
+                  isScrolled
+                    ? "text-midnightNavy"
+                    : "text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.55)]"
                 )}
               >
                 <defs>
@@ -108,11 +115,13 @@ export function Navigation() {
                   "transition-colors duration-300",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo rounded-sm",
                   "hover:opacity-100",
-                  "text-midnightNavy/90 hover:text-midnightNavy",
+                  isScrolled
+                    ? "text-midnightNavy/90 hover:text-midnightNavy"
+                    : "text-white hover:text-white font-normal drop-shadow-[0_3px_10px_rgba(0,0,0,0.65)]",
                   "after:content-[''] after:absolute after:bottom-[-4px] after:left-0",
                   "after:w-0 after:h-[1px] after:transition-all after:duration-300",
                   "hover:after:w-full",
-                  "after:bg-coral",
+                  isScrolled ? "after:bg-coral" : "after:bg-white",
                 )}
               >
                 {link.label}
@@ -133,14 +142,26 @@ export function Navigation() {
                 "p-2.5 rounded-full transition-all duration-300",
                 "hover:scale-110 active:scale-95",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
-                "bg-babyPink/70 hover:bg-babyPink/90"
+                isScrolled
+                  ? "bg-babyPink/70 hover:bg-babyPink/90"
+                  : "bg-white/20 hover:bg-white/30"
               )}
               aria-label="Toggle theme"
             >
               {theme === "night" ? (
-                <Sun className="w-5 h-5 text-midnightNavy" />
+                <Sun
+                  className={cn(
+                    "w-5 h-5",
+                    isScrolled ? "text-midnightNavy" : "text-white"
+                  )}
+                />
               ) : (
-                <Moon className="w-5 h-5 text-midnightNavy" />
+                <Moon
+                  className={cn(
+                    "w-5 h-5",
+                    isScrolled ? "text-midnightNavy" : "text-white"
+                  )}
+                />
               )}
             </button>
 
@@ -152,14 +173,26 @@ export function Navigation() {
                 "md:hidden p-2.5 rounded-full transition-all duration-300",
                 "hover:scale-110 active:scale-95",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
-                "bg-babyPink/70 hover:bg-babyPink/90"
+                isScrolled
+                  ? "bg-babyPink/70 hover:bg-babyPink/90"
+                  : "bg-white/20 hover:bg-white/30"
               )}
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (
-                <X className="w-5 h-5 text-midnightNavy" />
+                <X
+                  className={cn(
+                    "w-5 h-5",
+                    isScrolled ? "text-midnightNavy" : "text-white"
+                  )}
+                />
               ) : (
-                <Menu className="w-5 h-5 text-midnightNavy" />
+                <Menu
+                  className={cn(
+                    "w-5 h-5",
+                    isScrolled ? "text-midnightNavy" : "text-white"
+                  )}
+                />
               )}
             </button>
           </motion.div>
