@@ -33,19 +33,7 @@ export function Hero() {
             sizes="100vw"
             className="absolute inset-0 md:hidden h-full w-full object-cover object-center"
           />
-          
-          {/* Gradient overlays */}
-          <div className={cn(
-            "absolute inset-0",
-            theme === "night" ? "bg-black/50" : "bg-gradient-to-br from-coral/10 to-transparent"
-          )} />
-          <div className={cn(
-            "absolute inset-0",
-            theme === "night" 
-              ? "bg-gradient-to-b from-midnightNavy/70 via-midnightNavy/80 to-midnightNavy/95" 
-              : "bg-gradient-to-b from-transparent via-white/20 to-white/60"
-          )} />
-          
+ 
           {/* Animated floating orbs */}
           <motion.div
             className={cn(
