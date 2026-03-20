@@ -132,45 +132,6 @@ h1, h2, h3, h4, h5, h6 {
   color: transparent;
 }
 
-.glass {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="night"] .glass {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.constellation-bg {
-  position: relative;
-}
-
-[data-theme="night"] .constellation-bg::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    radial-gradient(2px 2px at 20% 30%, white, transparent),
-    radial-gradient(2px 2px at 60% 70%, white, transparent),
-    radial-gradient(1px 1px at 50% 50%, white, transparent),
-    radial-gradient(1px 1px at 80% 20%, white, transparent);
-  background-size: 200% 200%;
-  opacity: 0.3;
-  pointer-events: none;
-  animation: drift 20s infinite linear;
-}
-
-@keyframes drift {
-  from { background-position: 0% 0%; }
-  to { background-position: 100% 100%; }
-}
-
 @keyframes gradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -181,60 +142,21 @@ h1, h2, h3, h4, h5, h6 {
   animation: gradient 4s ease infinite;
 }
 
-[data-theme="night"] .glow-text {
-  text-shadow: 
-    0 0 10px rgba(255, 71, 87, 0.5),
-    0 0 20px rgba(255, 71, 87, 0.3),
-    0 0 30px rgba(255, 71, 87, 0.2);
+@keyframes particle-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(28px) rotate(360deg);
+    opacity: 0;
+  }
 }
 
-.wave-underline {
-  position: relative;
-  display: inline-block;
-}
-
-.wave-underline::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, currentColor 20%, currentColor 80%, transparent);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.3s ease;
-}
-
-.wave-underline:hover::after {
-  transform: scaleX(1);
-}
-
-.ripple-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.ripple-container::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(142, 229, 224, 0.3) 0%, transparent 70%);
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-[data-theme="night"] .ripple-container::before {
-  background: radial-gradient(circle, rgba(255, 71, 87, 0.3) 0%, transparent 70%);
-}
-
-.ripple-container:hover::before {
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
+.particle {
+  position: fixed;
+  pointer-events: none;
+  animation: particle-fall 0.75s ease-out forwards;
 }
 
 /* Theme-specific custom colors */
@@ -259,184 +181,6 @@ h1, h2, h3, h4, h5, h6 {
 .small-caps {
   font-variant: small-caps;
   letter-spacing: 0.15em;
-}
-
-/* Subtle parallax for background elements */
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0) translateX(0); }
-  25% { transform: translateY(-10px) translateX(5px); }
-  50% { transform: translateY(-15px) translateX(-5px); }
-  75% { transform: translateY(-5px) translateX(3px); }
-}
-
-.animate-float-slow {
-  animation: float-slow 8s ease-in-out infinite;
-}
-
-/* Emoji trail particles */
-@keyframes particle-fall {
-  0% { 
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% { 
-    transform: translateY(30px) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-.particle {
-  position: fixed;
-  pointer-events: none;
-  animation: particle-fall 0.8s ease-out forwards;
-}
-
-/* Musical Moments specific styles */
-.musical-moments-masonry {
-  column-count: 1;
-  column-gap: 1.5rem;
-  orphans: 1;
-  widows: 1;
-}
-
-@media (min-width: 768px) {
-  .musical-moments-masonry {
-    column-count: 2;
-  }
-}
-
-@media (min-width: 1024px) {
-  .musical-moments-masonry {
-    column-count: 3;
-  }
-}
-
-.musical-moments-item {
-  break-inside: avoid;
-  margin-bottom: 1.5rem;
-  display: inline-block;
-  width: 100%;
-}
-
-/* Video player enhancements */
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    transparent 60%,
-    rgba(0, 0, 0, 0.3) 80%,
-    rgba(0, 0, 0, 0.8) 100%
-  );
-}
-
-/* Mood-based gradients for musical moments */
-.mood-serene {
-  background: linear-gradient(135deg, #e0f2f1 0%, #fff3e0 100%);
-}
-
-.mood-focused {
-  background: linear-gradient(135deg, #f3e5f5 0%, #fce4ec 100%);
-}
-
-.mood-anticipation {
-  background: linear-gradient(135deg, #e8eaf6 0%, #f3e5f5 100%);
-}
-
-.mood-joyful {
-  background: linear-gradient(135deg, #e8f5e8 0%, #e0f2f1 100%);
-}
-
-.mood-ethereal {
-  background: linear-gradient(135deg, #e3f2fd 0%, #e0f7fa 100%);
-}
-
-.mood-harmonious {
-  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
-}
-
-[data-theme="night"] .mood-serene {
-  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
-}
-
-[data-theme="night"] .mood-focused {
-  background: linear-gradient(135deg, rgba(156, 39, 176, 0.1) 0%, rgba(233, 30, 99, 0.1) 100%);
-}
-
-[data-theme="night"] .mood-anticipation {
-  background: linear-gradient(135deg, rgba(63, 81, 181, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
-}
-
-[data-theme="night"] .mood-joyful {
-  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(0, 150, 136, 0.1) 100%);
-}
-
-[data-theme="night"] .mood-ethereal {
-  background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(0, 188, 212, 0.1) 100%);
-}
-
-[data-theme="night"] .mood-harmonious {
-  background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(255, 91, 91, 0.1) 100%);
-}
-
-/* Musical moments hover effects */
-.moment-card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.moment-card:hover {
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 15px 12px rgba(0, 0, 0, 0.08);
-}
-
-[data-theme="night"] .moment-card:hover {
-  box-shadow: 
-    0 20px 40px rgba(255, 71, 87, 0.1),
-    0 15px 12px rgba(201, 168, 255, 0.05);
-}
-
-/* Filter animation */
-.filter-slide-in {
-  animation: filterSlideIn 0.3s ease-out forwards;
-}
-
-@keyframes filterSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Staggered animation for moments grid */
-.moment-stagger {
-  animation: momentStagger 0.6s ease-out forwards;
-}
-
-@keyframes momentStagger {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Enhanced focus states for accessibility */
-.moment-card:focus,
-.filter-button:focus {
-  outline: 2px solid rgb(var(--accent));
-  outline-offset: 2px;
 }
 
 /* Line clamp utilities */
@@ -478,4 +222,18 @@ h1, h2, h3, h4, h5, h6 {
 .moments-scroll {
   scroll-behavior: smooth;
   overscroll-behavior: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

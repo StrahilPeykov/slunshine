@@ -1,7 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useTheme } from "@/components/providers/theme-provider";
+import {
+  aboutCurrentItems,
+  aboutSectionCopy,
+  aboutStoryParagraphs,
+} from "@/content/site-content";
 import { cn } from "@/lib/utils";
 
 export function About() {
@@ -24,7 +30,7 @@ export function About() {
                 ? "text-white"
                 : "text-midnightNavy"
             )}>
-              The Story
+              {aboutSectionCopy.title}
             </span>
           </h2>
         </motion.div>
@@ -46,9 +52,11 @@ export function About() {
                 "bg-gradient-to-t from-black/20 via-transparent to-transparent"
               )} />
               
-              <img
+              <Image
                 src="/images/gallery/portrait-3.webp"
                 alt="Alexandrina"
+                width={900}
+                height={1300}
                 className="w-full h-auto object-cover"
               />
               
@@ -78,20 +86,17 @@ export function About() {
             transition={{ duration: 0.6 }}
           >
             <div className="space-y-6">
-              <p className="text-lg leading-relaxed text-foreground/80">
-                I picked up a harp at ten years old, and that set the course for everything that followed.  
-                From conservatory recitals to late-night club sets, each stage has shown me a different way music can fill a room.
-              </p>
-
-              <p className="leading-relaxed text-foreground/70">
-                Today I split my time between a few different things: performing live with Mila Robert, teaching music theory and technique  
-                to students of all ages, and researching new textures for my own compositions.
-              </p>
-
-              <p className="leading-relaxed text-foreground/70">
-                I&rsquo;m now finishing a PhD and recording my debut EP - harp lines layered with warm R&amp;B pads, because I believe  
-                tradition and experimentation belong together.
-              </p>
+              {aboutStoryParagraphs.map((paragraph, index) => (
+                <p
+                  key={paragraph}
+                  className={cn(
+                    "leading-relaxed",
+                    index === 0 ? "text-lg text-foreground/80" : "text-foreground/70",
+                  )}
+                >
+                  {paragraph}
+                </p>
+              ))}
             </div>
 
             {/* Current Focus */}
@@ -109,27 +114,17 @@ export function About() {
             >
               <h3 className="font-playfair text-xl mb-3">Currently</h3>
               <ul className="space-y-2 text-foreground/70">
-                <li className="flex items-start gap-2">
-                  <span className={cn(
-                    "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
-                    theme === "night" ? "bg-lilacHalo" : "bg-coral"
-                  )} />
-                  <span>Performing & touring as a professional musician</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className={cn(
-                    "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
-                    theme === "night" ? "bg-lilacHalo" : "bg-coral"
-                  )} />
-                  <span>Teaching harp, piano, and music theory</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className={cn(
-                    "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
-                    theme === "night" ? "bg-lilacHalo" : "bg-coral"
-                  )} />
-                  <span>Creating original music for upcoming releases</span>
-                </li>
+                {aboutCurrentItems.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span
+                      className={cn(
+                        "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
+                        theme === "night" ? "bg-lilacHalo" : "bg-coral",
+                      )}
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </motion.div>
           </motion.div>

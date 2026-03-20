@@ -20,7 +20,6 @@ export interface MusicalMoment {
   instrument?: string;
   mood: string;
   color: string;
-  tags?: string[];
   date: string;
 }
 
@@ -41,7 +40,6 @@ export const sampleMoments: MusicalMoment[] = [
     instrument: "Concert Harp",
     mood: "Serene",
     color: "from-amber-200 to-orange-300",
-    tags: ["classical", "meditation", "sunrise"],
     date: "2024-03-15",
   },
   {
@@ -57,7 +55,6 @@ export const sampleMoments: MusicalMoment[] = [
     instrument: "Salvi Harp",
     mood: "Focused",
     color: "from-purple-200 to-pink-300",
-    tags: ["technique", "tutorial", "classical"],
     date: "2024-03-12",
   },
   {
@@ -73,7 +70,6 @@ export const sampleMoments: MusicalMoment[] = [
     instrument: "Concert Harp",
     mood: "Anticipation",
     color: "from-indigo-200 to-purple-300",
-    tags: ["concert", "preparation", "backstage"],
     date: "2024-03-10",
   },
   {
@@ -89,7 +85,6 @@ export const sampleMoments: MusicalMoment[] = [
     instrument: "Student Harp",
     mood: "Joyful",
     color: "from-green-200 to-emerald-300",
-    tags: ["teaching", "student", "breakthrough"],
     date: "2024-03-08",
   },
   {
@@ -105,7 +100,6 @@ export const sampleMoments: MusicalMoment[] = [
     instrument: "Celtic Harp",
     mood: "Ethereal",
     color: "from-blue-200 to-cyan-300",
-    tags: ["improvisation", "creativity", "celtic"],
     date: "2024-03-05",
   },
   {
@@ -121,7 +115,6 @@ export const sampleMoments: MusicalMoment[] = [
     instrument: "Piano and Harp",
     mood: "Harmonious",
     color: "from-rose-200 to-pink-300",
-    tags: ["collaboration", "duo", "recording"],
     date: "2024-03-03",
   },
 ];
@@ -130,43 +123,36 @@ export const categories: ReadonlyArray<{
   id: MomentCategory | "all";
   label: string;
   icon: string;
-  description: string;
 }> = [
   {
     id: "all",
     label: "All Moments",
     icon: "✨",
-    description: "Every musical journey",
   },
   {
     id: "practice",
     label: "Practice",
     icon: "🎵",
-    description: "Daily dedication and growth",
   },
   {
     id: "performance",
     label: "Performance",
     icon: "🎭",
-    description: "Live music and stage moments",
   },
   {
     id: "teaching",
     label: "Teaching",
     icon: "👩‍🏫",
-    description: "Sharing knowledge and passion",
   },
   {
     id: "inspiration",
     label: "Inspiration",
     icon: "💫",
-    description: "Creative sparks and discoveries",
   },
   {
     id: "collaboration",
     label: "Collaborations",
     icon: "🤝",
-    description: "Musical partnerships and duets",
   },
 ];
 
@@ -174,31 +160,26 @@ export const timeFilters: ReadonlyArray<{
   id: TimeFilter;
   label: string;
   emoji: string;
-  description: string;
 }> = [
   {
     id: "all",
     label: "All Times",
     emoji: "✨",
-    description: "Any time of day",
   },
   {
     id: "morning",
     label: "Morning Light",
     emoji: "🌅",
-    description: "Dawn practices and early sessions",
   },
   {
     id: "golden",
     label: "Golden Hour",
     emoji: "🌇",
-    description: "Afternoon warmth and teaching",
   },
   {
     id: "night",
     label: "Night Sessions",
     emoji: "🌙",
-    description: "Evening concerts and inspiration",
   },
 ];
 
@@ -229,14 +210,4 @@ export const sortMomentsByDate = (
       ? dateA.getTime() - dateB.getTime()
       : dateB.getTime() - dateA.getTime();
   });
-};
-
-export const getMomentsByMood = (moments: MusicalMoment[], mood: string) => {
-  return moments.filter(
-    (moment) => moment.mood.toLowerCase() === mood.toLowerCase(),
-  );
-};
-
-export const getRandomMoment = (moments: MusicalMoment[]) => {
-  return moments[Math.floor(Math.random() * moments.length)];
 };

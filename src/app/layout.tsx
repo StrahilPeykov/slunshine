@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
+import { siteMetadata } from "@/content/site-content";
 
 export const metadata: Metadata = {
-  title: "SlunShine - Alexandrina Kushinchanova | Harpist & Music Artist",
-  description: "Official site of Alexandrina 'Ally' Kushinchanova - Professional harpist, music teacher, and emerging artist. Ethereal harp music for modern souls.",
-  keywords: "harpist, music lessons, Bulgarian musician, harp teacher, piano lessons, music theory, music theory lessons, Salvi harp, ethereal music",
-  authors: [{ name: "Strahil Peykov" }],
+  title: siteMetadata.title,
+  description: siteMetadata.description,
+  keywords: siteMetadata.keywords,
+  authors: [{ name: siteMetadata.author }],
   openGraph: {
-    title: "SlunShine - Alexandrina Kushinchanova",
-    description: "The Harp Lady",
-    url: "https://slunshine.com",
-    siteName: "SlunShine",
+    title: siteMetadata.title,
+    description: siteMetadata.ogDescription,
+    url: siteMetadata.siteUrl,
+    siteName: siteMetadata.siteName,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SlunShine - Alexandrina Kushinchanova",
-    description: "The Harp Lady",
+    title: siteMetadata.title,
+    description: siteMetadata.ogDescription,
   },
 };
 
@@ -35,9 +36,6 @@ export default function RootLayout({
               try {
                 const theme = localStorage.getItem('theme') || 'night';
                 document.documentElement.setAttribute('data-theme', theme);
-                if (!localStorage.getItem('theme')) {
-                  localStorage.setItem('theme', 'night');
-                }
               } catch {}
             `,
           }}

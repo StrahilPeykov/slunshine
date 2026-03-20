@@ -1,12 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { useTheme } from "@/components/providers/theme-provider";
+import { heroCopy } from "@/content/site-content";
 import { cn } from "@/lib/utils";
 import { Play } from "lucide-react";
 
 export function Hero() {
   const { theme } = useTheme();
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -14,15 +17,22 @@ export function Hero() {
       <div className="absolute inset-0 w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 w-full h-full">
-          <picture>
-            <source media="(max-width: 768px)" srcSet="/images/hero-church-mobile.webp" />
-            <img 
-              src="/images/hero-church.webp"
-              alt="Alexandrina playing harp"
-              className="absolute inset-0 w-full h-full object-cover object-center"
-              loading="eager"
-            />
-          </picture>
+          <Image
+            src="/images/hero-church.webp"
+            alt="Alexandrina playing harp"
+            fill
+            priority
+            sizes="100vw"
+            className="absolute inset-0 hidden md:block h-full w-full object-cover object-center"
+          />
+          <Image
+            src="/images/hero-church-mobile.webp"
+            alt="Alexandrina playing harp"
+            fill
+            priority
+            sizes="100vw"
+            className="absolute inset-0 md:hidden h-full w-full object-cover object-center"
+          />
           
           {/* Gradient overlays */}
           <div className={cn(
@@ -43,12 +53,12 @@ export function Hero() {
               theme === "night" ? "bg-lilacHalo" : "bg-coral"
             )}
             animate={{
-              x: [0, 50, 0],
-              y: [0, -30, 0],
+              x: prefersReducedMotion ? 0 : [0, 50, 0],
+              y: prefersReducedMotion ? 0 : [0, -30, 0],
             }}
             transition={{
-              duration: 10,
-              repeat: Infinity,
+              duration: prefersReducedMotion ? 0 : 10,
+              repeat: prefersReducedMotion ? 0 : Infinity,
               ease: "easeInOut",
             }}
           />
@@ -58,19 +68,19 @@ export function Hero() {
               theme === "night" ? "bg-lavaGlow" : "bg-aquaMist"
             )}
             animate={{
-              x: [0, -40, 0],
-              y: [0, 40, 0],
+              x: prefersReducedMotion ? 0 : [0, -40, 0],
+              y: prefersReducedMotion ? 0 : [0, 40, 0],
             }}
             transition={{
-              duration: 12,
-              repeat: Infinity,
+              duration: prefersReducedMotion ? 0 : 12,
+              repeat: prefersReducedMotion ? 0 : Infinity,
               ease: "easeInOut",
               delay: 1,
             }}
           />
 
           {/* Sparkles for night mode */}
-          {theme === "night" && (
+          {theme === "night" && !prefersReducedMotion && (
             <div className="absolute inset-0">
               {[...Array(40)].map((_, i) => (
                 <motion.div
@@ -133,10 +143,10 @@ export function Hero() {
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  Alexandrina
+                  {heroCopy.firstName}
                 </motion.span>
               )}
-              Alexandrina
+              {heroCopy.firstName}
             </span>
             <motion.span 
               className={cn(
@@ -149,7 +159,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Kushinchanova
+              {heroCopy.lastName}
             </motion.span>
           </motion.h1>
 
@@ -170,7 +180,7 @@ export function Hero() {
               "text-lg md:text-xl font-inter font-light tracking-[0.2em] uppercase",
               theme === "night" ? "text-white/80" : "text-white drop-shadow-[0_1px_4px_rgba(14,26,42,0.6)]"
             )}>
-              The Harp Lady
+              {heroCopy.role}
             </p>
             <span className={cn(
               "h-[1px] w-20 md:w-32",
@@ -206,7 +216,7 @@ export function Hero() {
                 )} />
               </span>
               <span className="text-sm font-medium tracking-wide">
-                New Single &ldquo;Lubov, Lubov&rdquo; Coming Soon
+                {heroCopy.announcement}
               </span>
             </div>
           </motion.div>
@@ -223,6 +233,7 @@ export function Hero() {
               className={cn(
                 "group relative px-10 py-4 rounded-full font-inter font-medium overflow-hidden",
                 "transition-all duration-500 transform hover:scale-[1.02] active:scale-[0.98]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 "text-white shadow-xl"
               )}
             >
@@ -241,7 +252,7 @@ export function Hero() {
               )} />
               <span className="flex items-center gap-3 justify-center">
                 <Play className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                Listen to My Music
+                {heroCopy.primaryCta}
               </span>
             </a>
             
@@ -251,12 +262,13 @@ export function Hero() {
                 "px-10 py-4 rounded-full font-inter font-medium",
                 "backdrop-blur-xl border-2 transition-all duration-300",
                 "transform hover:scale-[1.02] active:scale-[0.98] shadow-xl",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 theme === "night" 
                   ? "bg-white/10 border-white/30 hover:bg-white/20 text-white" 
                   : "bg-white/80 border-white hover:bg-white/90 text-midnightNavy"
               )}
             >
-              Explore My World
+              {heroCopy.secondaryCta}
             </a>
           </motion.div>
         </motion.div>
@@ -270,12 +282,13 @@ export function Hero() {
           "block w-[30px] h-[50px] rounded-full border-2",
           "flex items-center justify-center cursor-pointer group",
           "transition-all duration-300 hover:scale-110 active:scale-95",
-          "animate-bounce pointer-events-auto",
+          "motion-safe:animate-bounce pointer-events-auto",
           theme === "night" 
             ? "border-white/40 hover:border-white/60" 
             : "border-white/80 bg-white/20 backdrop-blur-sm hover:bg-white/30"
         )}
         style={{ pointerEvents: 'auto' }}
+        aria-label="Scroll to music section"
       >
         {/* Simple scroll dot */}
         <div className={cn(

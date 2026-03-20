@@ -5,12 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
+import { navigationItems } from "@/content/site-content";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 export function Navigation() {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
+  const prefersReducedMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isHomeRoute = pathname === "/";
@@ -24,15 +26,6 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks: ReadonlyArray<{ href: string; label: string }> = [
-    { href: "#home", label: "Home" },
-    { href: "#music", label: "Listen" },
-    { href: "/moments", label: "Moments" },
-    { href: "#about", label: "About" },
-    { href: "#lessons", label: "Lessons" },
-    { href: "#contact", label: "Contact" },
-  ];
-
   const resolveHref = (href: string) => {
     if (!href.startsWith("#")) return href;
     return isHomeRoute ? href : `/${href}`;
@@ -42,6 +35,7 @@ export function Navigation() {
 
   return (
     <nav
+      aria-label="Primary"
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
@@ -59,7 +53,7 @@ export function Navigation() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
           >
             <Link href={logoHref} className="relative group block">
               <svg
@@ -116,15 +110,16 @@ export function Navigation() {
             className="hidden md:flex items-center gap-8"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 0.2 }}
           >
-            {navLinks.map((link) => (
+            {navigationItems.map((link) => (
               <Link
                 key={link.href}
                 href={resolveHref(link.href)}
                 className={cn(
                   "relative font-inter text-sm font-light tracking-wide",
                   "transition-colors duration-300",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo rounded-sm",
                   "hover:opacity-100",
                   isScrolled
                     ? theme === "night"
@@ -151,13 +146,14 @@ export function Navigation() {
             className="flex items-center gap-4"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
           >
             <button
               onClick={toggleTheme}
               className={cn(
                 "p-2.5 rounded-full transition-all duration-300",
                 "hover:scale-110 active:scale-95",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 isScrolled
                   ? theme === "night"
                     ? "bg-white/10 hover:bg-white/20"
@@ -182,9 +178,12 @@ export function Navigation() {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
               className={cn(
                 "md:hidden p-2.5 rounded-full transition-all duration-300",
                 "hover:scale-110 active:scale-95",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 isScrolled
                   ? theme === "night"
                     ? "bg-white/10 hover:bg-white/20"
@@ -230,6 +229,7 @@ export function Navigation() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
+              id="mobile-navigation"
               className={cn(
                 "md:hidden overflow-hidden",
                 theme === "night" ? "bg-midnightNavy/95" : "bg-white/95",
@@ -237,7 +237,7 @@ export function Navigation() {
               )}
             >
               <div className="flex flex-col gap-1 py-6">
-                {navLinks.map((link) => (
+                {navigationItems.map((link) => (
                   <Link
                     key={link.href}
                     href={resolveHref(link.href)}
@@ -245,6 +245,7 @@ export function Navigation() {
                     className={cn(
                       "px-4 py-3 font-inter text-sm font-light tracking-wide",
                       "transition-colors duration-200",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo rounded-md",
                       theme === "night"
                         ? "text-white/80 hover:text-white hover:bg-white/5"
                         : "text-midnightNavy/80 hover:text-midnightNavy hover:bg-black/5"

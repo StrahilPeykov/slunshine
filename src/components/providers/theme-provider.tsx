@@ -9,26 +9,37 @@ type ThemeContextType = {
   toggleTheme: () => void;
 };
 
-const ThemeContext = createContext<ThemeContextType>({
-  theme: "night",
-  toggleTheme: () => {},
-});
+const ThemeContext = createContext<ThemeContextType | null>(null);
+
+const resolveInitialTheme = (): Theme => {
+  if (typeof document !== "undefined") {
+    const themeFromAttribute = document.documentElement.getAttribute("data-theme");
+    if (themeFromAttribute === "day" || themeFromAttribute === "night") {
+      return themeFromAttribute;
+    }
+  }
+
+  if (typeof window !== "undefined") {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "day" || savedTheme === "night") {
+      return savedTheme;
+    }
+  }
+
+  return "night";
+};
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") {
-      return "night";
-    }
-
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme === "day" ? "day" : "night";
-  });
+  const [theme, setTheme] = useState<Theme>(resolveInitialTheme);
 
   useEffect(() => {
     const root = document.documentElement;
-    root.setAttribute("data-theme", theme);
-    root.style.transition = "background-color 0.3s, color 0.3s";
-    localStorage.setItem("theme", theme);
+    if (root.getAttribute("data-theme") !== theme) {
+      root.setAttribute("data-theme", theme);
+    }
+    if (localStorage.getItem("theme") !== theme) {
+      localStorage.setItem("theme", theme);
+    }
   }, [theme]);
 
   const toggleTheme = () => {

@@ -1,66 +1,84 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
+import {
+  lessonCardCopy,
+  lessonFeatures,
+  lessonOfferings,
+  lessonsSectionCopy,
+} from "@/content/site-content";
 import { cn } from "@/lib/utils";
 import { Music as MusicIcon, Piano, Sparkles, Users, Star } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ComponentType,
+  type PointerEvent,
+} from "react";
 
 export function Lessons() {
   const { theme } = useTheme();
-  const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; emoji: string }>>([]);
+  const prefersReducedMotion = useReducedMotion();
+  const [particles, setParticles] = useState<
+    Array<{ id: number; x: number; y: number; emoji: string }>
+  >([]);
   const particleIdRef = useRef(0);
+  const lastSpawnAtRef = useRef(0);
 
-  const offerings = [
-    {
-      icon: MusicIcon,
-      title: "Harp",
-      description: "From first touch to concert stage",
-      gradient: "from-lilacHalo to-coral",
-      emoji: "🎵"
-    },
-    {
-      icon: Piano,
-      title: "Piano",
-      description: "Classical to contemporary styles",
-      gradient: "from-coral to-lavaGlow",
-      emoji: "🎹"
-    },
-    {
-      icon: Sparkles,
-      title: "Music Theory",
-      description: "Understand the language of music",
-      gradient: "from-lavaGlow to-lilacHalo",
-      emoji: "✨"
-    },
-  ];
+  const offeringIcons: Record<
+    (typeof lessonOfferings)[number]["id"],
+    ComponentType<{ className?: string }>
+  > = {
+    harp: MusicIcon,
+    piano: Piano,
+    "music-theory": Sparkles,
+  };
 
-  const features = [
-    { icon: Users, text: "All ages & levels welcome" },
-    { icon: Star, text: "Personalized curriculum" },
-  ];
+  const featureIcons: Record<
+    (typeof lessonFeatures)[number]["id"],
+    ComponentType<{ className?: string }>
+  > = {
+    "all-levels": Users,
+    "personalized-curriculum": Star,
+  };
 
-  const createParticle = (e: React.MouseEvent, emoji: string) => {
-    //const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX;
-    const y = e.clientY;
-    
-    const newParticle = {
+  const offeringEmojis: Record<(typeof lessonOfferings)[number]["id"], string> = {
+    harp: "🎵",
+    piano: "🎹",
+    "music-theory": "✨",
+  };
+
+  const createParticle = (
+    event: PointerEvent<HTMLDivElement>,
+    emoji: string,
+  ) => {
+    if (prefersReducedMotion || event.pointerType !== "mouse") {
+      return;
+    }
+
+    const now = event.timeStamp;
+    if (now - lastSpawnAtRef.current < 80) {
+      return;
+    }
+    lastSpawnAtRef.current = now;
+
+    const particle = {
       id: particleIdRef.current++,
-      x,
-      y,
+      x: event.clientX,
+      y: event.clientY,
       emoji,
     };
-    
-    setParticles(prev => [...prev, newParticle]);
-    
-    setTimeout(() => {
-      setParticles(prev => prev.filter(p => p.id !== newParticle.id));
-    }, 800);
+
+    setParticles((prev) => [...prev.slice(-14), particle]);
+
+    window.setTimeout(() => {
+      setParticles((prev) => prev.filter((item) => item.id !== particle.id));
+    }, 750);
   };
 
   useEffect(() => {
-    // Clean up particles array on unmount
     return () => setParticles([]);
   }, []);
 
@@ -89,11 +107,11 @@ export function Lessons() {
                 ? "text-white"
                 : "text-midnightNavy"
             )}>
-              Share the Magic
+              {lessonsSectionCopy.title}
             </span>
           </h2>
           <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
-            Private lessons tailored to your musical journey
+            {lessonsSectionCopy.description}
           </p>
         </motion.div>
 
@@ -114,22 +132,26 @@ export function Lessons() {
             </h3>
 
             <div className="space-y-6">
-              {offerings.map((offering, index) => (
+              {lessonOfferings.map((offering, index) => {
+                const Icon = offeringIcons[offering.id];
+                return (
                 <motion.div
-                  key={index}
+                  key={offering.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className={cn(
                     "group relative p-6 rounded-2xl",
-                    "backdrop-blur-sm border transition-all duration-300",
-                    "hover:scale-[1.02] cursor-pointer",
+                    "backdrop-blur-sm border transition-all duration-300 transform-gpu will-change-transform",
+                    "hover:scale-[1.02]",
                     theme === "night"
                       ? "bg-white/5 border-white/10 hover:bg-white/10"
                       : "bg-white/80 border-white shadow-lg hover:shadow-xl"
                   )}
-                  onMouseMove={(e) => createParticle(e, offering.emoji)}
+                  onPointerMove={(event) =>
+                    createParticle(event, offeringEmojis[offering.id])
+                  }
                 >
                   {/* Gradient accent */}
                   <div className={cn(
@@ -142,7 +164,7 @@ export function Lessons() {
                       "w-12 h-12 rounded-xl flex items-center justify-center",
                       `bg-gradient-to-br ${offering.gradient}`
                     )}>
-                      <offering.icon className="w-6 h-6 text-white" />
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-playfair text-xl font-medium mb-1">
@@ -154,7 +176,8 @@ export function Lessons() {
                     </div>
                   </div>
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
           </motion.div>
 
@@ -180,24 +203,25 @@ export function Lessons() {
                 "font-playfair text-2xl mb-6",
                 theme === "night" ? "text-white" : "text-midnightNavy"
               )}>
-                Learn With Me
+                {lessonCardCopy.title}
               </h3>
 
               <p className="text-foreground/70 mb-8 leading-relaxed">
-                Whether you&apos;re touching strings for the first time or preparing for conservatory, 
-                I&apos;ll guide you with patience, passion, and personalized attention.
+                {lessonCardCopy.description}
               </p>
 
               <div className="space-y-4 mb-8">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-center gap-3">
+                {lessonFeatures.map((feature) => {
+                  const Icon = featureIcons[feature.id];
+                  return (
+                  <div key={feature.id} className="flex items-center gap-3">
                     <div className={cn(
                       "w-8 h-8 rounded-full flex items-center justify-center",
                       theme === "night"
                         ? "bg-white/10"
                         : "bg-midnightNavy/10"
                     )}>
-                      <feature.icon className={cn(
+                      <Icon className={cn(
                         "w-4 h-4",
                         theme === "night" ? "text-lilacHalo" : "text-coral"
                       )} />
@@ -206,7 +230,8 @@ export function Lessons() {
                       {feature.text}
                     </span>
                   </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Student testimonial */}
@@ -215,10 +240,10 @@ export function Lessons() {
                 theme === "night" ? "bg-black/20" : "bg-midnightNavy/5"
               )}>
                 <p className="text-sm italic text-foreground/70 mb-2">
-                  &ldquo;Ally makes complex theory feel like discovering hidden treasures in music&rdquo;
+                  {lessonCardCopy.testimonial}
                 </p>
                 <p className="text-xs text-foreground/50">
-                  — Maria, theory student
+                  — {lessonCardCopy.testimonialAuthor}
                 </p>
               </div>
             </div>
@@ -234,37 +259,35 @@ export function Lessons() {
           className="text-center mt-16"
         >
           <p className="text-foreground/60 mb-6">
-            Ready to start your musical journey?
+            {lessonCardCopy.ctaPrompt}
           </p>
           <a
             href="#contact"
             className={cn(
               "inline-flex items-center gap-2 px-8 py-4 rounded-full font-inter font-medium",
               "transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
               theme === "night" 
                 ? "bg-gradient-to-r from-lilacHalo to-lavaGlow text-white" 
                 : "bg-gradient-to-r from-coral to-lavaGlow text-white"
             )}
           >
-            Let&apos;s Talk
+            {lessonCardCopy.ctaLabel}
           </a>
         </motion.div>
       </div>
-      
-      {/* Emoji particles */}
-      {particles.map(particle => (
-        <div
-          key={particle.id}
-          className="particle"
-          style={{
-            left: particle.x,
-            top: particle.y,
-            fontSize: '20px',
-          }}
-        >
-          {particle.emoji}
-        </div>
-      ))}
+
+      {!prefersReducedMotion &&
+        particles.map((particle) => (
+          <span
+            key={particle.id}
+            className="particle z-[60] text-lg select-none"
+            style={{ left: particle.x, top: particle.y }}
+            aria-hidden="true"
+          >
+            {particle.emoji}
+          </span>
+        ))}
     </section>
   );
 }
