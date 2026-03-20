@@ -67,8 +67,8 @@ export function Hero() {
             }}
           />
 
-          {/* Sparkles for night mode */}
-          {theme === "night" && !prefersReducedMotion && (
+          {/* Sparkles for both themes */}
+          {!prefersReducedMotion && (
             <div className="absolute inset-0">
               {[...Array(40)].map((_, i) => (
                 <motion.div
