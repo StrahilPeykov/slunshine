@@ -238,9 +238,8 @@ export const aboutSectionCopy: SectionCopy = {
 };
 
 export const aboutStoryParagraphs: ReadonlyArray<string> = [
-  "I picked up a harp at ten years old, and that moment quietly set the direction of my life.",
-  "From conservatory recitals to late-night club sets, each stage has taught me a different way music can move a room.",
-  "Today I perform, teach harp and theory, and shape original work where tradition and experimentation can coexist.",
+  "I picked up a harp at ten, and it set my path from the start.",
+  "Today I perform, teach, and write music, staying rooted in classical technique while making room for new ideas.",
 ];
 
 export const aboutCurrentItems: ReadonlyArray<string> = [

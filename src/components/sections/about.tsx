@@ -86,17 +86,37 @@ export function About() {
             transition={{ duration: 0.6 }}
           >
             <div className="space-y-6">
+              {/* Short excerpt (photo-forward layout) */}
               {aboutStoryParagraphs.map((paragraph, index) => (
                 <p
                   key={paragraph}
                   className={cn(
                     "leading-relaxed",
-                    index === 0 ? "text-lg text-foreground/80" : "text-foreground/70",
+                    index === 0 ? "text-base md:text-lg text-foreground/80" : "text-sm md:text-base text-foreground/70",
                   )}
                 >
                   {paragraph}
                 </p>
               ))}
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
+                  <Image
+                    src="/images/gallery/portrait-1.webp"
+                    alt="Alexandrina portrait"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
+                  <Image
+                    src="/images/gallery/portrait-2.webp"
+                    alt="Alexandrina portrait"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Current Focus */}
