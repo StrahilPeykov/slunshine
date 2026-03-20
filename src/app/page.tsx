@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { PhotoReel } from "@/components/sections/photo-reel";
 import { Navigation } from "@/components/layout/navigation";
 import { Music } from "@/components/sections/music";
 import { About } from "@/components/sections/about";
@@ -11,6 +12,7 @@ export default function Home() {
     <main className="min-h-screen bg-background transition-colors duration-500 overflow-x-hidden">
       <Navigation />
       <Hero />
+      <PhotoReel />
       <Music />
       <About />
       <Lessons />

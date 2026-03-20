@@ -64,6 +64,13 @@ export interface LessonFeature {
   text: string;
 }
 
+export interface PhotoReelItem {
+  id: string;
+  label: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
 export interface MomentPageCopy {
   title: string;
   emptyState: string;
@@ -211,6 +218,44 @@ export const heroCopy = {
   primaryCta: "Listen to My Music",
   secondaryCta: "Explore My World",
 } as const;
+
+export const photoReelCopy = {
+  title: "Highlights",
+  description: "Swipe to explore",
+} as const;
+
+export const photoReelItems: ReadonlyArray<PhotoReelItem> = [
+  {
+    id: "portrait-1",
+    label: "Portrait",
+    imageSrc: "/images/gallery/portrait-1.webp",
+    imageAlt: "Alexandrina portrait against a bright blue sky",
+  },
+  {
+    id: "portrait-2",
+    label: "Beach",
+    imageSrc: "/images/gallery/portrait-2.webp",
+    imageAlt: "Alexandrina in a stylized editorial portrait",
+  },
+  {
+    id: "portrait-3",
+    label: "Motion",
+    imageSrc: "/images/gallery/portrait-3.webp",
+    imageAlt: "Alexandrina in an expressive outdoor portrait",
+  },
+  {
+    id: "concert",
+    label: "On Stage",
+    imageSrc: "/images/mila-concert.webp",
+    imageAlt: "Alexandrina performing live in concert lighting",
+  },
+  {
+    id: "hero-scene",
+    label: "Harp",
+    imageSrc: "/images/hero-church.webp",
+    imageAlt: "Alexandrina with harp in a church setting",
+  },
+];
 
 export const musicSectionCopy: SectionCopy = {
   id: "music",
