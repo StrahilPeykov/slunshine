@@ -18,7 +18,7 @@ SlunShine is the artistic persona of Alexandrina Kushinchanova, a Bulgarian harp
 
 ## Tech Stack
 
-- **Framework**: Next.js 15.3.3
+- **Framework**: Next.js 15.5.14
 - **Frontend**: React 19, TypeScript
 - **Styling**: Tailwind CSS v4 with custom design system
 - **Animations**: Framer Motion
@@ -31,7 +31,7 @@ SlunShine is the artistic persona of Alexandrina Kushinchanova, a Bulgarian harp
 
 ### Prerequisites
 
-- Node.js 18.18.0 or later
+- Node.js 20.19.0 or later
 - npm, yarn, pnpm, or bun
 
 ### Installation

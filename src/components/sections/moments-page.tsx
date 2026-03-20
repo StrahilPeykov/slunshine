@@ -94,17 +94,10 @@ export function MusicalMomentsPage() {
     void playMoment(momentId);
   };
 
-  useEffect(() => {
-    if (!playingVideo) return;
-    const isCurrentMomentVisible = filteredMoments.some(
-      (moment) => moment.id === playingVideo,
-    );
-
-    if (!isCurrentMomentVisible) {
-      pauseAllVideos();
-      setPlayingVideo(null);
-    }
-  }, [filteredMoments, pauseAllVideos, playingVideo]);
+  const resetPlayback = () => {
+    pauseAllVideos();
+    setPlayingVideo(null);
+  };
 
   useEffect(() => {
     if (viewMode !== "scroll") return;
@@ -240,7 +233,10 @@ export function MusicalMomentsPage() {
                       {categories.map((category) => (
                         <button
                           key={category.id}
-                          onClick={() => setActiveCategory(category.id)}
+                          onClick={() => {
+                            resetPlayback();
+                            setActiveCategory(category.id);
+                          }}
                           className={cn(
                             "flex items-center gap-2 px-3 py-2 rounded-full text-sm transition-all",
                             activeCategory === category.id
@@ -265,7 +261,10 @@ export function MusicalMomentsPage() {
                       {timeFilters.map((filter) => (
                         <button
                           key={filter.id}
-                          onClick={() => setActiveTimeFilter(filter.id)}
+                          onClick={() => {
+                            resetPlayback();
+                            setActiveTimeFilter(filter.id);
+                          }}
                           className={cn(
                             "flex items-center gap-2 px-3 py-2 rounded-full text-sm transition-all",
                             activeTimeFilter === filter.id

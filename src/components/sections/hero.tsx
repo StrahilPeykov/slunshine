@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
@@ -8,11 +7,6 @@ import { Play } from "lucide-react";
 
 export function Hero() {
   const { theme } = useTheme();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -43,64 +37,62 @@ export function Hero() {
           )} />
           
           {/* Animated floating orbs */}
-          {isClient && (
-            <>
-              <motion.div
-                className={cn(
-                  "absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[200px] opacity-20",
-                  theme === "night" ? "bg-lilacHalo" : "bg-coral"
-                )}
-                animate={{
-                  x: [0, 50, 0],
-                  y: [0, -30, 0],
-                }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              <motion.div
-                className={cn(
-                  "absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-[180px] opacity-20",
-                  theme === "night" ? "bg-lavaGlow" : "bg-aquaMist"
-                )}
-                animate={{
-                  x: [0, -40, 0],
-                  y: [0, 40, 0],
-                }}
-                transition={{
-                  duration: 12,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
-              />
-            </>
-          )}
+          <motion.div
+            className={cn(
+              "absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[200px] opacity-20",
+              theme === "night" ? "bg-lilacHalo" : "bg-coral"
+            )}
+            animate={{
+              x: [0, 50, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className={cn(
+              "absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-[180px] opacity-20",
+              theme === "night" ? "bg-lavaGlow" : "bg-aquaMist"
+            )}
+            animate={{
+              x: [0, -40, 0],
+              y: [0, 40, 0],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
 
           {/* Sparkles for night mode */}
-          {isClient && theme === "night" && (
+          {theme === "night" && (
             <div className="absolute inset-0">
               {[...Array(40)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-0.5 h-0.5 rounded-full bg-white"
-                  initial={{ 
-                    x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
-                    y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
-                    opacity: 0
+                  style={{
+                    left: `${(i * 17) % 100}%`,
+                    top: `${(i * 29) % 100}%`,
                   }}
-                  animate={{ 
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
                     opacity: [0, 1, 0],
                     scale: [1, 1.5, 1],
                   }}
-                  transition={{ 
-                    duration: Math.random() * 4 + 3,
+                  transition={{
+                    duration: 3 + (i % 5),
                     repeat: Infinity,
                     repeatType: "loop",
                     ease: "easeInOut",
-                    delay: Math.random() * 5
+                    delay: (i % 10) * 0.5,
                   }}
                 />
               ))}

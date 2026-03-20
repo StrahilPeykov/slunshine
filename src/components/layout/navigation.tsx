@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Navigation() {
-  const { theme, toggleTheme, mounted } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -153,32 +153,32 @@ export function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {mounted && (
-              <button
-                onClick={toggleTheme}
-                className={cn(
-                  "p-2.5 rounded-full transition-all duration-300",
-                  "hover:scale-110 active:scale-95",
-                  isScrolled
-                    ? theme === "night"
-                      ? "bg-white/10 hover:bg-white/20"
-                      : "bg-black/5 hover:bg-black/10"
-                    : theme === "night"
-                      ? "bg-white/10 hover:bg-white/20"
-                      : "bg-black/10 hover:bg-black/20"
-                )}
-                aria-label="Toggle theme"
-              >
-                {theme === "night" ? (
-                  <Sun className="w-5 h-5 text-white" />
-                ) : (
-                  <Moon className={cn(
+            <button
+              onClick={toggleTheme}
+              className={cn(
+                "p-2.5 rounded-full transition-all duration-300",
+                "hover:scale-110 active:scale-95",
+                isScrolled
+                  ? theme === "night"
+                    ? "bg-white/10 hover:bg-white/20"
+                    : "bg-black/5 hover:bg-black/10"
+                  : theme === "night"
+                    ? "bg-white/10 hover:bg-white/20"
+                    : "bg-black/10 hover:bg-black/20"
+              )}
+              aria-label="Toggle theme"
+            >
+              {theme === "night" ? (
+                <Sun className="w-5 h-5 text-white" />
+              ) : (
+                <Moon
+                  className={cn(
                     "w-5 h-5",
                     isScrolled ? "text-midnightNavy" : "text-white"
-                  )} />
-                )}
-              </button>
-            )}
+                  )}
+                />
+              )}
+            </button>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
