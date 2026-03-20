@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 
 export function PhotoReel() {
   const { theme } = useTheme();
-  const reelItems = [...photoReelItems, ...photoReelItems];
 
   return (
     <section
@@ -30,9 +29,9 @@ export function PhotoReel() {
 
       <div className="overflow-x-auto scrollbar-hide scroll-smooth-x touch-pan-x">
         <ul className="flex gap-4 md:gap-6 px-4 md:px-8 pb-2 w-max min-w-full">
-          {reelItems.map((item, index) => (
+          {photoReelItems.map((item) => (
             <li
-              key={`${item.id}-${index}`}
+              key={item.id}
               className={cn(
                 "group relative shrink-0 w-[58vw] max-w-[270px] md:w-[22vw] md:max-w-[300px]",
                 "rounded-2xl overflow-hidden border shadow-xl snap-start",
