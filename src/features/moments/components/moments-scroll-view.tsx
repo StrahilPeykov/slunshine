@@ -36,9 +36,9 @@ export function MomentsScrollView({
       {moments.map((moment, index) => (
         <div
           key={moment.id}
-          className="h-full min-h-[700px] snap-start relative flex items-center justify-center px-4"
+          className="h-full min-h-0 snap-start relative flex items-center justify-center px-4"
         >
-          <div className="relative w-full max-w-sm mx-auto aspect-[9/16] rounded-3xl overflow-hidden">
+          <div className="relative w-full max-w-sm mx-auto h-full rounded-3xl overflow-hidden">
             <div className="absolute inset-0">
               <video
                 ref={(element) => {
@@ -110,18 +110,6 @@ export function MomentsScrollView({
               </div>
             </div>
 
-            {index < moments.length - 1 && (
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 motion-safe:animate-bounce">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                  />
-                </svg>
-              </div>
-            )}
           </div>
         </div>
       ))}

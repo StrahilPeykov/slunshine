@@ -32,7 +32,9 @@ export function MomentsHeader({
           className={cn(
             "p-2 rounded-full transition-all duration-300 hover:scale-110",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
-            theme === "night" ? "bg-white/10 hover:bg-white/20" : "bg-black/10 hover:bg-black/20",
+            theme === "night"
+              ? "bg-white/10 hover:bg-white/20"
+              : "bg-black/10 hover:bg-black/20",
           )}
         >
           <ArrowLeft className="w-5 h-5" />
