@@ -51,19 +51,23 @@ export function MomentsHeader({
       </div>
 
       <div className="flex items-center gap-2">
-        <button
-          type="button"
-          onClick={onToggleFilters}
-          aria-label="Toggle filters"
-          aria-expanded={showFilters}
-          className={cn(
-            "p-2 rounded-full transition-all duration-300",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
-            theme === "night" ? "bg-white/10 hover:bg-white/20" : "bg-black/10 hover:bg-black/20",
-          )}
-        >
-          <Filter className="w-5 h-5" />
-        </button>
+        {viewMode === "grid" && (
+          <button
+            type="button"
+            onClick={onToggleFilters}
+            aria-label="Toggle filters"
+            aria-expanded={showFilters}
+            className={cn(
+              "p-2 rounded-full transition-all duration-300",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
+              theme === "night"
+                ? "bg-white/10 hover:bg-white/20"
+                : "bg-black/10 hover:bg-black/20",
+            )}
+          >
+            <Filter className="w-5 h-5" />
+          </button>
+        )}
 
         <div className={cn("flex p-1 rounded-full", theme === "night" ? "bg-white/10" : "bg-black/10")}>
           <button

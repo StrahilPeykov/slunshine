@@ -36,9 +36,11 @@ export function MomentsPage() {
 
   const moments = useMemo(() => sortMomentsByDate(sampleMoments), []);
   const filteredMoments = useMemo(() => {
+    // "Scroll View" is intentionally unfiltered: it should feel like a curated playback.
+    if (viewMode === "scroll") return moments;
     const byCategory = filterMomentsByCategory(moments, activeCategory);
     return filterMomentsByTime(byCategory, activeTimeFilter);
-  }, [moments, activeCategory, activeTimeFilter]);
+  }, [moments, activeCategory, activeTimeFilter, viewMode]);
 
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -144,26 +146,31 @@ export function MomentsPage() {
             onToggleFilters={() => setShowFilters((current) => !current)}
             onViewModeChange={(mode) => {
               resetPlayback();
+              setCurrentMomentIndex(0);
               setViewMode(mode);
             }}
           />
 
-          <MomentsFilters
-            theme={theme}
-            showFilters={showFilters}
-            activeCategory={activeCategory}
-            activeTimeFilter={activeTimeFilter}
-            categories={categories}
-            timeFilters={timeFilters}
-            onCategoryChange={(category) => {
-              resetPlayback();
-              setActiveCategory(category);
-            }}
-            onTimeFilterChange={(filter) => {
-              resetPlayback();
-              setActiveTimeFilter(filter);
-            }}
-          />
+          {viewMode === "grid" && (
+            <MomentsFilters
+              theme={theme}
+              showFilters={showFilters}
+              activeCategory={activeCategory}
+              activeTimeFilter={activeTimeFilter}
+              categories={categories}
+              timeFilters={timeFilters}
+              onCategoryChange={(category) => {
+                resetPlayback();
+                setCurrentMomentIndex(0);
+                setActiveCategory(category);
+              }}
+              onTimeFilterChange={(filter) => {
+                resetPlayback();
+                setCurrentMomentIndex(0);
+                setActiveTimeFilter(filter);
+              }}
+            />
+          )}
         </div>
       </div>
 
