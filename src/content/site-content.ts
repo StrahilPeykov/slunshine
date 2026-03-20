@@ -81,6 +81,26 @@ export interface MomentItem {
   date: string;
 }
 
+export interface SamplesPageCopy {
+  title: string;
+  description: string;
+  lockMessage: string;
+  previewNote: string;
+}
+
+export interface SoundSampleItem {
+  id: string;
+  title: string;
+  category: string;
+  texture: string;
+  fullDuration: string;
+  previewSeconds: number;
+  previewUrl: string;
+  locked: boolean;
+  shape: "orb" | "squircle" | "petal" | "drip";
+  gradient: string;
+}
+
 export const siteMetadata: SiteMetadata = {
   title: "SlunShine - Alexandrina Kushinchanova | Harpist & Music Artist",
   description:
@@ -113,9 +133,23 @@ export const momentsMetadata = {
   ],
 } as const;
 
+export const samplesMetadata = {
+  title: "Sound Samples | SlunShine",
+  description:
+    "Preview custom sound samples and performance recordings crafted for producers, storytellers, and collaborators.",
+  keywords: [
+    "sound samples",
+    "harp sample pack",
+    "custom compositions",
+    "vocal stems",
+    "classical recordings",
+  ],
+} as const;
+
 export const navigationItems: ReadonlyArray<NavItem> = [
   { href: "#home", label: "Home" },
   { href: "#music", label: "Listen" },
+  { href: "/samples", label: "Samples" },
   { href: "/moments", label: "Moments" },
   { href: "#about", label: "About" },
   { href: "#lessons", label: "Lessons" },
@@ -312,3 +346,62 @@ export const momentsPageCopy: MomentPageCopy = {
   scrollViewLabel: "Scroll View",
   gridViewLabel: "Grid View",
 };
+
+export const samplesPageCopy: SamplesPageCopy = {
+  title: "Sound Samples Vault",
+  description:
+    "A curated collection of harp textures, vocal lines, and cinematic fragments. Each piece has a short preview; full recordings are locked for producer licensing.",
+  lockMessage: "Full version locked. Purchase flow is coming soon.",
+  previewNote: "Preview mode plays only the opening seconds.",
+};
+
+export const soundSamples: ReadonlyArray<SoundSampleItem> = [
+  {
+    id: "moon-river-harp",
+    title: "Moon River Harp Theme",
+    category: "Harp",
+    texture: "dreamy, cinematic",
+    fullDuration: "2:38",
+    previewSeconds: 10,
+    previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    locked: true,
+    shape: "orb",
+    gradient: "from-lilacHalo/70 via-coral/50 to-aquaMist/70",
+  },
+  {
+    id: "glass-vocal-pad",
+    title: "Glass Vocal Pad",
+    category: "Vocals",
+    texture: "airy, ambient",
+    fullDuration: "1:54",
+    previewSeconds: 8,
+    previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    locked: true,
+    shape: "petal",
+    gradient: "from-coral/70 via-lavaGlow/50 to-lilacHalo/70",
+  },
+  {
+    id: "nocturne-pulse",
+    title: "Nocturne Pulse",
+    category: "Classical Crossover",
+    texture: "rhythmic, dramatic",
+    fullDuration: "3:12",
+    previewSeconds: 12,
+    previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    locked: true,
+    shape: "drip",
+    gradient: "from-aquaMist/70 via-lilacHalo/50 to-coral/70",
+  },
+  {
+    id: "chamber-lullaby",
+    title: "Chamber Lullaby",
+    category: "Instrumental",
+    texture: "soft, intimate",
+    fullDuration: "2:05",
+    previewSeconds: 9,
+    previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+    locked: true,
+    shape: "squircle",
+    gradient: "from-lavaGlow/65 via-coral/50 to-lilacHalo/70",
+  },
+];
