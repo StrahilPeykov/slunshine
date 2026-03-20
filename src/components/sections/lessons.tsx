@@ -141,10 +141,14 @@ export function Lessons() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={
+                    prefersReducedMotion
+                      ? undefined
+                      : { scale: 1.02, transition: { duration: 0.2 } }
+                  }
                   className={cn(
                     "group relative p-6 rounded-2xl",
-                    "backdrop-blur-sm border transition-all duration-300 transform-gpu will-change-transform",
-                    "hover:scale-[1.02]",
+                    "backdrop-blur-sm border transition-colors transition-shadow duration-300",
                     theme === "night"
                       ? "bg-white/5 border-white/10 hover:bg-white/10"
                       : "bg-white/80 border-white shadow-lg hover:shadow-xl"

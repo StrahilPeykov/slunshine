@@ -43,9 +43,14 @@ export function MomentsGridView({
               initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: index * 0.08 }}
+              whileHover={
+                prefersReducedMotion
+                  ? undefined
+                  : { scale: 1.02, transition: { duration: 0.2 } }
+              }
               className={cn(
                 "group relative aspect-[9/16] rounded-2xl overflow-hidden text-left",
-                "hover:scale-[1.02] transition-all duration-300 transform-gpu will-change-transform",
+                "transition-colors duration-300",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 theme === "night" ? "bg-white/5" : "bg-white shadow-lg",
               )}

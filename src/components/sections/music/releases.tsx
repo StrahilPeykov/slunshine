@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Calendar, Headphones, Sparkles } from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
 import type { ReleaseItem } from "@/content/site-content";
@@ -12,6 +12,7 @@ interface ReleasesProps {
 
 export function Releases({ releases }: ReleasesProps) {
   const { theme } = useTheme();
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <motion.div
@@ -41,10 +42,14 @@ export function Releases({ releases }: ReleasesProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
+            whileHover={
+              prefersReducedMotion
+                ? undefined
+                : { scale: 1.01, transition: { duration: 0.2 } }
+            }
             className={cn(
               "group relative overflow-hidden rounded-2xl p-8",
-              "backdrop-blur-sm border transition-all duration-500",
-              "hover:scale-[1.01] transform-gpu will-change-transform",
+              "backdrop-blur-sm border transition-colors transition-shadow duration-500",
               theme === "night"
                 ? "bg-white/5 border-white/10 hover:bg-white/10"
                 : "bg-white/80 border-white shadow-xl hover:shadow-2xl",

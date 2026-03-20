@@ -44,7 +44,7 @@ export function VideoGallery({ videos }: VideoGalleryProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: index * 0.1 }}
-                className="group relative aspect-video rounded-xl overflow-hidden cursor-pointer flex-shrink-0 w-80 text-left transform-gpu will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo"
+                className="group relative aspect-video rounded-xl overflow-hidden cursor-pointer flex-shrink-0 w-80 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo"
                 onClick={() => setActiveVideo(video.id === activeVideo ? null : video.id)}
                 style={{ scrollSnapAlign: "start" }}
                 aria-label={activeVideo === video.id ? `Pause ${video.title}` : `Play ${video.title}`}
@@ -65,7 +65,7 @@ export function VideoGallery({ videos }: VideoGalleryProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: index * 0.1 }}
-            className="group relative aspect-video rounded-xl overflow-hidden cursor-pointer text-left transform-gpu will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo"
+            className="group relative aspect-video rounded-xl overflow-hidden cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo"
             onClick={() => setActiveVideo(video.id === activeVideo ? null : video.id)}
             aria-label={activeVideo === video.id ? `Pause ${video.title}` : `Play ${video.title}`}
           >
