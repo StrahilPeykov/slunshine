@@ -71,23 +71,6 @@ export interface PhotoReelItem {
   imageAlt: string;
 }
 
-export interface MomentPageCopy {
-  title: string;
-  emptyState: string;
-  categoryHeading: string;
-  timeHeading: string;
-  scrollViewLabel: string;
-  gridViewLabel: string;
-}
-
-export interface MomentItem {
-  id: string;
-  title: string;
-  caption: string;
-  category: string;
-  date: string;
-}
-
 export interface SamplesPageCopy {
   title: string;
   description: string;
@@ -127,19 +110,6 @@ export const siteMetadata: SiteMetadata = {
   ogDescription: "The Harp Lady",
 };
 
-export const momentsMetadata = {
-  title: "Musical Moments | SlunShine",
-  description:
-    "Intimate glimpses into sound and emotion through practice, performance, and inspiration.",
-  keywords: [
-    "musical moments",
-    "harp videos",
-    "practice sessions",
-    "musical inspiration",
-    "harpist journey",
-  ],
-} as const;
-
 export const samplesMetadata = {
   title: "Sound Samples | SlunShine",
   description:
@@ -157,7 +127,6 @@ export const navigationItems: ReadonlyArray<NavItem> = [
   { href: "#home", label: "Home" },
   { href: "#music", label: "Listen" },
   { href: "/samples", label: "Samples" },
-  { href: "/moments", label: "Moments" },
   { href: "#about", label: "About" },
   { href: "#lessons", label: "Lessons" },
   { href: "#contact", label: "Contact" },
@@ -448,15 +417,6 @@ export const contactCopy = {
   emailCta: "Send a message",
   responseNote: "I’ll get back to you as soon as possible.",
 } as const;
-
-export const momentsPageCopy: MomentPageCopy = {
-  title: "Musical Moments",
-  emptyState: "No moments match this filter combination yet.",
-  categoryHeading: "Categories",
-  timeHeading: "Time of Day",
-  scrollViewLabel: "Scroll View",
-  gridViewLabel: "Grid View",
-};
 
 export const samplesPageCopy: SamplesPageCopy = {
   title: "Sound Samples Vault",

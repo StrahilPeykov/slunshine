@@ -221,12 +221,6 @@ h1, h2, h3, h4, h5, h6 {
   scroll-snap-align: center;
 }
 
-/* Smooth scrolling for moments */
-.moments-scroll {
-  scroll-behavior: smooth;
-  overscroll-behavior: contain;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
     scroll-behavior: auto;

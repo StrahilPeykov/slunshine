@@ -13,7 +13,6 @@ The app uses Next.js App Router with a small feature-oriented structure:
 ## Content and Data Boundaries
 
 - `src/content/site-content.ts` contains editable site content and metadata.
-- `src/lib/musical-moments-data.ts` contains typed moment media data and filter/sort helpers.
 - Components should consume typed content/data instead of hardcoding repeated strings or URLs.
 
 ## Component Boundaries
@@ -21,16 +20,11 @@ The app uses Next.js App Router with a small feature-oriented structure:
 - `components/common`: cross-section primitives (`BrandWordmark`, `SocialLinks`).
 - `components/layout`: navigation/footer and app-level chrome pieces.
 - `components/sections`: homepage sections only.
-- `features/moments`: route-specific assembly (`MomentsPage`) and focused subcomponents:
-  - `moments-header.tsx`
-  - `moments-filters.tsx`
-  - `moments-scroll-view.tsx`
-  - `moments-grid-view.tsx`
 
 ## Naming Conventions
 
-- File names use kebab-case (`video-gallery.tsx`, `moments-header.tsx`).
-- Exported component names use PascalCase (`VideoGallery`, `MomentsHeader`).
+- File names use kebab-case (`video-gallery.tsx`, `social-links.tsx`).
+- Exported component names use PascalCase (`VideoGallery`, `SocialLinks`).
 - Keep route page files thin; move route logic to `features/*` when complexity grows.
 
 ## Styling and Motion

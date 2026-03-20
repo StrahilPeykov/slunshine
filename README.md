@@ -40,7 +40,6 @@ npm run format   # eslint --fix
 src/
   app/
     page.tsx
-    moments/page.tsx
     layout.tsx
     globals.css
   components/
@@ -50,10 +49,7 @@ src/
     sections/        # homepage sections
   content/
     site-content.ts  # typed, centralized site copy + links + metadata
-  features/
-    moments/         # route-level moments feature and subcomponents
   lib/
-    musical-moments-data.ts
     utils.ts
 ```
 
