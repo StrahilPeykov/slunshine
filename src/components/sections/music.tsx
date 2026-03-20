@@ -18,7 +18,7 @@ export function Music() {
       status: "Coming Soon",
       genre: "R&B / Indie Pop",
       description: "A journey through love's ethereal landscapes",
-      releaseDate: "Spring 2025",
+      releaseDate: "Coming Soon",
     },
     {
       title: "Untitled EP",
@@ -26,7 +26,7 @@ export function Music() {
       status: "In Production",
       genre: "Alternative",
       description: "Where classical meets contemporary",
-      releaseDate: "2025",
+      releaseDate: "In Development",
     },
   ];
 

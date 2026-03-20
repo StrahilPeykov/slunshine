@@ -12,7 +12,7 @@ SlunShine is the artistic persona of Alexandrina Kushinchanova, a Bulgarian harp
 - **Interactive Animations**: Sophisticated animations powered by Framer Motion
 - **Responsive Design**: Optimized for all devices from mobile to desktop
 - **Music Showcase**: Video gallery and upcoming releases section
-- **Online Presence**: Integrated social media links and contact forms
+- **Online Presence**: Integrated social media links and direct contact options
 - **Teaching Services**: Information about harp, piano, and music theory lessons
 - **Performance Optimized**: Built with Next.js 15 and modern web standards
 
@@ -64,14 +64,13 @@ pnpm dev
 
 ### Environment Setup
 
-The website works out of the box with no additional environment variables required for basic functionality. For the contact form to work in production, you may want to integrate with email services.
+The website works out of the box with no additional environment variables required.
 
 ## Project Structure
 
 ```
 src/
 ├── app/                    # Next.js app directory
-│   ├── api/               # API routes
 │   ├── globals.css        # Global styles and theme system
 │   ├── layout.tsx         # Root layout
 │   ├── page.tsx          # Homepage
@@ -132,16 +131,13 @@ npm start
 
 ## Contact Integration
 
-The contact form includes a basic API route at `/api/contact`. For production use, integrate with:
-- Email services (SendGrid, Mailgun)
-- Google Sheets
-- CRM systems
+The site currently uses direct contact links (Instagram + email).
 
 ## Performance Features
 
 - **Next.js App Router**: Latest routing and rendering patterns
 - **Image Optimization**: Sharp for optimal image loading
-- **Font Optimization**: Self-hosted Google Fonts
+- **Font Optimization**: Google Fonts
 - **Bundle Optimization**: Automatic code splitting
 - **SEO Ready**: Meta tags and structured data
 
