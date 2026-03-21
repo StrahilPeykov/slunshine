@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import { useRef } from "react";
 import { useTheme } from "@/components/providers/theme-provider";
 import { heroCopy } from "@/content/site-content";
 import { cn } from "@/lib/utils";
@@ -10,9 +11,24 @@ import { Play } from "lucide-react";
 export function Hero() {
   const { theme } = useTheme();
   const prefersReducedMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const scrollToNextSection = () => {
+    const next = sectionRef.current?.nextElementSibling;
+    if (next instanceof HTMLElement) {
+      next.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    }
+  };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
       {/* Animated background */}
       <div className="absolute inset-0 w-full overflow-hidden">
         {/* Background Image */}
@@ -266,21 +282,23 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Custom Scroll Indicator */}
-      <a
-        href="#music"
+      {/* Custom Scroll Indicator — scrolls to whatever section follows the hero in the page */}
+      <button
+        type="button"
+        onClick={scrollToNextSection}
         className={cn(
           "absolute left-1/2 -translate-x-1/2 bottom-8 z-20",
           "block w-[30px] h-[50px] rounded-full border-2",
           "flex items-center justify-center cursor-pointer group",
           "transition-all duration-300 hover:scale-110 active:scale-95",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
           "motion-safe:animate-bounce pointer-events-auto",
           theme === "night" 
             ? "border-white/40 hover:border-white/60" 
             : "border-white/80 bg-white/20 backdrop-blur-sm hover:bg-white/30"
         )}
-        style={{ pointerEvents: 'auto' }}
-        aria-label="Scroll to music section"
+        style={{ pointerEvents: "auto" }}
+        aria-label="Scroll to next section"
       >
         {/* Simple scroll dot */}
         <div className={cn(
@@ -288,7 +306,7 @@ export function Hero() {
           "group-hover:h-4 pointer-events-none",
           theme === "night" ? "bg-white/70 group-hover:bg-white" : "bg-white"
         )} />
-      </a>
+      </button>
     </section>
   );
 }
