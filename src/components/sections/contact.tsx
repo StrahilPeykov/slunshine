@@ -6,6 +6,31 @@ import { useTheme } from "@/components/providers/theme-provider";
 import { contactCopy, contactSectionCopy, socialLinks } from "@/content/site-content";
 import { cn } from "@/lib/utils";
 
+/** Shared hover/focus interaction for Instagram + Email cards */
+const contactCardInteraction = cn(
+  "transition-all duration-500 ease-out",
+  "hover:-translate-y-0.5 hover:scale-[1.015] active:scale-[0.99] transform-gpu will-change-transform",
+  "focus-visible:-translate-y-0.5 focus-visible:scale-[1.015]",
+  "motion-reduce:hover:translate-y-0 motion-reduce:focus-visible:translate-y-0",
+  "motion-reduce:hover:scale-100 motion-reduce:focus-visible:scale-100",
+);
+
+const washTransition = cn(
+  "absolute inset-0 opacity-0 transition-opacity duration-500 ease-out",
+  "group-hover:opacity-[0.72] group-focus-visible:opacity-[0.72]",
+);
+
+/** Email: stronger max opacity — border-glow’s semi-transparent navy fill blends down faint theme washes. */
+const emailWashTransition = cn(
+  "absolute inset-0 opacity-0 transition-opacity duration-500 ease-out",
+  "group-hover:opacity-[0.88] group-focus-visible:opacity-[0.88]",
+);
+
+const borderGlowTransition = cn(
+  "absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 ease-out",
+  "group-hover:opacity-[0.65] group-focus-visible:opacity-[0.65]",
+);
+
 export function Contact() {
   const { theme } = useTheme();
 
@@ -61,28 +86,32 @@ export function Contact() {
               rel="noopener noreferrer"
               className={cn(
                 "group relative p-8 rounded-3xl text-center overflow-hidden",
-                "backdrop-blur-xl border-2 transition-all duration-500",
-                "hover:scale-[1.015] active:scale-[0.99] transform-gpu will-change-transform",
-                "hover:shadow-2xl",
+                "backdrop-blur-xl border-2",
+                contactCardInteraction,
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
+                "hover:shadow-2xl hover:shadow-lilacHalo/25 focus-visible:shadow-2xl focus-visible:shadow-lilacHalo/25",
                 theme === "night" 
-                  ? "bg-gradient-to-br from-white/5 via-white/10 to-white/5 border-white/20 hover:border-white/30" 
-                  : "bg-gradient-to-br from-white/90 via-babyPink/35 to-white/80 border-babyPink/60 shadow-xl hover:shadow-3xl"
+                  ? "bg-gradient-to-br from-white/5 via-white/10 to-white/5 border-white/20 hover:border-white/30 focus-visible:border-white/30" 
+                  : "bg-gradient-to-br from-white/90 via-babyPink/35 to-white/80 border-babyPink/60 shadow-xl hover:border-babyPink/80 focus-visible:border-babyPink/80"
               )}
             >
               {/* Flowing background animation */}
-              <div className={cn(
-                "absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700",
-                "bg-gradient-to-br from-purple-400/10 via-pink-500/10 to-orange-400/10"
-              )} />
+              <div
+                className={cn(
+                  washTransition,
+                  "bg-gradient-to-br from-purple-400/12 via-pink-500/12 to-orange-400/12",
+                )}
+              />
               
               {/* Animated border glow */}
-              <div className={cn(
-                "absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500",
-                "bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400 p-[1px]",
-                "before:content-[''] before:absolute before:inset-[1px] before:rounded-3xl",
-                theme === "night" ? "before:bg-midnightNavy" : "before:bg-white"
-              )} />
+              <div
+                className={cn(
+                  borderGlowTransition,
+                  "bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400 p-[1px]",
+                  "before:content-[''] before:absolute before:inset-[1px] before:rounded-3xl",
+                  theme === "night" ? "before:bg-midnightNavy" : "before:bg-white",
+                )}
+              />
               
               <div className="relative z-10">
                 {/* Custom Instagram Icon */}
@@ -110,14 +139,14 @@ export function Contact() {
                 <div className={cn(
                   "inline-flex items-center gap-2 text-sm font-medium",
                   "px-4 py-2 rounded-full border",
-                  "group-hover:border-babyPink transition-colors duration-300",
+                  "group-hover:border-babyPink group-focus-visible:border-babyPink transition-colors duration-300 ease-out",
                   theme === "night" 
                     ? "text-lilacHalo border-white/20" 
                     : "text-midnightNavy border-babyPink/80 bg-babyPink/55"
                 )}>
                   <span>{contactCopy.instagramCta}</span>
                   <motion.span 
-                    className="group-hover:translate-x-1 transition-transform duration-300"
+                    className="group-hover:translate-x-1 group-focus-visible:translate-x-1 transition-transform duration-300 ease-out"
                     whileHover={{ x: 4 }}
                   >
                     →
@@ -131,40 +160,45 @@ export function Contact() {
               href={socialLinks.email.href}
               className={cn(
                 "group relative p-8 rounded-3xl text-center overflow-hidden",
-                "backdrop-blur-xl border-2 transition-all duration-500",
-                "hover:scale-[1.015] active:scale-[0.99] transform-gpu will-change-transform",
-                "hover:shadow-2xl",
+                "backdrop-blur-xl border-2",
+                contactCardInteraction,
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
+                "hover:shadow-2xl hover:shadow-lilacHalo/25 focus-visible:shadow-2xl focus-visible:shadow-lilacHalo/25",
                 theme === "night" 
-                  ? "bg-gradient-to-br from-white/5 via-white/10 to-white/5 border-white/20 hover:border-white/30" 
-                  : "bg-gradient-to-br from-white/90 via-babyPink/35 to-white/80 border-babyPink/60 shadow-xl hover:shadow-3xl"
+                  ? "bg-gradient-to-br from-white/5 via-white/10 to-white/5 border-white/20 hover:border-white/30 focus-visible:border-white/30" 
+                  : "bg-gradient-to-br from-white/90 via-babyPink/35 to-white/80 border-babyPink/60 shadow-xl hover:border-babyPink/80 focus-visible:border-babyPink/80"
               )}
             >
               {/* Flowing background animation */}
-              <div className={cn(
-                "absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700",
-                theme === "night"
-                  ? "bg-gradient-to-br from-lavaGlow/10 via-coral/10 to-aquaMist/10"
-                  : "bg-gradient-to-br from-babyPink/25 via-coral/10 to-aquaMist/10"
-              )} />
+              <div
+                className={cn(
+                  emailWashTransition,
+                  // Cool lilac → purple → cyan (no warm reds); strong enough to read edge-to-edge after navy blend.
+                  theme === "night"
+                    ? "bg-gradient-to-br from-violet-500/17 via-purple-400/15 to-cyan-400/17"
+                    : "bg-gradient-to-br from-violet-300/12 via-sky-200/11 to-cyan-200/12",
+                )}
+              />
               
               {/* Animated border glow */}
-              <div className={cn(
-                "absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500",
-                theme === "night"
-                  ? "bg-gradient-to-r from-lavaGlow via-coral to-aquaMist p-[1px]"
-                  : "bg-gradient-to-r from-babyPink via-coral to-aquaMist p-[1px]",
-                "before:content-[''] before:absolute before:inset-[1px] before:rounded-3xl",
-                theme === "night" ? "before:bg-midnightNavy" : "before:bg-white"
-              )} />
+              <div
+                className={cn(
+                  borderGlowTransition,
+                  theme === "night"
+                    ? "bg-gradient-to-r from-violet-400 via-purple-500 to-cyan-400 p-[1px]"
+                    : "bg-gradient-to-r from-violet-300 via-sky-300 to-cyan-300 p-[1px]",
+                  "before:content-[''] before:absolute before:inset-[1px] before:rounded-3xl",
+                  theme === "night" ? "before:bg-midnightNavy" : "before:bg-white",
+                )}
+              />
               
               <div className="relative z-10">
                 {/* Custom Email Icon */}
                 <div className={cn(
                   "w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center relative overflow-hidden",
                   theme === "night"
-                    ? "bg-gradient-to-br from-lavaGlow to-coral"
-                    : "bg-gradient-to-br from-babyPink to-coral"
+                    ? "bg-gradient-to-br from-violet-500 via-purple-500 to-cyan-500"
+                    : "bg-gradient-to-br from-violet-400 via-babyPink to-cyan-400"
                 )}>
                   <SocialIcon platform="email" className="w-12 h-12 text-white relative z-10" />
                 </div>
@@ -186,14 +220,14 @@ export function Contact() {
                 <div className={cn(
                   "inline-flex items-center gap-2 text-sm font-medium",
                   "px-4 py-2 rounded-full border",
-                  "group-hover:border-babyPink transition-colors duration-300",
+                  "group-hover:border-babyPink group-focus-visible:border-babyPink transition-colors duration-300 ease-out",
                   theme === "night" 
                     ? "text-lilacHalo border-white/20" 
                     : "text-midnightNavy border-babyPink/80 bg-babyPink/55"
                 )}>
                   <span>{contactCopy.emailCta}</span>
                   <motion.span 
-                    className="group-hover:translate-x-1 transition-transform duration-300"
+                    className="group-hover:translate-x-1 group-focus-visible:translate-x-1 transition-transform duration-300 ease-out"
                     whileHover={{ x: 4 }}
                   >
                     →
