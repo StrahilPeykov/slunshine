@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/providers/theme-provider";
 import { heroCopy } from "@/content/site-content";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,18 @@ export function Hero() {
   const { theme } = useTheme();
   const prefersReducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const updateDevice = () => setIsMobile(media.matches);
+    updateDevice();
+
+    media.addEventListener("change", updateDevice);
+    return () => media.removeEventListener("change", updateDevice);
+  }, []);
+
+  const shouldReduceHeroEffects = prefersReducedMotion || isMobile;
 
   const scrollToNextSection = () => {
     const next = sectionRef.current?.nextElementSibling;
@@ -34,57 +46,51 @@ export function Hero() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0 w-full h-full">
           <Image
-            src="/images/hero-church.webp"
+            src={isMobile ? "/images/hero-church-mobile.webp" : "/images/hero-church.webp"}
             alt="Alexandrina playing harp"
             fill
             priority
             sizes="100vw"
-            className="absolute inset-0 hidden md:block h-full w-full object-cover object-center"
-          />
-          <Image
-            src="/images/hero-church-mobile.webp"
-            alt="Alexandrina playing harp"
-            fill
-            priority
-            sizes="100vw"
-            className="absolute inset-0 md:hidden h-full w-full object-cover object-center"
+            className="absolute inset-0 h-full w-full object-cover object-center"
           />
  
           {/* Animated floating orbs */}
           <motion.div
             className={cn(
-              "absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[200px] opacity-20",
+              "absolute top-1/4 left-1/4 rounded-full opacity-20",
+              isMobile ? "w-60 h-60 blur-[110px]" : "w-96 h-96 blur-[200px]",
               theme === "night" ? "bg-lilacHalo" : "bg-coral"
             )}
             animate={{
-              x: prefersReducedMotion ? 0 : [0, 50, 0],
-              y: prefersReducedMotion ? 0 : [0, -30, 0],
+              x: shouldReduceHeroEffects ? 0 : [0, 50, 0],
+              y: shouldReduceHeroEffects ? 0 : [0, -30, 0],
             }}
             transition={{
-              duration: prefersReducedMotion ? 0 : 10,
-              repeat: prefersReducedMotion ? 0 : Infinity,
+              duration: shouldReduceHeroEffects ? 0 : 10,
+              repeat: shouldReduceHeroEffects ? 0 : Infinity,
               ease: "easeInOut",
             }}
           />
           <motion.div
             className={cn(
-              "absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-[180px] opacity-20",
+              "absolute bottom-1/4 right-1/4 rounded-full opacity-20",
+              isMobile ? "w-52 h-52 blur-[90px]" : "w-80 h-80 blur-[180px]",
               theme === "night" ? "bg-lavaGlow" : "bg-aquaMist"
             )}
             animate={{
-              x: prefersReducedMotion ? 0 : [0, -40, 0],
-              y: prefersReducedMotion ? 0 : [0, 40, 0],
+              x: shouldReduceHeroEffects ? 0 : [0, -40, 0],
+              y: shouldReduceHeroEffects ? 0 : [0, 40, 0],
             }}
             transition={{
-              duration: prefersReducedMotion ? 0 : 12,
-              repeat: prefersReducedMotion ? 0 : Infinity,
+              duration: shouldReduceHeroEffects ? 0 : 12,
+              repeat: shouldReduceHeroEffects ? 0 : Infinity,
               ease: "easeInOut",
               delay: 1,
             }}
           />
 
           {/* Sparkles for both themes */}
-          {!prefersReducedMotion && (
+          {!shouldReduceHeroEffects && (
             <div className="absolute inset-0">
               {[...Array(40)].map((_, i) => (
                 <motion.div
