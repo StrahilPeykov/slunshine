@@ -33,14 +33,19 @@ export function Navigation() {
 
   const logoHref = isHomeRoute ? "#home" : "/#home";
 
+  const isNightScrolled = isScrolled && theme === "night";
+  const isDayScrolled = isScrolled && theme === "day";
+
   return (
     <nav
       aria-label="Primary"
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        isScrolled
-          ? "bg-white/96 border-b border-black/5 shadow-sm"
-          : "bg-black/45"
+        isNightScrolled
+          ? "bg-[rgb(var(--card)/0.95)] backdrop-blur-md border-b border-white/10 shadow-sm"
+          : isDayScrolled
+            ? "bg-white/96 border-b border-black/5 shadow-sm"
+            : "bg-black/45"
       )}
     >
       <div className="container mx-auto px-4">
@@ -58,9 +63,11 @@ export function Navigation() {
                 viewBox="0 0 180 50"
                 className={cn(
                   "transition-all duration-300",
-                  isScrolled
-                    ? "text-midnightNavy"
-                    : "text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.55)]"
+                  isNightScrolled
+                    ? "text-foreground"
+                    : isDayScrolled
+                      ? "text-midnightNavy"
+                      : "text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.55)]"
                 )}
               >
                 <defs>
@@ -115,9 +122,11 @@ export function Navigation() {
                   "transition-colors duration-300",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo rounded-sm",
                   "hover:opacity-100",
-                  isScrolled
-                    ? "text-midnightNavy/90 hover:text-midnightNavy"
-                    : "text-white hover:text-white font-normal drop-shadow-[0_3px_10px_rgba(0,0,0,0.65)]",
+                  isNightScrolled
+                    ? "text-foreground hover:text-foreground"
+                    : isDayScrolled
+                      ? "text-midnightNavy hover:text-midnightNavy"
+                      : "text-white hover:text-white font-normal drop-shadow-[0_3px_10px_rgba(0,0,0,0.65)]",
                   "after:content-[''] after:absolute after:bottom-[-4px] after:left-0",
                   "after:w-0 after:h-[1px] after:transition-all after:duration-300",
                   "hover:after:w-full",
@@ -142,9 +151,11 @@ export function Navigation() {
                 "p-2.5 rounded-full transition-all duration-300",
                 "hover:scale-110 active:scale-95",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
-                isScrolled
-                  ? "bg-babyPink/70 hover:bg-babyPink/90"
-                  : "bg-white/20 hover:bg-white/30"
+                isNightScrolled
+                  ? "bg-white/15 hover:bg-white/25"
+                  : isDayScrolled
+                    ? "bg-babyPink/70 hover:bg-babyPink/90"
+                    : "bg-white/20 hover:bg-white/30"
               )}
               aria-label="Toggle theme"
             >
@@ -152,14 +163,14 @@ export function Navigation() {
                 <Sun
                   className={cn(
                     "w-5 h-5",
-                    isScrolled ? "text-midnightNavy" : "text-white"
+                    isNightScrolled ? "text-foreground" : isDayScrolled ? "text-midnightNavy" : "text-white"
                   )}
                 />
               ) : (
                 <Moon
                   className={cn(
                     "w-5 h-5",
-                    isScrolled ? "text-midnightNavy" : "text-white"
+                    isNightScrolled ? "text-foreground" : isDayScrolled ? "text-midnightNavy" : "text-white"
                   )}
                 />
               )}
@@ -173,9 +184,11 @@ export function Navigation() {
                 "md:hidden p-2.5 rounded-full transition-all duration-300",
                 "hover:scale-110 active:scale-95",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
-                isScrolled
-                  ? "bg-babyPink/70 hover:bg-babyPink/90"
-                  : "bg-white/20 hover:bg-white/30"
+                isNightScrolled
+                  ? "bg-white/15 hover:bg-white/25"
+                  : isDayScrolled
+                    ? "bg-babyPink/70 hover:bg-babyPink/90"
+                    : "bg-white/20 hover:bg-white/30"
               )}
               aria-label="Toggle mobile menu"
             >
@@ -183,14 +196,22 @@ export function Navigation() {
                 <X
                   className={cn(
                     "w-5 h-5",
-                    isScrolled ? "text-midnightNavy" : "text-white"
+                    isNightScrolled
+                      ? "text-foreground"
+                      : isDayScrolled
+                        ? "text-midnightNavy"
+                        : "text-white"
                   )}
                 />
               ) : (
                 <Menu
                   className={cn(
                     "w-5 h-5",
-                    isScrolled ? "text-midnightNavy" : "text-white"
+                    isNightScrolled
+                      ? "text-foreground"
+                      : isDayScrolled
+                        ? "text-midnightNavy"
+                        : "text-white"
                   )}
                 />
               )}
@@ -208,8 +229,10 @@ export function Navigation() {
               transition={{ duration: 0.3 }}
               id="mobile-navigation"
               className={cn(
-                "md:hidden overflow-hidden",
-                "bg-white rounded-b-2xl border-t border-black/5"
+                "md:hidden overflow-hidden rounded-b-2xl border-t",
+                theme === "night"
+                  ? "bg-[rgb(var(--card))] border-white/10"
+                  : "bg-white border-black/5"
               )}
             >
               <div className="flex flex-col gap-1 py-6">
@@ -222,7 +245,9 @@ export function Navigation() {
                       "px-4 py-3 font-inter text-sm font-light tracking-wide",
                       "transition-colors duration-200",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo rounded-md",
-                      "text-midnightNavy/80 hover:text-midnightNavy hover:bg-black/5"
+                      theme === "night"
+                        ? "text-foreground/80 hover:text-foreground hover:bg-white/5"
+                        : "text-midnightNavy hover:text-midnightNavy hover:bg-black/5"
                     )}
                   >
                     {link.label}
