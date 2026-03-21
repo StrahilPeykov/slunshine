@@ -105,6 +105,10 @@ h1, h2, h3, h4, h5, h6 {
   color: rgba(var(--foreground), 0.7) !important;
 }
 
+.text-foreground\/75 {
+  color: rgba(var(--foreground), 0.75) !important;
+}
+
 .text-foreground\/80 {
   color: rgba(var(--foreground), 0.8) !important;
 }

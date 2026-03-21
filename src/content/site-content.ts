@@ -126,11 +126,21 @@ export const samplesMetadata = {
 export const navigationItems: ReadonlyArray<NavItem> = [
   { href: "#home", label: "Home" },
   { href: "#music", label: "Listen" },
-  { href: "/samples", label: "Samples" },
   { href: "#about", label: "About" },
   { href: "#lessons", label: "Lessons" },
+  { href: "/samples", label: "For producers" },
   { href: "#contact", label: "Contact" },
 ];
+
+/** Homepage-only block before About; id matches scroll target for /#samples */
+export const samplesTeaserCopy = {
+  id: "samples",
+  title: "For producers & collaborators",
+  subtitle: "Sound samples",
+  description:
+    "Harp textures, vocal lines, and cinematic fragments — curated for licensing. Preview the vault; full releases unlock soon.",
+  ctaLabel: "Open sample library",
+} as const;
 
 export const socialLinks: Record<SocialPlatform, SocialLink> = {
   instagram: {

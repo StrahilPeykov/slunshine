@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, ArrowUpRight } from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
 import { navigationItems } from "@/content/site-content";
 import { cn } from "@/lib/utils";
@@ -30,6 +30,8 @@ export function Navigation() {
     if (!href.startsWith("#")) return href;
     return isHomeRoute ? href : `/${href}`;
   };
+
+  const isRouteLink = (href: string) => href.startsWith("/") && href !== "/";
 
   const logoHref = isHomeRoute ? "#home" : "/#home";
 
@@ -119,6 +121,7 @@ export function Navigation() {
                 href={resolveHref(link.href)}
                 className={cn(
                   "relative font-inter text-sm font-light tracking-wide",
+                  "inline-flex items-center gap-1",
                   "transition-colors duration-300",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo rounded-sm",
                   "hover:opacity-100",
@@ -134,6 +137,12 @@ export function Navigation() {
                 )}
               >
                 {link.label}
+                {isRouteLink(link.href) && (
+                  <ArrowUpRight
+                    className="w-3.5 h-3.5 opacity-70 shrink-0"
+                    aria-hidden
+                  />
+                )}
               </Link>
             ))}
           </motion.div>
@@ -243,6 +252,7 @@ export function Navigation() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
                       "px-4 py-3 font-inter text-sm font-light tracking-wide",
+                      "flex items-center gap-2",
                       "transition-colors duration-200",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo rounded-md",
                       theme === "night"
@@ -251,6 +261,12 @@ export function Navigation() {
                     )}
                   >
                     {link.label}
+                    {isRouteLink(link.href) && (
+                      <ArrowUpRight
+                        className="w-3.5 h-3.5 opacity-60 shrink-0"
+                        aria-hidden
+                      />
+                    )}
                   </Link>
                 ))}
               </div>
