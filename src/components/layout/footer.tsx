@@ -41,7 +41,7 @@ export function Footer() {
             </div>
 
             <div className="flex justify-center">
-              <SocialLinks size="md" platforms={["instagram", "tiktok", "spotify"]} />
+              <SocialLinks size="md" platforms={["instagram", "tiktok", "youtube", "spotify"]} />
             </div>
 
             <div className="text-center">

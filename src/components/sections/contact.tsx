@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SocialIcon, SocialLinks } from "@/components/common/social-links";
+import { SocialIcon } from "@/components/common/social-links";
 import { useTheme } from "@/components/providers/theme-provider";
 import { contactCopy, contactSectionCopy, socialLinks } from "@/content/site-content";
 import { cn } from "@/lib/utils";
@@ -251,9 +251,6 @@ export function Contact() {
             {contactCopy.responseNote}
           </motion.p>
 
-          <div className="mt-6 flex justify-center">
-            <SocialLinks size="md" platforms={["instagram", "tiktok", "youtube", "spotify"]} />
-          </div>
         </motion.div>
       </div>
     </section>
