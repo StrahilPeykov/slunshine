@@ -26,6 +26,15 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
   const resolveHref = (href: string) => {
     if (!href.startsWith("#")) return href;
     return isHomeRoute ? href : `/${href}`;
@@ -51,7 +60,7 @@ export function Navigation() {
       )}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex h-[4.5rem] items-center justify-between md:h-20">
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -64,7 +73,7 @@ export function Navigation() {
                 height="50"
                 viewBox="0 0 180 50"
                 className={cn(
-                  "transition-all duration-300",
+                  "h-10 w-[150px] transition-all duration-300 md:h-[50px] md:w-[180px]",
                   isNightScrolled
                     ? "text-foreground"
                     : isDayScrolled
@@ -149,7 +158,7 @@ export function Navigation() {
 
           {/* Theme Toggle & Mobile Menu */}
           <motion.div
-            className="flex items-center gap-4"
+            className="flex items-center gap-2 md:gap-4"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
@@ -157,7 +166,7 @@ export function Navigation() {
             <button
               onClick={toggleTheme}
               className={cn(
-                "p-2.5 rounded-full transition-all duration-300",
+                "inline-flex h-11 w-11 items-center justify-center rounded-full p-0 transition-all duration-300",
                 "hover:scale-110 active:scale-95",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 isNightScrolled
@@ -190,7 +199,7 @@ export function Navigation() {
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation"
               className={cn(
-                "md:hidden p-2.5 rounded-full transition-all duration-300",
+                "md:hidden inline-flex h-11 w-11 items-center justify-center rounded-full p-0 transition-all duration-300",
                 "hover:scale-110 active:scale-95",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
                 isNightScrolled
@@ -238,26 +247,25 @@ export function Navigation() {
               transition={{ duration: 0.3 }}
               id="mobile-navigation"
               className={cn(
-                "md:hidden overflow-hidden rounded-b-2xl border-t",
+                "md:hidden overflow-hidden rounded-b-2xl border-t shadow-lg",
                 theme === "night"
                   ? "bg-[rgb(var(--card))] border-white/10"
                   : "bg-white border-black/5"
               )}
             >
-              <div className="flex flex-col gap-1 py-6">
+              <div className="flex flex-col gap-1.5 px-2 py-3">
                 {navigationItems.map((link) => (
                   <Link
                     key={link.href}
                     href={resolveHref(link.href)}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
-                      "px-4 py-3 font-inter text-sm font-light tracking-wide",
-                      "flex items-center gap-2",
+                      "flex min-h-11 items-center gap-2 rounded-xl px-3 py-2.5 font-inter text-[0.95rem] tracking-[0.01em]",
                       "transition-colors duration-200",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo rounded-md",
                       theme === "night"
-                        ? "text-foreground/80 hover:text-foreground hover:bg-white/5"
-                        : "text-midnightNavy hover:text-midnightNavy hover:bg-black/5"
+                        ? "text-foreground/90 hover:text-foreground hover:bg-white/10"
+                        : "text-midnightNavy/90 hover:text-midnightNavy hover:bg-midnightNavy/10"
                     )}
                   >
                     {link.label}

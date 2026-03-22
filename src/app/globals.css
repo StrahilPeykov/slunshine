@@ -60,6 +60,58 @@ html, body {
   --primary-foreground: 14 26 42;
   --accent: 255 214 230;
   --accent-foreground: 14 26 42;
+
+  /* Shared mobile layout tokens */
+  --mobile-nav-height: 4.5rem;
+  --samples-mobile-gutter: 1rem;
+  --samples-mobile-section-y: 4.5rem;
+  --samples-mobile-card-gap: 0.875rem;
+  --samples-mobile-card-padding: 1rem;
+  --samples-chip-height: 2.75rem;
+  --samples-table-head-bg: 239 241 246;
+  --samples-table-head-fg: 45 58 84;
+}
+
+.samples-sticky-rail {
+  position: sticky;
+  top: calc(var(--mobile-nav-height) + 0.45rem);
+  z-index: 30;
+  padding-top: 0.25rem;
+  padding-bottom: 0.4rem;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--background), 0.96) 0%,
+    rgba(var(--background), 0.86) 70%,
+    rgba(var(--background), 0) 100%
+  );
+  backdrop-filter: blur(6px);
+}
+
+.samples-chip-scroll {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.samples-chip-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.samples-chip-button {
+  flex: 0 0 auto;
+  min-height: var(--samples-chip-height);
+  white-space: nowrap;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --samples-mobile-gutter: 1.25rem;
+    --samples-mobile-card-padding: 1.25rem;
+  }
 }
 
 [data-theme="night"] {
@@ -72,6 +124,8 @@ html, body {
   --primary-foreground: 237 236 244;
   --accent: 201 168 255;
   --accent-foreground: 14 26 42;
+  --samples-table-head-bg: 29 45 68;
+  --samples-table-head-fg: 226 232 243;
 }
 
 body {

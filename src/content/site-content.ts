@@ -431,7 +431,7 @@ export const contactCopy = {
 export const samplesPageCopy: SamplesPageCopy = {
   title: "Sound Samples Vault",
   description:
-    "A curated collection of harp textures, vocal lines, and cinematic fragments. Each piece has a short preview; full recordings are locked for producer licensing.",
+    "Curated harp textures, vocal lines, and cinematic fragments. Each sample has a short preview; full recordings are locked for producer licensing.",
   lockMessage: "Full version locked. Purchase flow is coming soon.",
   previewNote: "Preview mode plays only the opening seconds.",
 };
