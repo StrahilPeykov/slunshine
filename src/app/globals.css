@@ -1,10 +1,11 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300..700&family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300..700&family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Qwigley&display=swap');
 
 @theme {
   --font-playfair: "Playfair Display", serif;
   --font-inter: "Inter", sans-serif;
   --font-cormorant: "Cormorant Upright", serif;
+  --font-qwigley: "Qwigley", cursive;
   
   /* Day theme colors */
   --color-background: rgb(255 252 250);
@@ -236,6 +237,10 @@ h1, h2, h3, h4, h5, h6 {
 /* Font utilities */
 .font-cormorant {
   font-family: var(--font-cormorant);
+}
+
+.font-qwigley {
+  font-family: var(--font-qwigley);
 }
 
 /* Small caps for surname */

@@ -19,12 +19,29 @@ export function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (!isHomeRoute) {
+        setIsScrolled(window.scrollY > 20);
+        return;
+      }
+
+      const hero = document.getElementById("home");
+      if (!hero) {
+        setIsScrolled(window.scrollY > 20);
+        return;
+      }
+
+      const trigger = Math.max(hero.offsetHeight - 140, 20);
+      setIsScrolled(window.scrollY > trigger);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [isHomeRoute]);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;

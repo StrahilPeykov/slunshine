@@ -2,28 +2,29 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { SocialLinks } from "@/components/common/social-links";
 import { useTheme } from "@/components/providers/theme-provider";
 import { heroCopy } from "@/content/site-content";
 import { cn } from "@/lib/utils";
-import { Play } from "lucide-react";
+import { ArrowDown, Play } from "lucide-react";
+
+const INK_PARTICLES = [
+  { left: "12%", top: "24%", delay: 0, duration: 4.1 },
+  { left: "22%", top: "33%", delay: 0.9, duration: 4.8 },
+  { left: "39%", top: "20%", delay: 1.5, duration: 4.3 },
+  { left: "58%", top: "29%", delay: 0.3, duration: 5.2 },
+  { left: "67%", top: "21%", delay: 1.2, duration: 4.6 },
+  { left: "76%", top: "38%", delay: 0.7, duration: 5.4 },
+  { left: "83%", top: "18%", delay: 0.1, duration: 4.9 },
+  { left: "48%", top: "44%", delay: 1.8, duration: 5.1 },
+];
 
 export function Hero() {
   const { theme } = useTheme();
   const prefersReducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(true);
-
-  useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
-    const updateDevice = () => setIsMobile(media.matches);
-    updateDevice();
-
-    media.addEventListener("change", updateDevice);
-    return () => media.removeEventListener("change", updateDevice);
-  }, []);
-
-  const shouldReduceHeroEffects = prefersReducedMotion || isMobile;
+  const isNight = theme === "night";
 
   const scrollToNextSection = () => {
     const next = sectionRef.current?.nextElementSibling;
@@ -39,279 +40,223 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative isolate min-h-screen overflow-hidden"
     >
-      {/* Animated background */}
-      <div className="absolute inset-0 w-full overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0 w-full h-full">
-          <Image
-            src={isMobile ? "/images/hero-church-mobile.webp" : "/images/hero-church.webp"}
-            alt="Alexandrina playing harp"
-            fill
-            priority
-            sizes="100vw"
-            className="absolute inset-0 h-full w-full object-cover object-center"
-          />
- 
-          {/* Animated floating orbs */}
-          <motion.div
-            className={cn(
-              "absolute top-1/4 left-1/4 rounded-full opacity-20",
-              isMobile ? "w-60 h-60 blur-[110px]" : "w-96 h-96 blur-[200px]",
-              theme === "night" ? "bg-lilacHalo" : "bg-coral"
-            )}
-            animate={{
-              x: shouldReduceHeroEffects ? 0 : [0, 50, 0],
-              y: shouldReduceHeroEffects ? 0 : [0, -30, 0],
-            }}
-            transition={{
-              duration: shouldReduceHeroEffects ? 0 : 10,
-              repeat: shouldReduceHeroEffects ? 0 : Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className={cn(
-              "absolute bottom-1/4 right-1/4 rounded-full opacity-20",
-              isMobile ? "w-52 h-52 blur-[90px]" : "w-80 h-80 blur-[180px]",
-              theme === "night" ? "bg-lavaGlow" : "bg-aquaMist"
-            )}
-            animate={{
-              x: shouldReduceHeroEffects ? 0 : [0, -40, 0],
-              y: shouldReduceHeroEffects ? 0 : [0, 40, 0],
-            }}
-            transition={{
-              duration: shouldReduceHeroEffects ? 0 : 12,
-              repeat: shouldReduceHeroEffects ? 0 : Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-          />
-
-          {/* Sparkles for both themes */}
-          {!shouldReduceHeroEffects && (
-            <div className="absolute inset-0">
-              {[...Array(40)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-0.5 h-0.5 rounded-full bg-white"
-                  style={{
-                    left: `${(i * 17) % 100}%`,
-                    top: `${(i * 29) % 100}%`,
-                  }}
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{
-                    opacity: [0, 1, 0],
-                    scale: [1, 1.5, 1],
-                  }}
-                  transition={{
-                    duration: 3 + (i % 5),
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    ease: "easeInOut",
-                    delay: (i % 10) * 0.5,
-                  }}
-                />
-              ))}
-            </div>
+      <div className="absolute inset-0 -z-20">
+        <Image
+          src="/images/hero-church.webp"
+          alt="Alexandrina performing on harp"
+          fill
+          priority
+          sizes="100vw"
+          className={cn(
+            "h-full w-full object-cover object-center md:object-[center_34%]",
+            isNight
+              ? "[filter:brightness(1.12)_contrast(1.06)_saturate(1.08)]"
+              : "[filter:brightness(1.03)_contrast(1.02)]",
           )}
-        </div>
+        />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center w-full max-w-none">
+      <div
+        className={cn(
+          "absolute inset-0 -z-10",
+          isNight
+            ? "bg-[radial-gradient(circle_at_48%_37%,rgba(94,124,171,0.2),rgba(4,9,24,0.72)_45%,rgba(2,5,14,0.86)_76%)]"
+            : "bg-[radial-gradient(circle_at_52%_30%,rgba(255,248,240,0.5),rgba(120,153,191,0.38)_36%,rgba(20,39,65,0.72)_74%)]",
+        )}
+      />
+
+      <div
+        className={cn(
+          "absolute inset-0 -z-10",
+          isNight
+            ? "bg-[linear-gradient(180deg,rgba(2,8,18,0.4)_8%,rgba(2,8,18,0.12)_46%,rgba(2,8,18,0.64)_100%)]"
+            : "bg-[linear-gradient(180deg,rgba(242,237,229,0.42)_0%,rgba(36,62,95,0.34)_44%,rgba(18,36,61,0.55)_72%,rgba(255,252,250,0.86)_100%)]",
+        )}
+      />
+
+      {!prefersReducedMotion && (
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          {INK_PARTICLES.map((particle) => (
+            <motion.span
+              key={`${particle.left}-${particle.top}`}
+              className="absolute h-1 w-1 rounded-full bg-white/65 blur-[0.5px]"
+              style={{ left: particle.left, top: particle.top }}
+              animate={{ opacity: [0.2, 0.95, 0.3], scale: [1, 1.8, 1] }}
+              transition={{
+                duration: particle.duration,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: particle.delay,
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-x-0 bottom-[-1px] z-0 h-[28vh]",
+          isNight
+            ? "bg-[linear-gradient(180deg,rgba(4,10,18,0)_0%,rgba(2,6,15,0.44)_42%,rgba(1,3,10,0.84)_100%)]"
+            : "bg-[linear-gradient(180deg,rgba(255,252,250,0)_0%,rgba(255,252,250,0.56)_58%,rgba(255,252,250,1)_100%)]",
+        )}
+      />
+
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-4 pb-24 pt-28 text-center md:pt-36">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="max-w-5xl mx-auto"
+          transition={{ duration: prefersReducedMotion ? 0 : 0.9 }}
+          className="w-full max-w-4xl"
         >
-          {/* Artist Name */}
-          <motion.h1 
-            className="font-cormorant mb-8 mt-20"
-            initial={{ opacity: 0, scale: 0.9 }}
+          <motion.h1
+            className={cn(
+              "mx-auto max-w-[15ch] font-qwigley text-[clamp(3.75rem,10vw,8rem)] leading-[0.88] tracking-[0.01em]",
+              isNight
+                ? "text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)]"
+                : "text-[rgb(247,243,236)] drop-shadow-[0_8px_20px_rgba(14,26,42,0.45)]",
+            )}
+            initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.2 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 1.1, delay: prefersReducedMotion ? 0 : 0.2 }}
           >
-            <span className={cn(
-              "block text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] font-light tracking-tight",
-              "relative inline-block",
-              theme === "night" 
-                ? "text-transparent bg-clip-text bg-gradient-to-br from-white via-lilacHalo/90 to-white"
-                : "text-white drop-shadow-[0_2px_10px_rgba(14,26,42,0.9)]"
-            )}>
-              {theme === "night" && (
-                <motion.span
-                  className="absolute inset-0 text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] font-light tracking-tight blur-2xl opacity-40"
-                  style={{
-                    background: "linear-gradient(to bottom right, white, #C9A8FF, white)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  {heroCopy.firstName}
-                </motion.span>
-              )}
-              {heroCopy.firstName}
-            </span>
-            <motion.span 
-              className={cn(
-                "block text-[clamp(2rem,7vw,4.5rem)] font-extralight small-caps mt-2 uppercase",
-                theme === "night" 
-                  ? "text-white/90"
-                  : "text-white drop-shadow-[0_2px_8px_rgba(14,26,42,0.8)]"
-              )}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              {heroCopy.lastName}
-            </motion.span>
+            <span className="block">{heroCopy.firstName}</span>
+            <span className="mt-1 block md:mt-1.5">{heroCopy.lastName}</span>
           </motion.h1>
 
-          {/* Subtitle */}
-          <motion.div 
-            className="flex items-center justify-center gap-6 mb-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+          <motion.p
+            className={cn(
+              "mt-1 font-qwigley text-[2rem] leading-[0.95] sm:text-[2.45rem] md:text-[2.95rem]",
+              isNight ? "text-white/78" : "text-[rgb(244,238,228)]/92",
+            )}
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.8, delay: prefersReducedMotion ? 0 : 0.35 }}
           >
-            <span className={cn(
-              "h-[1px] w-20 md:w-32",
-              theme === "night" 
-                ? "bg-gradient-to-r from-transparent to-white/40" 
-                : "bg-gradient-to-r from-transparent to-white/70"
-            )} />
-            <p className={cn(
-              "text-lg md:text-xl font-inter font-light tracking-[0.2em] uppercase",
-              theme === "night" ? "text-white/80" : "text-white drop-shadow-[0_1px_4px_rgba(14,26,42,0.6)]"
-            )}>
-              {heroCopy.role}
-            </p>
-            <span className={cn(
-              "h-[1px] w-20 md:w-32",
-              theme === "night" 
-                ? "bg-gradient-to-l from-transparent to-white/40" 
-                : "bg-gradient-to-l from-transparent to-white/70"
-            )} />
-          </motion.div>
+            {heroCopy.role}
+          </motion.p>
 
-          {/* Coming Soon Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            className="mt-7 flex justify-center"
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="mb-10"
+            transition={{ duration: prefersReducedMotion ? 0 : 0.7, delay: prefersReducedMotion ? 0 : 0.45 }}
           >
-            <div className={cn(
-              "group inline-flex items-center gap-3 px-6 py-3 rounded-full",
-              "backdrop-blur-xl border transition-all duration-300",
-              theme === "night" 
-                ? "bg-black/30 border-white/20 text-white hover:bg-black/40" 
-                : "bg-white/88 border-white/95 text-midnightNavy shadow-[0_10px_35px_rgba(14,26,42,0.35)] hover:bg-white"
-            )}>
-              <span className="relative flex h-2 w-2">
-                <span className={cn(
-                  "absolute inline-flex h-full w-full rounded-full opacity-0 group-hover:opacity-75",
-                  "group-hover:animate-ping transition-opacity duration-300",
-                  theme === "night" ? "bg-lavaGlow" : "bg-coral"
-                )} />
-                <span className={cn(
-                  "relative inline-flex rounded-full h-2 w-2",
-                  theme === "night" ? "bg-lavaGlow" : "bg-coral"
-                )} />
-              </span>
-              <span className="text-sm font-medium tracking-wide">
-                {heroCopy.announcement}
-              </span>
-            </div>
+            <p
+              className={cn(
+                "inline-flex items-center gap-3 rounded-full px-5 py-2 text-[0.73rem] font-inter uppercase tracking-[0.27em] backdrop-blur-sm",
+                isNight
+                  ? "border border-white/25 bg-black/35 text-white/85"
+                  : "border border-[rgba(20,40,66,0.4)] bg-[rgba(255,252,248,0.72)] text-[rgb(20,40,66)]",
+              )}
+            >
+              <span
+                className={cn(
+                  "h-1.5 w-1.5 rounded-full",
+                  isNight ? "bg-white/90" : "bg-[rgb(20,40,66)]",
+                )}
+                aria-hidden
+              />
+              {heroCopy.announcement}
+            </p>
           </motion.div>
 
-          {/* CTA Buttons */}
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-20 mt-10"
-            initial={{ opacity: 0, y: 20 }}
+          <motion.div
+            className="mt-11 flex flex-col items-center justify-center gap-5 sm:flex-row"
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.75, delay: prefersReducedMotion ? 0 : 0.55 }}
           >
             <a
               href="#music"
-              className={cn(
-                "group relative px-10 py-4 rounded-full font-inter font-medium overflow-hidden",
-                "transition-all duration-500 transform hover:scale-[1.02] active:scale-[0.98]",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
-                "shadow-xl",
-                theme === "night" ? "text-white" : "text-midnightNavy"
-              )}
+              className="group relative isolate inline-flex min-w-[12rem] items-center justify-center px-8 py-3.5 text-center"
             >
-              {/* Static gradient background */}
-              <span className={cn(
-                "absolute inset-0 -z-10 transition-all duration-500",
-                theme === "night"
-                  ? "bg-gradient-to-r from-lavaGlow to-coral group-hover:from-coral group-hover:to-lavaGlow"
-                  : "bg-gradient-to-r from-white/95 via-white/90 to-white/85 group-hover:from-white group-hover:via-babyPink/35 group-hover:to-white"
-              )} />
-              {/* Subtle shimmer on hover */}
-              <span className={cn(
-                "absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700",
-                "bg-gradient-to-r from-transparent via-white/20 to-transparent",
-                "translate-x-[-100%] group-hover:translate-x-[100%] group-hover:transition-transform group-hover:duration-1000"
-              )} />
-              <span className="flex items-center gap-3 justify-center">
-                <Play className={cn(
-                  "w-5 h-5 group-hover:scale-110 transition-transform duration-300",
-                  theme === "night" ? "text-white" : "text-midnightNavy"
-                )} />
+              <span
+                className={cn(
+                  "pointer-events-none absolute inset-0 rounded-[0.15rem] transition-transform duration-300 group-hover:rotate-[-0.5deg]",
+                  isNight
+                    ? "border border-white/70"
+                    : "border border-[rgba(242,236,226,0.74)] bg-[rgba(12,30,53,0.4)]",
+                )}
+              />
+              <span
+                className={cn(
+                  "pointer-events-none absolute inset-0 rounded-[0.15rem] translate-x-[2px] translate-y-[2px] transition-transform duration-300 group-hover:translate-x-[3px] group-hover:translate-y-[3px]",
+                  isNight ? "border border-white/35" : "border border-[rgba(242,236,226,0.34)]",
+                )}
+              />
+              <span
+                className={cn(
+                  "relative inline-flex items-center gap-2.5 font-qwigley text-[2.25rem] leading-none sm:text-[2.45rem]",
+                  isNight
+                    ? "text-white"
+                    : "text-[rgb(246,240,230)] drop-shadow-[0_2px_6px_rgba(5,14,26,0.35)]",
+                )}
+              >
+                <Play
+                  className={cn(
+                    "h-4 w-4",
+                    isNight ? "text-white/90" : "text-[rgb(246,240,230)]",
+                  )}
+                />
                 {heroCopy.primaryCta}
               </span>
             </a>
-            
-            <a 
-              href="#about" 
+
+            <a
+              href="#about"
               className={cn(
-                "px-10 py-4 rounded-full font-inter font-medium",
-                "backdrop-blur-xl border-2 transition-all duration-300",
-                "transform hover:scale-[1.02] active:scale-[0.98] shadow-xl",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo",
-                theme === "night" 
-                  ? "bg-white/10 border-white/30 hover:bg-white/20 text-white" 
-                  : "bg-white/72 border-white/90 hover:bg-white/92 text-midnightNavy shadow-[0_10px_30px_rgba(14,26,42,0.28)]"
+                "font-qwigley text-[2.75rem] leading-none underline-offset-8 transition-colors duration-300 hover:underline sm:text-[3.15rem]",
+                isNight
+                  ? "text-white/85 hover:text-white"
+                  : "text-[rgb(246,240,230)]/96 drop-shadow-[0_2px_6px_rgba(5,14,26,0.35)] hover:text-[rgb(255,250,242)]",
               )}
             >
               {heroCopy.secondaryCta}
             </a>
           </motion.div>
+
+          <motion.div
+            className="mt-12 flex justify-center"
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.75, delay: prefersReducedMotion ? 0 : 0.7 }}
+          >
+            <SocialLinks
+              size="sm"
+              className="gap-2.5"
+              itemClassName={cn(
+                "backdrop-blur-sm",
+                isNight
+                  ? "border border-white/30 bg-black/35 hover:bg-black/45"
+                  : "border border-[rgba(14,30,52,0.28)] bg-[rgba(255,252,247,0.65)] hover:bg-[rgba(255,252,247,0.86)]",
+              )}
+            />
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Custom Scroll Indicator — scrolls to whatever section follows the hero in the page */}
       <button
         type="button"
         onClick={scrollToNextSection}
         className={cn(
           "absolute left-1/2 -translate-x-1/2 bottom-8 z-20",
-          "block w-[30px] h-[50px] rounded-full border-2",
-          "flex items-center justify-center cursor-pointer group",
-          "transition-all duration-300 hover:scale-110 active:scale-95",
+          "inline-flex h-11 w-11 items-center justify-center rounded-full",
+          isNight
+            ? "border border-white/45 bg-black/30 backdrop-blur-sm"
+            : "border border-[rgba(14,30,52,0.45)] bg-[rgba(255,252,247,0.78)] backdrop-blur-sm",
+          "cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lilacHalo focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
-          "motion-safe:animate-bounce pointer-events-auto",
-          theme === "night" 
-            ? "border-white/40 hover:border-white/60" 
-            : "border-white/80 bg-white/20 backdrop-blur-sm hover:bg-white/30"
+          prefersReducedMotion ? "animate-none" : "motion-safe:animate-bounce",
         )}
-        style={{ pointerEvents: "auto" }}
         aria-label="Scroll to next section"
       >
-        {/* Simple scroll dot */}
-        <div className={cn(
-          "w-1 h-3 rounded-full transition-all duration-300",
-          "group-hover:h-4 pointer-events-none",
-          theme === "night" ? "bg-white/70 group-hover:bg-white" : "bg-white"
-        )} />
+        <ArrowDown
+          className={cn("h-4 w-4", isNight ? "text-white/90" : "text-[rgb(14,30,52)]")}
+          aria-hidden
+        />
       </button>
     </section>
   );

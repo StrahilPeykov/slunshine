@@ -194,7 +194,7 @@ export const heroCopy = {
   lastName: "Kushinchanova",
   role: "The Harp Lady",
   announcement: "New Single “Lubov, Lubov” Coming Soon",
-  primaryCta: "Listen to My Music",
+  primaryCta: "Listen",
   secondaryCta: "Explore My World",
 } as const;
 
