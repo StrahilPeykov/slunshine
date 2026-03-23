@@ -63,7 +63,7 @@ export function Hero() {
           "absolute inset-0 -z-10",
           isNight
             ? "bg-[radial-gradient(circle_at_48%_37%,rgba(94,124,171,0.2),rgba(4,9,24,0.72)_45%,rgba(2,5,14,0.86)_76%)]"
-            : "bg-[radial-gradient(circle_at_52%_30%,rgba(255,248,240,0.5),rgba(120,153,191,0.38)_36%,rgba(20,39,65,0.72)_74%)]",
+            : "bg-[radial-gradient(circle_at_52%_30%,rgba(255,248,240,0.26),rgba(110,142,182,0.3)_34%,rgba(18,37,63,0.66)_74%)]",
         )}
       />
 
@@ -72,9 +72,13 @@ export function Hero() {
           "absolute inset-0 -z-10",
           isNight
             ? "bg-[linear-gradient(180deg,rgba(2,8,18,0.4)_8%,rgba(2,8,18,0.12)_46%,rgba(2,8,18,0.64)_100%)]"
-            : "bg-[linear-gradient(180deg,rgba(242,237,229,0.42)_0%,rgba(36,62,95,0.34)_44%,rgba(18,36,61,0.55)_72%,rgba(255,252,250,0.86)_100%)]",
+            : "bg-[linear-gradient(180deg,rgba(242,237,229,0.24)_0%,rgba(28,52,83,0.3)_44%,rgba(16,34,60,0.5)_72%,rgba(255,252,250,0.78)_100%)]",
         )}
       />
+
+      {!isNight && (
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_38%,rgba(8,24,44,0.36)_0%,rgba(8,24,44,0.18)_32%,rgba(8,24,44,0)_66%)]" />
+      )}
 
       {!prefersReducedMotion && (
         <div className="absolute inset-0 -z-10 pointer-events-none">
@@ -100,7 +104,7 @@ export function Hero() {
           "pointer-events-none absolute inset-x-0 bottom-[-1px] z-0 h-[28vh]",
           isNight
             ? "bg-[linear-gradient(180deg,rgba(4,10,18,0)_0%,rgba(2,6,15,0.44)_42%,rgba(1,3,10,0.84)_100%)]"
-            : "bg-[linear-gradient(180deg,rgba(255,252,250,0)_0%,rgba(255,252,250,0.56)_58%,rgba(255,252,250,1)_100%)]",
+            : "bg-[linear-gradient(180deg,rgba(255,252,250,0)_0%,rgba(255,252,250,0.38)_72%,rgba(255,252,250,0.97)_100%)]",
         )}
       />
 
@@ -116,7 +120,7 @@ export function Hero() {
               "mx-auto max-w-[15ch] font-qwigley text-[clamp(3.75rem,10vw,8rem)] leading-[0.88] tracking-[0.01em]",
               isNight
                 ? "text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)]"
-                : "text-[rgb(247,243,236)] drop-shadow-[0_8px_20px_rgba(14,26,42,0.45)]",
+                : "text-[rgb(252,248,240)] [text-shadow:0_3px_0_rgba(8,18,34,0.22),0_12px_28px_rgba(8,18,34,0.55)]",
             )}
             initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -129,7 +133,9 @@ export function Hero() {
           <motion.p
             className={cn(
               "mt-1 font-qwigley text-[2rem] leading-[0.95] sm:text-[2.45rem] md:text-[2.95rem]",
-              isNight ? "text-white/78" : "text-[rgb(244,238,228)]/92",
+              isNight
+                ? "text-white/78"
+                : "text-[rgb(250,246,238)] [text-shadow:0_8px_18px_rgba(8,18,34,0.5)]",
             )}
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
