@@ -110,7 +110,7 @@ export function Lessons() {
               {lessonsSectionCopy.title}
             </span>
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
             {lessonsSectionCopy.description}
           </p>
         </motion.div>
@@ -174,7 +174,7 @@ export function Lessons() {
                       <h4 className="font-playfair text-xl font-medium mb-1">
                         {offering.title}
                       </h4>
-                      <p className="text-foreground/60">
+                      <p className="text-foreground/70">
                         {offering.description}
                       </p>
                     </div>
@@ -237,19 +237,6 @@ export function Lessons() {
                   );
                 })}
               </div>
-
-              {/* Student testimonial */}
-              <div className={cn(
-                "p-4 rounded-xl",
-                theme === "night" ? "bg-black/20" : "bg-midnightNavy/5"
-              )}>
-                <p className="text-sm italic text-foreground/70 mb-2">
-                  {lessonCardCopy.testimonial}
-                </p>
-                <p className="text-xs text-foreground/50">
-                  — {lessonCardCopy.testimonialAuthor}
-                </p>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -262,7 +249,7 @@ export function Lessons() {
           transition={{ duration: 0.6 }}
           className="text-center mt-16"
         >
-          <p className="text-foreground/60 mb-6">
+          <p className="text-foreground/70 mb-6">
             {lessonCardCopy.ctaPrompt}
           </p>
           <a

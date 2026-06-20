@@ -30,7 +30,8 @@ export function CurrentWork() {
         <div>
           <h3 className="font-playfair text-2xl mb-4">{musicCurrentWorkCopy.title}</h3>
           <p className="text-foreground/70 mb-4">{musicCurrentWorkCopy.description}</p>
-          <SocialLinks platforms={["instagram"]} />
+          <p className="text-sm text-foreground/70 mb-3">Hear her sing and play:</p>
+          <SocialLinks platforms={["spotify", "youtube", "instagram"]} />
         </div>
 
         <div className="flex justify-center md:justify-end">

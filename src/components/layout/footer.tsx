@@ -24,7 +24,7 @@ export function Footer() {
             </div>
 
             <div className="text-center">
-              <p className="text-sm text-foreground/50">
+              <p className="text-sm text-foreground/70">
                 © {new Date().getFullYear()} {footerCopy.copyrightName}
               </p>
               <p className="text-xs text-foreground/70 mt-1">
@@ -45,7 +45,7 @@ export function Footer() {
             </div>
 
             <div className="text-center">
-              <p className="text-sm text-foreground/50">
+              <p className="text-sm text-foreground/70">
                 © {new Date().getFullYear()} {footerCopy.copyrightName}
               </p>
               <p className="text-xs text-foreground/70 mt-1">

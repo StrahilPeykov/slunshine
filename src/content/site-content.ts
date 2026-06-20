@@ -43,6 +43,8 @@ export interface ReleaseItem {
   genre: string;
   description: string;
   releaseDate: string;
+  /** Drop a short teaser clip in /public and set its path here to render an inline player. Until then, nothing fake is shown. */
+  teaserUrl?: string;
 }
 
 export interface VideoShowcaseItem {
@@ -71,55 +73,36 @@ export interface PhotoReelItem {
   imageAlt: string;
 }
 
-export interface SamplesPageCopy {
-  title: string;
-  description: string;
-  lockMessage: string;
-  previewNote: string;
-}
-
-export interface SoundSampleItem {
-  id: string;
-  title: string;
-  category: string;
-  texture: string;
-  fullDuration: string;
-  previewSeconds: number;
-  previewUrl: string;
-  locked: boolean;
-  shape: "orb" | "squircle" | "petal" | "drip";
-  gradient: string;
-}
-
 export const siteMetadata: SiteMetadata = {
-  title: "SlunShine - Alexandrina Kushinchanova | Harpist & Music Artist",
+  title: "Alexandrina 'Ally' Kushinchanova, The Harp Lady | Harpist & Singer",
   description:
-    "Official website of Alexandrina 'Ally' Kushinchanova, Bulgarian harpist and music educator blending classical craft with contemporary color.",
+    "Alexandrina 'Ally' Kushinchanova, The Harp Lady. A Bulgarian harpist and singer, classically trained and now writing her own pop and jazz. Watch her play, take lessons, or collaborate.",
   keywords: [
-    "harpist",
-    "music lessons",
-    "Bulgarian musician",
-    "harp teacher",
+    "Alexandrina Kushinchanova",
+    "The Harp Lady",
+    "Bulgarian harpist",
+    "harpist and singer",
+    "singer songwriter",
+    "harp lessons",
     "piano lessons",
-    "music theory lessons",
-    "ethereal music",
   ],
-  author: "Strahil Peykov",
+  author: "Alexandrina 'Ally' Kushinchanova",
   siteName: "SlunShine",
   siteUrl: "https://slunshine.com",
-  ogDescription: "The Harp Lady",
+  ogDescription:
+    "Bulgarian harpist and singer, classically trained, now writing pop and jazz of her own.",
 };
 
-export const samplesMetadata = {
-  title: "Sound Samples | SlunShine",
+export const collaborateMetadata = {
+  title: "For Producers & Collaborators | SlunShine",
   description:
-    "Preview custom sound samples and performance recordings crafted for producers, storytellers, and collaborators.",
+    "Alexandrina 'Ally' Kushinchanova is a classically trained Bulgarian harpist and singer writing her first pop and jazz songs, and is looking for producers and co-writers.",
   keywords: [
-    "sound samples",
-    "harp sample pack",
-    "custom compositions",
-    "vocal stems",
-    "classical recordings",
+    "harpist for hire",
+    "session harpist",
+    "session vocalist",
+    "looking for producers",
+    "co-writer",
   ],
 } as const;
 
@@ -128,18 +111,18 @@ export const navigationItems: ReadonlyArray<NavItem> = [
   { href: "#music", label: "Listen" },
   { href: "#about", label: "About" },
   { href: "#lessons", label: "Lessons" },
-  { href: "/samples", label: "For producers" },
+  { href: "/collaborate", label: "For producers" },
   { href: "#contact", label: "Contact" },
 ];
 
-/** Homepage-only block before About; id matches scroll target for /#samples */
-export const samplesTeaserCopy = {
-  id: "samples",
-  title: "For producers & collaborators",
-  subtitle: "Sound samples",
+/** Homepage block that pitches collaboration; id matches scroll target for /#collaborate */
+export const collaborateTeaserCopy = {
+  id: "collaborate",
+  title: "Looking for producers & co-writers",
+  subtitle: "For producers & collaborators",
   description:
-    "Harp textures, vocal lines, and cinematic fragments — curated for licensing. Preview the vault; full releases unlock soon.",
-  ctaLabel: "Open sample library",
+    "I'm a classically trained harpist and singer writing my first pop and jazz songs. I bring live harp, vocals, and arrangement, and I'm looking for producers and co-writers to build the record with.",
+  ctaLabel: "What I bring",
 } as const;
 
 export const socialLinks: Record<SocialPlatform, SocialLink> = {
@@ -193,9 +176,12 @@ export const heroCopy = {
   firstName: "Alexandrina",
   lastName: "Kushinchanova",
   role: "The Harp Lady",
-  announcement: "New Single “Lubov, Lubov” Coming Soon",
+  tagline:
+    "Bulgarian harpist and singer, classically trained, now writing pop and jazz of her own.",
+  announcement: "First single “Lubov, Lubov” coming soon",
   primaryCta: "Listen",
-  secondaryCta: "Explore My World",
+  studyCta: "Study with me",
+  workCta: "Work with me",
 } as const;
 
 export const photoReelCopy = {
@@ -223,16 +209,10 @@ export const photoReelItems: ReadonlyArray<PhotoReelItem> = [
     imageAlt: "Alexandrina with harp on stage",
   },
   {
-    id: "harp-floral",
-    label: "Floral",
-    imageSrc: "/images/harp-floral.jpeg",
-    imageAlt: "Alexandrina posing with harp in a floral setting",
-  },
-  {
-    id: "harp-pretty",
-    label: "Portrait",
-    imageSrc: "/images/harp-pretty.jpeg",
-    imageAlt: "Alexandrina portrait with harp",
+    id: "piano-on-stage",
+    label: "Piano",
+    imageSrc: "/images/piano-on-stage.jpeg",
+    imageAlt: "Alexandrina playing piano on stage",
   },
   {
     id: "harp-sunset",
@@ -241,16 +221,10 @@ export const photoReelItems: ReadonlyArray<PhotoReelItem> = [
     imageAlt: "Alexandrina with harp at sunset",
   },
   {
-    id: "harp-view",
-    label: "View",
-    imageSrc: "/images/harp-view.jpeg",
-    imageAlt: "Alexandrina with harp and scenic view",
-  },
-  {
-    id: "piano-on-stage",
-    label: "Piano",
-    imageSrc: "/images/piano-on-stage.jpeg",
-    imageAlt: "Alexandrina playing piano on stage",
+    id: "mila-concert",
+    label: "Concert",
+    imageSrc: "/images/mila-concert.webp",
+    imageAlt: "Alexandrina performing in concert with Mila Robert",
   },
   {
     id: "playing-harp-in-church",
@@ -259,73 +233,18 @@ export const photoReelItems: ReadonlyArray<PhotoReelItem> = [
     imageAlt: "Alexandrina playing harp in a church",
   },
   {
-    id: "playing-harp-museum",
-    label: "Museum",
-    imageSrc: "/images/playing-harp-museum.jpeg",
-    imageAlt: "Alexandrina playing harp in a museum-like interior",
-  },
-  {
-    id: "harp-cosplay-elf",
-    label: "Fantasy",
-    imageSrc: "/images/harp-cosplay-elf.jpeg",
-    imageAlt: "Alexandrina in a fantasy-inspired harp portrait",
-  },
-  {
-    id: "portrait-1",
-    label: "Sky",
-    imageSrc: "/images/gallery/portrait-1.webp",
-    imageAlt: "Alexandrina portrait against a bright blue sky",
-  },
-  {
-    id: "portrait-2",
-    label: "Editorial",
-    imageSrc: "/images/gallery/portrait-2.webp",
-    imageAlt: "Alexandrina in a stylized editorial portrait",
-  },
-  {
     id: "portrait-3",
-    label: "Motion",
+    label: "Portrait",
     imageSrc: "/images/gallery/portrait-3.webp",
     imageAlt: "Alexandrina in an expressive outdoor portrait",
-  },
-  {
-    id: "mila-concert",
-    label: "Concert",
-    imageSrc: "/images/mila-concert.webp",
-    imageAlt: "Alexandrina performing in concert",
-  },
-  {
-    id: "hero-church",
-    label: "Classic",
-    imageSrc: "/images/hero-church.webp",
-    imageAlt: "Alexandrina with harp in a church setting",
   },
 ];
 
 export const musicSectionCopy: SectionCopy = {
   id: "music",
   title: "Sound & Vision",
-  description: "New music blooming from classical roots",
+  description: "Watch her play, hear her current work, and the first songs of her own.",
 };
-
-export const musicReleases: ReadonlyArray<ReleaseItem> = [
-  {
-    title: "Lubov, Lubov",
-    type: "Single",
-    status: "Coming Soon",
-    genre: "R&B / Indie Pop",
-    description: "A journey through love's ethereal landscapes.",
-    releaseDate: "Coming Soon",
-  },
-  {
-    title: "Untitled EP",
-    type: "EP",
-    status: "In Production",
-    genre: "Alternative",
-    description: "A bridge between classical texture and modern pulse.",
-    releaseDate: "In Development",
-  },
-];
 
 export const musicVideos: ReadonlyArray<VideoShowcaseItem> = [
   {
@@ -349,12 +268,37 @@ export const musicVideos: ReadonlyArray<VideoShowcaseItem> = [
 ];
 
 export const musicCurrentWorkCopy = {
-  title: "On Stage & In Studio",
+  title: "On stage & in the studio",
   description:
-    "Currently performing with Bulgarian indie artist Mila Robert as pianist and backing vocalist, while writing and recording solo work.",
+    "Currently performing with Bulgarian indie artist Mila Robert as pianist and backing vocalist, while writing and recording her own songs.",
   ctaLabel: "Follow",
   imageAlt: "Performing with Mila Robert",
 } as const;
+
+export const musicReleasesCopy = {
+  title: "Coming soon",
+  description: "The first songs of her own. Follow to know when they land.",
+} as const;
+
+export const musicReleases: ReadonlyArray<ReleaseItem> = [
+  {
+    title: "Lubov, Lubov",
+    type: "Single",
+    status: "Coming Soon",
+    genre: "R&B / Indie Pop",
+    description: "Her first single, written and recorded this year.",
+    releaseDate: "Coming Soon",
+    // teaserUrl: "/audio/lubov-lubov-teaser.mp3", // ← add the 15s clip here to enable an inline preview
+  },
+  {
+    title: "Debut EP",
+    type: "EP",
+    status: "In Production",
+    genre: "Alternative",
+    description: "Original songs in progress, harp, vocals, and a small production setup.",
+    releaseDate: "In Development",
+  },
+];
 
 export const aboutSectionCopy: SectionCopy = {
   id: "about",
@@ -369,13 +313,13 @@ export const aboutStoryParagraphs: ReadonlyArray<string> = [
 export const aboutCurrentItems: ReadonlyArray<string> = [
   "Performing and touring as a professional musician",
   "Teaching harp, piano, and music theory",
-  "Creating original music for upcoming releases",
+  "Writing and recording original music for upcoming releases",
 ];
 
 export const lessonsSectionCopy: SectionCopy = {
   id: "lessons",
-  title: "Share the Magic",
-  description: "Private lessons tailored to your musical journey",
+  title: "Lessons",
+  description: "Private harp, piano, and music theory lessons, all ages and levels.",
 };
 
 export const lessonOfferings: ReadonlyArray<LessonOffering> = [
@@ -405,37 +349,65 @@ export const lessonFeatures: ReadonlyArray<LessonFeature> = [
 ];
 
 export const lessonCardCopy = {
-  title: "Learn With Me",
+  title: "Learn with me",
   description:
-    "Whether you're touching strings for the first time or preparing for conservatory, I guide each student with patience, precision, and care.",
-  testimonial:
-    "“Ally makes complex theory feel like discovering hidden treasures in music.”",
-  testimonialAuthor: "Maria, theory student",
-  ctaPrompt: "Ready to start your musical journey?",
-  ctaLabel: "Let's Talk",
+    "Whether you're touching the strings for the first time or preparing for conservatory, I teach with patience, precision, and care.",
+  ctaPrompt: "Want to learn?",
+  ctaLabel: "Let's talk",
 } as const;
 
 export const contactSectionCopy: SectionCopy = {
   id: "contact",
-  title: "Let's Connect",
-  description:
-    "For collaborations, performances, lessons, or simply to say hello.",
+  title: "Let's connect",
+  description: "For lessons, collaborations, performances, or just to say hello.",
 };
 
 export const contactCopy = {
   instagramCta: "Follow for updates",
   emailCta: "Send a message",
-  responseNote: "I’ll get back to you as soon as possible.",
+  responseNote: "Email is the fastest way to reach me, I'll get back to you.",
 } as const;
 
-export const samplesPageCopy: SamplesPageCopy = {
-  title: "Sound Samples Vault",
-  description:
-    "Curated harp textures, vocal lines, and cinematic fragments. Each sample has a short preview; full recordings are locked for producer licensing.",
-  lockMessage: "Full version locked. Purchase flow is coming soon.",
-  previewNote: "Preview mode plays only the opening seconds.",
-};
+export const collaborateCopy = {
+  eyebrow: "For producers & collaborators",
+  title: "Let's build the record",
+  intro:
+    "I'm Ally, a classically trained Bulgarian harpist and singer, now writing my first pop and jazz songs. I'm performing with Mila Robert, teaching, and recording my debut single, “Lubov, Lubov.” I'm looking for producers and co-writers to make the rest with.",
+  bringTitle: "What I bring",
+  bring: [
+    "Live harp, classical technique, from delicate textures to full concert pieces.",
+    "Vocals in Bulgarian and English, plus piano and backing harmony.",
+    "Songwriting and arrangement rooted in classical training.",
+    "Studio-ready, reliable, and easy to work with.",
+  ],
+  lookingForTitle: "What I'm looking for",
+  lookingFor: [
+    "Producers for pop / R&B / indie songs with acoustic and orchestral color.",
+    "Co-writers and topliners.",
+    "Session work, harp or vocals on your tracks.",
+  ],
+  watchTitle: "Hear & watch",
+  watchNote: "Performances below; my pop/vocal work lives with Mila Robert on Spotify and YouTube.",
+  ctaTitle: "Sound like a fit?",
+  ctaLabel: "Email me",
+} as const;
 
+export interface SoundSampleItem {
+  id: string;
+  title: string;
+  category: string;
+  texture: string;
+  fullDuration: string;
+  previewSeconds: number;
+  previewUrl: string;
+}
+
+export const samplesTableCopy = {
+  title: "Sample library",
+  note: "Placeholder previews while the real harp and vocal samples are being recorded. The clips below are stand-ins, not final material.",
+} as const;
+
+/** Placeholder rows. previewUrl points at stock audio on purpose until real samples exist. */
 export const soundSamples: ReadonlyArray<SoundSampleItem> = [
   {
     id: "moon-river-harp",
@@ -445,9 +417,6 @@ export const soundSamples: ReadonlyArray<SoundSampleItem> = [
     fullDuration: "2:38",
     previewSeconds: 10,
     previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    locked: true,
-    shape: "orb",
-    gradient: "from-babyPink/80 via-coral/50 to-aquaMist/70",
   },
   {
     id: "glass-vocal-pad",
@@ -457,9 +426,6 @@ export const soundSamples: ReadonlyArray<SoundSampleItem> = [
     fullDuration: "1:54",
     previewSeconds: 8,
     previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    locked: true,
-    shape: "petal",
-    gradient: "from-coral/70 via-lavaGlow/50 to-babyPink/75",
   },
   {
     id: "nocturne-pulse",
@@ -469,9 +435,6 @@ export const soundSamples: ReadonlyArray<SoundSampleItem> = [
     fullDuration: "3:12",
     previewSeconds: 12,
     previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    locked: true,
-    shape: "drip",
-    gradient: "from-aquaMist/70 via-babyPink/60 to-coral/70",
   },
   {
     id: "chamber-lullaby",
@@ -481,8 +444,5 @@ export const soundSamples: ReadonlyArray<SoundSampleItem> = [
     fullDuration: "2:05",
     previewSeconds: 9,
     previewUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-    locked: true,
-    shape: "squircle",
-    gradient: "from-lavaGlow/65 via-coral/50 to-babyPink/75",
   },
 ];

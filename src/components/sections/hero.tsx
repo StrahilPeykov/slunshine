@@ -40,7 +40,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative isolate min-h-screen overflow-hidden"
+      className="relative isolate min-h-[100svh] overflow-hidden"
     >
       <div className="absolute inset-0 -z-20">
         <Image
@@ -108,16 +108,21 @@ export function Hero() {
         )}
       />
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-4 pb-24 pt-28 text-center md:pt-36">
+      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-5xl flex-col items-center justify-center px-4 pb-[clamp(2.5rem,7vh,6rem)] pt-[clamp(5rem,11vh,9rem)] text-center">
+        {/* Legibility scrim: darkens the busy photo directly behind the copy so light text always reads */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_56%_at_50%_44%,rgba(2,8,18,0.62),rgba(2,8,18,0.32)_52%,rgba(2,8,18,0)_78%)]"
+        />
         <motion.div
           initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.9 }}
-          className="w-full max-w-4xl"
+          className="relative w-full max-w-4xl"
         >
           <motion.h1
             className={cn(
-              "mx-auto max-w-[15ch] font-qwigley text-[clamp(3.75rem,10vw,8rem)] leading-[0.88] tracking-[0.01em]",
+              "mx-auto max-w-[15ch] font-qwigley text-[clamp(2.75rem,min(11vw,11vh),7.5rem)] leading-[0.88] tracking-[0.01em]",
               isNight
                 ? "text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)]"
                 : "text-[rgb(252,248,240)] [text-shadow:0_3px_0_rgba(8,18,34,0.22),0_12px_28px_rgba(8,18,34,0.55)]",
@@ -132,10 +137,10 @@ export function Hero() {
 
           <motion.p
             className={cn(
-              "mt-1 font-qwigley text-[2rem] leading-[0.95] sm:text-[2.45rem] md:text-[2.95rem]",
+              "mt-1 font-qwigley text-[clamp(1.6rem,min(6vw,4.6vh),2.95rem)] leading-[0.95]",
               isNight
-                ? "text-white/78"
-                : "text-[rgb(250,246,238)] [text-shadow:0_8px_18px_rgba(8,18,34,0.5)]",
+                ? "text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]"
+                : "text-[rgb(253,250,245)] [text-shadow:0_1px_2px_rgba(8,18,34,0.55),0_8px_22px_rgba(8,18,34,0.7)]",
             )}
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -144,8 +149,22 @@ export function Hero() {
             {heroCopy.role}
           </motion.p>
 
+          <motion.p
+            className={cn(
+              "mx-auto mt-[clamp(0.5rem,1.6vh,1.25rem)] max-w-[44ch] font-inter text-[clamp(0.95rem,1.8vh,1.1rem)] font-medium leading-relaxed",
+              isNight
+                ? "text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.6),0_4px_14px_rgba(0,0,0,0.5)]"
+                : "text-white [text-shadow:0_1px_2px_rgba(8,18,34,0.6),0_6px_16px_rgba(8,18,34,0.7)]",
+            )}
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.8, delay: prefersReducedMotion ? 0 : 0.4 }}
+          >
+            {heroCopy.tagline}
+          </motion.p>
+
           <motion.div
-            className="mt-7 flex justify-center"
+            className="mt-[clamp(0.75rem,2.2vh,1.75rem)] flex justify-center"
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.7, delay: prefersReducedMotion ? 0 : 0.45 }}
@@ -170,7 +189,7 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            className="mt-11 flex flex-col items-center justify-center gap-5 sm:flex-row"
+            className="mt-[clamp(1rem,3vh,2.75rem)] flex flex-col items-center justify-center gap-[clamp(0.75rem,2vh,1.25rem)] sm:flex-row"
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.75, delay: prefersReducedMotion ? 0 : 0.55 }}
@@ -195,7 +214,7 @@ export function Hero() {
               />
               <span
                 className={cn(
-                  "relative inline-flex items-center gap-2.5 font-qwigley text-[2.25rem] leading-none sm:text-[2.45rem]",
+                  "relative inline-flex items-center gap-2.5 font-qwigley text-[clamp(1.65rem,min(5.5vw,4.2vh),2.45rem)] leading-none",
                   isNight
                     ? "text-white"
                     : "text-[rgb(246,240,230)] drop-shadow-[0_2px_6px_rgba(5,14,26,0.35)]",
@@ -211,21 +230,29 @@ export function Hero() {
               </span>
             </a>
 
-            <a
-              href="#about"
-              className={cn(
-                "font-qwigley text-[2.75rem] leading-none underline-offset-8 transition-colors duration-300 hover:underline sm:text-[3.15rem]",
-                isNight
-                  ? "text-white/85 hover:text-white"
-                  : "text-[rgb(246,240,230)]/96 drop-shadow-[0_2px_6px_rgba(5,14,26,0.35)] hover:text-[rgb(255,250,242)]",
-              )}
-            >
-              {heroCopy.secondaryCta}
-            </a>
+            <div className="flex items-center gap-5 sm:gap-6">
+              {[
+                { href: "#lessons", label: heroCopy.studyCta },
+                { href: "#collaborate", label: heroCopy.workCta },
+              ].map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "font-qwigley text-[clamp(1.65rem,min(5.5vw,4.2vh),2.5rem)] leading-none underline-offset-8 transition-colors duration-300 hover:underline",
+                    isNight
+                      ? "text-white/85 hover:text-white"
+                      : "text-[rgb(246,240,230)]/96 drop-shadow-[0_2px_6px_rgba(5,14,26,0.35)] hover:text-[rgb(255,250,242)]",
+                  )}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
-            className="mt-12 flex justify-center"
+            className="mt-[clamp(1rem,3vh,3rem)] flex justify-center"
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.75, delay: prefersReducedMotion ? 0 : 0.7 }}

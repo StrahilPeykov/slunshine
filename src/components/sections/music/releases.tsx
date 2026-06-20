@@ -3,7 +3,11 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Calendar, Headphones, Sparkles } from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
-import type { ReleaseItem } from "@/content/site-content";
+import {
+  musicReleasesCopy,
+  socialLinks,
+  type ReleaseItem,
+} from "@/content/site-content";
 import { cn } from "@/lib/utils";
 
 interface ReleasesProps {
@@ -22,16 +26,19 @@ export function Releases({ releases }: ReleasesProps) {
       transition={{ duration: 0.6 }}
       className="mb-20"
     >
-      <div className="flex items-center gap-3 mb-8">
-        <Sparkles className={cn("w-5 h-5", theme === "night" ? "text-lavaGlow" : "text-coral")} />
-        <h3
-          className={cn(
-            "font-playfair text-2xl",
-            theme === "night" ? "text-white" : "text-midnightNavy",
-          )}
-        >
-          Coming Soon
-        </h3>
+      <div className="mb-8">
+        <div className="flex items-center gap-3">
+          <Sparkles className={cn("w-5 h-5", theme === "night" ? "text-lavaGlow" : "text-coral")} />
+          <h3
+            className={cn(
+              "font-playfair text-2xl",
+              theme === "night" ? "text-white" : "text-midnightNavy",
+            )}
+          >
+            {musicReleasesCopy.title}
+          </h3>
+        </div>
+        <p className="mt-2 text-sm text-foreground/70">{musicReleasesCopy.description}</p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
@@ -59,7 +66,8 @@ export function Releases({ releases }: ReleasesProps) {
               className={cn(
                 "absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500",
                 "bg-gradient-to-br from-babyPink via-coral to-lavaGlow",
-                "animate-gradient bg-[length:200%_200%]",
+                "bg-[length:200%_200%]",
+                prefersReducedMotion ? "" : "animate-gradient",
               )}
             />
 
@@ -67,7 +75,7 @@ export function Releases({ releases }: ReleasesProps) {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h4 className="font-playfair text-2xl mb-1">{release.title}</h4>
-                  <p className="text-sm text-foreground/60">
+                  <p className="text-sm text-foreground/70">
                     {release.type} • {release.genre}
                   </p>
                 </div>
@@ -83,15 +91,27 @@ export function Releases({ releases }: ReleasesProps) {
                 </span>
               </div>
 
-              <p className="text-foreground/70 mb-6 italic">&ldquo;{release.description}&rdquo;</p>
+              <p className="text-foreground/70 mb-6">{release.description}</p>
+
+              {release.teaserUrl && (
+                <audio
+                  controls
+                  preload="none"
+                  src={release.teaserUrl}
+                  className="mb-6 w-full"
+                  aria-label={`Teaser preview of ${release.title}`}
+                />
+              )}
 
               <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-sm text-foreground/50">
+                <span className="flex items-center gap-2 text-sm text-foreground/70">
                   <Calendar className="w-4 h-4" />
                   {release.releaseDate}
                 </span>
-                <button
-                  type="button"
+                <a
+                  href={socialLinks.spotify.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={cn(
                     "flex items-center gap-2 px-4 py-2 rounded-full text-sm",
                     "backdrop-blur-sm border transition-all duration-300",
@@ -100,11 +120,11 @@ export function Releases({ releases }: ReleasesProps) {
                       ? "bg-white/5 border-white/20 hover:bg-white/10"
                       : "bg-babyPink/70 border-babyPink/90 hover:bg-babyPink text-midnightNavy",
                   )}
-                  aria-label={`Notify me when ${release.title} is released`}
+                  aria-label={`Follow on Spotify to know when ${release.title} is out`}
                 >
                   <Headphones className="w-4 h-4" />
-                  Notify Me
-                </button>
+                  Follow
+                </a>
               </div>
             </div>
           </motion.article>

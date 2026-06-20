@@ -163,7 +163,7 @@ export function PhotoReel() {
           >
             {photoReelCopy.title}
           </h2>
-          <p className="text-foreground/60 max-w-2xl">{photoReelCopy.description}</p>
+          <p className="text-foreground/70 max-w-2xl">{photoReelCopy.description}</p>
         </div>
       </div>
 

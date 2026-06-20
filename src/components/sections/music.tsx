@@ -45,14 +45,14 @@ export function Music() {
               {musicSectionCopy.title}
             </span>
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
             {musicSectionCopy.description}
           </p>
         </motion.div>
 
-        <Releases releases={musicReleases} />
         <VideoGallery videos={musicVideos} />
         <CurrentWork />
+        <Releases releases={musicReleases} />
       </div>
     </section>
   );

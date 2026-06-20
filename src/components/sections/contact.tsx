@@ -20,7 +20,7 @@ const washTransition = cn(
   "group-hover:opacity-[0.72] group-focus-visible:opacity-[0.72]",
 );
 
-/** Email: stronger max opacity — border-glow’s semi-transparent navy fill blends down faint theme washes. */
+/** Email: stronger max opacity, border-glow’s semi-transparent navy fill blends down faint theme washes. */
 const emailWashTransition = cn(
   "absolute inset-0 opacity-0 transition-opacity duration-500 ease-out",
   "group-hover:opacity-[0.88] group-focus-visible:opacity-[0.88]",
@@ -65,7 +65,7 @@ export function Contact() {
               {contactSectionCopy.title}
             </span>
           </h2>
-          <p className="text-lg text-foreground/60 max-w-xl mx-auto">
+          <p className="text-lg text-foreground/70 max-w-xl mx-auto">
             {contactSectionCopy.description}
           </p>
         </motion.div>
@@ -245,7 +245,7 @@ export function Contact() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className={cn(
               "text-center mt-12 text-sm",
-              theme === "night" ? "text-white/50" : "text-midnightNavy/50"
+              theme === "night" ? "text-white/70" : "text-midnightNavy/70"
             )}
           >
             {contactCopy.responseNote}
